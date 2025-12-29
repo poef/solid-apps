@@ -15099,24 +15099,29 @@
   // ../components/solid-login.mjs
   var solid_login_default = {
     html: {
-      login: html`
-<dialog id="loginWebID" class="login-dialog">
-<form data-simply-command="loginWebID">
-	<div class="ds-alert ds-alert-error" data-flow-field="login.error"></div>
+      webid: html`
+<dialog id="webidDialog" class="webid-dialog">
+	<button class="ds-button ds-button-close" data-simply-command="webidClose">
+		<svg class="ds-icon ds-icon-feather">
+            <use xlink:href="assets/icons/feather-sprite.svg#x"></use>
+        </svg>		
+	</button>
+<form data-simply-command="webidSave">
+	<div class="ds-alert ds-alert-error" data-flow-field="webid.error"></div>
 	<label>
 		Solid WebID
-		<input type="url" name="loginWebIDURL" placeholder="Enter your WebID">
+		<input type="url" name="webidURL" placeholder="Enter your WebID">
 	</label>
 	<p>Don't have a Solid WebID? Request a personal WebID at one of these providers: ....</p>
 	<div class="ds-form-buttons">
-		<button>Login</button>
+		<button class="ds-button ds-button-primary">Login</button>
 	</div>
 </form>
 </dialog>
 		`
     },
     css: {
-      login: css`
+      webid: css`
 @layer theme {
 	:root {
 		--ds-dialog-shadow: var(--ds-shadow-large);
@@ -15126,22 +15131,22 @@
 }
 @layer components {
 	:root {
-		--login-spacing: var(--ds-spacing);
-		--login-dialog-shadow: var(--ds-dialog-shadow);
-		--login-dialog-radius: var(--ds-dialog-radius);
-		--login-dialog-width: 400px;
-		--login-dialog-height: 200px;
-		--login-dialog-backdrop: var(--ds-dialog-backdrop);
+		--webid-spacing: var(--ds-spacing);
+		--webid-dialog-shadow: var(--ds-dialog-shadow);
+		--webid-dialog-radius: var(--ds-dialog-radius);
+		--webid-dialog-width: 400px;
+		--webid-dialog-height: 200px;
+		--webid-dialog-backdrop: var(--ds-dialog-backdrop);
 	}
-	.login-dialog {
-		width: var(--login-dialog-width);
-		height: var(--login-dialog-height);
+	.webid-dialog {
+		width: var(--webid-dialog-width);
+		height: var(--webid-dialog-height);
 		border: 0;
-		border-radius: var(--login-dialog-radius);
-		box-shadow: var(--login-dialog-shadow);
+		border-radius: var(--webid-dialog-radius);
+		box-shadow: var(--webid-dialog-shadow);
 	}
-	.login-dialog::backdrop {
-		background: var(--login-dialog-backdrop);
+	.webid-dialog::backdrop {
+		background: var(--webid-dialog-backdrop);
 	}
 }
 @media screen and (max-width:719px) {
@@ -15151,25 +15156,28 @@
 		`
     },
     commands: {
-      login: async function(el, value) {
-        this.actions.loginErrors("");
-        document.getElementById("loginWebID").showModal();
+      webidDialog: async function(el, value) {
+        this.actions.webidErrors("");
+        document.getElementById("webidDialog").showModal();
       },
-      loginWebID: async function(form, values) {
-        if (!values.loginWebIDURL) {
-          this.actions.loginErrors("Please enter a WebID URL");
+      webidSave: async function(form, values) {
+        if (!values.webidURL) {
+          this.actions.webidErrors("Please enter a WebID URL");
           return;
         }
-        this.state.login.webID = values.loginWebIDURL;
-        if (await this.actions.loginWebID(values.loginWebIDURL)) {
-          document.getElementById("loginWebID").close();
+        this.state.webid.id = values.webidURL;
+        if (await this.actions.webidSave(values.webidURL)) {
+          document.getElementById("webidDialog").close();
         }
+      },
+      webidClose: async function(el, value) {
+        document.getElementById("webidDialog").close();
       }
     },
     actions: {
-      loginInit: async function(config = {}) {
-        if (!this.state.login) {
-          this.state.login = {
+      webidInit: async function(config = {}) {
+        if (!this.state.webid) {
+          this.state.webid = {
             config: {
               prefixes: {
                 acl: "http://www.w3.org/ns/auth/acl#",
@@ -15183,14 +15191,14 @@
             }
           };
         }
-        Object.assign(this.state.login.config, config);
+        Object.assign(this.state.webid.config, config);
       },
-      loginWebID: async function(webID) {
+      webidSave: async function(webID) {
         let linkeddata;
         try {
           const client2 = everything_default.client(
             everything_default.mw.thrower(),
-            src_default3(this.state.login.config),
+            src_default3(this.state.webid.config),
             everything_default.mw.getdata()
           );
           linkeddata = await client2.get(webID);
@@ -15200,19 +15208,19 @@
           if (!linkeddata.primary) {
             throw new Error("Error: no webID found in resource");
           }
-          this.state.login.profile = linkeddata.primary;
+          this.state.webid.profile = linkeddata.primary;
         } catch (error2) {
-          this.actions.loginErrors(error2.message);
+          this.actions.webidErrors(error2.message);
         }
       },
-      loginErrors: async function(error2) {
-        this.state.login.error = error2;
+      webidErrors: async function(error2) {
+        this.state.webid.error = error2;
       }
     },
     hooks: {
       start: function(component) {
-        this.actions.loginInit();
-        this.container.insertAdjacentHTML("beforeend", component.html.login);
+        this.actions.webidInit();
+        this.container.insertAdjacentHTML("beforeend", component.html.webid);
       }
     }
   };
