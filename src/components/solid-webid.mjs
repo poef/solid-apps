@@ -36,11 +36,11 @@ export default {
 }
 @layer components {
 	:root {
-		--webid-spacing: var(--ds-spacing);
+		--webid-space: var(--ds-space);
 		--webid-dialog-shadow: var(--ds-dialog-shadow);
 		--webid-dialog-radius: var(--ds-dialog-radius);
 		--webid-dialog-width: 400px;
-		--webid-dialog-height: 200px;
+		--webid-dialog-height: 300px;
 		--webid-dialog-backdrop: var(--ds-dialog-backdrop);
 	}
 	.webid-dialog {
@@ -115,9 +115,11 @@ export default {
 					throw new Error('Error: no webID found in resource')
 				}
 				this.state.webid.profile = linkeddata.primary
+				return true
 			} catch(error) {
 				this.actions.webidErrors(error.message)
 			}
+			return false
 		},
 		webidErrors: async function(error) {
 			this.state.webid.error = error

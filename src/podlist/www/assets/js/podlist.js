@@ -15096,8 +15096,8 @@
   globalThis.oldmmw = oldmmw;
   var src_default3 = oldmmw;
 
-  // ../components/solid-login.mjs
-  var solid_login_default = {
+  // ../components/solid-webid.mjs
+  var solid_webid_default = {
     html: {
       webid: html`
 <dialog id="webidDialog" class="webid-dialog">
@@ -15114,7 +15114,7 @@
 	</label>
 	<p>Don't have a Solid WebID? Request a personal WebID at one of these providers: ....</p>
 	<div class="ds-form-buttons">
-		<button class="ds-button ds-button-primary">Login</button>
+		<button class="ds-button ds-button-primary">Save</button>
 	</div>
 </form>
 </dialog>
@@ -15131,11 +15131,11 @@
 }
 @layer components {
 	:root {
-		--webid-spacing: var(--ds-spacing);
+		--webid-space: var(--ds-space);
 		--webid-dialog-shadow: var(--ds-dialog-shadow);
 		--webid-dialog-radius: var(--ds-dialog-radius);
 		--webid-dialog-width: 400px;
-		--webid-dialog-height: 200px;
+		--webid-dialog-height: 300px;
 		--webid-dialog-backdrop: var(--ds-dialog-backdrop);
 	}
 	.webid-dialog {
@@ -15209,9 +15209,11 @@
             throw new Error("Error: no webID found in resource");
           }
           this.state.webid.profile = linkeddata.primary;
+          return true;
         } catch (error2) {
           this.actions.webidErrors(error2.message);
         }
+        return false;
       },
       webidErrors: async function(error2) {
         this.state.webid.error = error2;
@@ -17287,6 +17289,15 @@
 
   // index.mjs
   var podlist = simply.app({
+    actions: {
+      webidSave: async function(webidURL) {
+        const result2 = await solid_webid_default.actions.webidSave.call(this, webidURL);
+        if (result2) {
+          this.state.profileJSON = JSON.stringify(this.state.webid.profile, null, 4);
+        }
+        return result2;
+      }
+    },
     state: simply.state.signal({
       path: "/",
       list: [],
@@ -17300,7 +17311,7 @@
       }
     },
     components: {
-      login: solid_login_default,
+      webid: solid_webid_default,
       solidFS: solid_fs_default
     }
   });
