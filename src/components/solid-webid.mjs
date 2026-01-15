@@ -1,5 +1,5 @@
 import metro from '@muze-nl/metro'
-import olmd from '@muze-nl/oldm'
+import oldm from '@muze-nl/oldm'
 import oldmmw from '@muze-nl/metro-oldm'
 
 export default {
@@ -15,7 +15,7 @@ export default {
 	<div class="ds-alert ds-alert-error" data-flow-field="webid.error"></div>
 	<label>
 		Solid WebID
-		<input type="url" name="webidURL" placeholder="Enter your WebID">
+		<input autofocus type="url" name="webidURL" placeholder="Enter your WebID">
 	</label>
 	<p>Don't have a Solid WebID? Request a personal WebID at one of these providers: ....</p>
 	<div class="ds-form-buttons">
@@ -31,10 +31,10 @@ export default {
 	:root {
 		--ds-dialog-shadow: var(--ds-shadow-large);
 		--ds-dialog-radius: var(--ds-box-radius);
-		--ds-dialog-backdrop: rgba(0,0,0,0.5);
+		--ds-dialog-backdrop: rgba(255,255,255,0.1);
 	}
 }
-@layer components {
+@layer component {
 	:root {
 		--webid-space: var(--ds-space);
 		--webid-dialog-shadow: var(--ds-dialog-shadow);
@@ -52,6 +52,7 @@ export default {
 	}
 	.webid-dialog::backdrop {
 		background: var(--webid-dialog-backdrop);
+		backdrop-filter: blur(16px);
 	}
 }
 @media screen and (max-width:719px) {
