@@ -1,9 +1,50 @@
 <!doctype html>
 <meta charset="utf-8">
 <title>Solid Demo</title>
+<style>
+	:root {
+		--ds-primary: rgb(83, 80, 169);
+		--ds-primary-contrast: white;
+	}
+	body::before {
+		content: "loading...";
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		z-index: 10000;
+		background: var(--ds-primary);
+		color: var(--ds-primary-contrast);
+		display: grid;
+		place-items: center;
+		opacity: 1;
+	}
+	body:not([data-sw-loading])::before {
+		animation: 1s ease 0s normal forwards 1 fadeOut;
+	}
+	@keyframes fadeOut {
+	  0%{
+	    opacity:1;
+	  }
+	  99% {
+	  	opacity: 0;
+	  	height: 100vh;
+	  }
+	  100%{
+	    opacity:0;
+	    height: 0;
+	  }
+	}
+</style>
+<body data-sw-loading>
+<header data-flow-field="webid">
+	<template rel="solid-drawer"></template>
+	<!-- simply-render rel="solid-drawer"></simply-render -->
+</header>
 <main class="ds-space">
 	<h1>Solid Demo</h1>
-	<button class="ds-button" data-simply-command="webidDialog">login</button>
 	<pre><output id="demo" data-flow-field="profileJSON"></output></pre>
 </main>
-<script src="assets/js/podlist.js"></script>
+<script src="assets/js/podlist.min.js"></script>
+</body>

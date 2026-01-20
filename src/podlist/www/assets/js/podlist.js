@@ -29,9 +29,9 @@
     mod
   ));
 
-  // ../../node_modules/base64-js/index.js
+  // node_modules/base64-js/index.js
   var require_base64_js = __commonJS({
-    "../../node_modules/base64-js/index.js"(exports) {
+    "node_modules/base64-js/index.js"(exports) {
       "use strict";
       exports.byteLength = byteLength;
       exports.toByteArray = toByteArray;
@@ -130,9 +130,9 @@
     }
   });
 
-  // ../../node_modules/ieee754/index.js
+  // node_modules/ieee754/index.js
   var require_ieee754 = __commonJS({
-    "../../node_modules/ieee754/index.js"(exports) {
+    "node_modules/ieee754/index.js"(exports) {
       exports.read = function(buffer, offset, isLE, mLen, nBytes) {
         var e, m;
         var eLen = nBytes * 8 - mLen - 1;
@@ -213,9 +213,9 @@
     }
   });
 
-  // ../../node_modules/buffer/index.js
+  // node_modules/buffer/index.js
   var require_buffer = __commonJS({
-    "../../node_modules/buffer/index.js"(exports) {
+    "node_modules/buffer/index.js"(exports) {
       "use strict";
       var base64 = require_base64_js();
       var ieee754 = require_ieee754();
@@ -1805,9 +1805,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/ours/primordials.js
+  // node_modules/readable-stream/lib/ours/primordials.js
   var require_primordials = __commonJS({
-    "../../node_modules/readable-stream/lib/ours/primordials.js"(exports, module) {
+    "node_modules/readable-stream/lib/ours/primordials.js"(exports, module) {
       "use strict";
       var AggregateError = class extends Error {
         constructor(errors) {
@@ -1926,9 +1926,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/ours/util/inspect.js
+  // node_modules/readable-stream/lib/ours/util/inspect.js
   var require_inspect = __commonJS({
-    "../../node_modules/readable-stream/lib/ours/util/inspect.js"(exports, module) {
+    "node_modules/readable-stream/lib/ours/util/inspect.js"(exports, module) {
       "use strict";
       module.exports = {
         format(format, ...args) {
@@ -1977,9 +1977,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/ours/errors.js
+  // node_modules/readable-stream/lib/ours/errors.js
   var require_errors = __commonJS({
-    "../../node_modules/readable-stream/lib/ours/errors.js"(exports, module) {
+    "node_modules/readable-stream/lib/ours/errors.js"(exports, module) {
       "use strict";
       var { format, inspect } = require_inspect();
       var { AggregateError: CustomAggregateError } = require_primordials();
@@ -2295,9 +2295,9 @@
     }
   });
 
-  // ../../node_modules/abort-controller/browser.js
+  // node_modules/abort-controller/browser.js
   var require_browser = __commonJS({
-    "../../node_modules/abort-controller/browser.js"(exports, module) {
+    "node_modules/abort-controller/browser.js"(exports, module) {
       "use strict";
       var { AbortController, AbortSignal } = typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : (
         /* otherwise */
@@ -2309,9 +2309,9 @@
     }
   });
 
-  // ../../node_modules/events/events.js
+  // node_modules/events/events.js
   var require_events = __commonJS({
-    "../../node_modules/events/events.js"(exports, module) {
+    "node_modules/events/events.js"(exports, module) {
       "use strict";
       var R = typeof Reflect === "object" ? Reflect : null;
       var ReflectApply = R && typeof R.apply === "function" ? R.apply : function ReflectApply2(target, receiver, args) {
@@ -2678,9 +2678,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/ours/util.js
+  // node_modules/readable-stream/lib/ours/util.js
   var require_util = __commonJS({
-    "../../node_modules/readable-stream/lib/ours/util.js"(exports, module) {
+    "node_modules/readable-stream/lib/ours/util.js"(exports, module) {
       "use strict";
       var bufferModule = require_buffer();
       var { format, inspect } = require_inspect();
@@ -2817,9 +2817,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/validators.js
+  // node_modules/readable-stream/lib/internal/validators.js
   var require_validators = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/validators.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/validators.js"(exports, module) {
       "use strict";
       var {
         ArrayIsArray,
@@ -3081,9 +3081,9 @@
     }
   });
 
-  // ../../node_modules/process/browser.js
+  // node_modules/process/browser.js
   var require_browser2 = __commonJS({
-    "../../node_modules/process/browser.js"(exports, module) {
+    "node_modules/process/browser.js"(exports, module) {
       var process = module.exports = {};
       var cachedSetTimeout;
       var cachedClearTimeout;
@@ -3243,9 +3243,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/utils.js
+  // node_modules/readable-stream/lib/internal/streams/utils.js
   var require_utils = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/utils.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/utils.js"(exports, module) {
       "use strict";
       var { SymbolAsyncIterator, SymbolIterator, SymbolFor } = require_primordials();
       var kIsDestroyed = SymbolFor("nodejs.stream.destroyed");
@@ -3452,9 +3452,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/end-of-stream.js
+  // node_modules/readable-stream/lib/internal/streams/end-of-stream.js
   var require_end_of_stream = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module) {
       "use strict";
       var process = require_browser2();
       var { AbortError, codes } = require_errors();
@@ -3704,9 +3704,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/destroy.js
+  // node_modules/readable-stream/lib/internal/streams/destroy.js
   var require_destroy = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module) {
       "use strict";
       var process = require_browser2();
       var {
@@ -3969,9 +3969,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/legacy.js
+  // node_modules/readable-stream/lib/internal/streams/legacy.js
   var require_legacy = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/legacy.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/legacy.js"(exports, module) {
       "use strict";
       var { ArrayIsArray, ObjectSetPrototypeOf } = require_primordials();
       var { EventEmitter: EE } = require_events();
@@ -4047,9 +4047,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/add-abort-signal.js
+  // node_modules/readable-stream/lib/internal/streams/add-abort-signal.js
   var require_add_abort_signal = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/add-abort-signal.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/add-abort-signal.js"(exports, module) {
       "use strict";
       var { SymbolDispose } = require_primordials();
       var { AbortError, codes } = require_errors();
@@ -4098,9 +4098,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/buffer_list.js
+  // node_modules/readable-stream/lib/internal/streams/buffer_list.js
   var require_buffer_list = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module) {
       "use strict";
       var { StringPrototypeSlice, SymbolIterator, TypedArrayPrototypeSet, Uint8Array: Uint8Array2 } = require_primordials();
       var { Buffer: Buffer3 } = require_buffer();
@@ -4253,9 +4253,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/state.js
+  // node_modules/readable-stream/lib/internal/streams/state.js
   var require_state = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/state.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/state.js"(exports, module) {
       "use strict";
       var { MathFloor, NumberIsInteger } = require_primordials();
       var { validateInteger } = require_validators();
@@ -4295,9 +4295,9 @@
     }
   });
 
-  // ../../node_modules/safe-buffer/index.js
+  // node_modules/safe-buffer/index.js
   var require_safe_buffer = __commonJS({
-    "../../node_modules/safe-buffer/index.js"(exports, module) {
+    "node_modules/safe-buffer/index.js"(exports, module) {
       var buffer = require_buffer();
       var Buffer3 = buffer.Buffer;
       function copyProps(src, dst) {
@@ -4353,9 +4353,9 @@
     }
   });
 
-  // ../../node_modules/string_decoder/lib/string_decoder.js
+  // node_modules/string_decoder/lib/string_decoder.js
   var require_string_decoder = __commonJS({
-    "../../node_modules/string_decoder/lib/string_decoder.js"(exports) {
+    "node_modules/string_decoder/lib/string_decoder.js"(exports) {
       "use strict";
       var Buffer3 = require_safe_buffer().Buffer;
       var isEncoding = Buffer3.isEncoding || function(encoding) {
@@ -4591,9 +4591,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/from.js
+  // node_modules/readable-stream/lib/internal/streams/from.js
   var require_from = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/from.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/from.js"(exports, module) {
       "use strict";
       var process = require_browser2();
       var { PromisePrototypeThen, SymbolAsyncIterator, SymbolIterator } = require_primordials();
@@ -4634,19 +4634,19 @@
             next();
           }
         };
-        readable._destroy = function(error2, cb) {
+        readable._destroy = function(error3, cb) {
           PromisePrototypeThen(
-            close(error2),
-            () => process.nextTick(cb, error2),
+            close(error3),
+            () => process.nextTick(cb, error3),
             // nextTick is here in case cb throws
-            (e) => process.nextTick(cb, e || error2)
+            (e) => process.nextTick(cb, e || error3)
           );
         };
-        async function close(error2) {
-          const hadError = error2 !== void 0 && error2 !== null;
+        async function close(error3) {
+          const hadError = error3 !== void 0 && error3 !== null;
           const hasThrow = typeof iterator.throw === "function";
           if (hadError && hasThrow) {
-            const { value, done } = await iterator.throw(error2);
+            const { value, done } = await iterator.throw(error3);
             await value;
             if (done) {
               return;
@@ -4686,9 +4686,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/readable.js
+  // node_modules/readable-stream/lib/internal/streams/readable.js
   var require_readable = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/readable.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/readable.js"(exports, module) {
       "use strict";
       var process = require_browser2();
       var {
@@ -4855,12 +4855,12 @@
         this.destroy(err);
       };
       Readable2.prototype[SymbolAsyncDispose] = function() {
-        let error2;
+        let error3;
         if (!this.destroyed) {
-          error2 = this.readableEnded ? null : new AbortError();
-          this.destroy(error2);
+          error3 = this.readableEnded ? null : new AbortError();
+          this.destroy(error3);
         }
-        return new Promise2((resolve, reject) => eos(this, (err) => err && err !== error2 ? reject(err) : resolve(null)));
+        return new Promise2((resolve, reject) => eos(this, (err) => err && err !== error3 ? reject(err) : resolve(null)));
       };
       Readable2.prototype.push = function(chunk, encoding) {
         return readableAddChunk(this, chunk, encoding, false);
@@ -5413,14 +5413,14 @@
           }
         }
         stream.on("readable", next);
-        let error2;
+        let error3;
         const cleanup = eos(
           stream,
           {
             writable: false
           },
           (err) => {
-            error2 = err ? aggregateTwoErrors(error2, err) : null;
+            error3 = err ? aggregateTwoErrors(error3, err) : null;
             callback();
             callback = nop;
           }
@@ -5430,19 +5430,19 @@
             const chunk = stream.destroyed ? null : stream.read();
             if (chunk !== null) {
               yield chunk;
-            } else if (error2) {
-              throw error2;
-            } else if (error2 === null) {
+            } else if (error3) {
+              throw error3;
+            } else if (error3 === null) {
               return;
             } else {
               await new Promise2(next);
             }
           }
         } catch (err) {
-          error2 = aggregateTwoErrors(error2, err);
-          throw error2;
+          error3 = aggregateTwoErrors(error3, err);
+          throw error3;
         } finally {
-          if ((error2 || (options === null || options === void 0 ? void 0 : options.destroyOnReturn) !== false) && (error2 === void 0 || stream._readableState.autoDestroy)) {
+          if ((error3 || (options === null || options === void 0 ? void 0 : options.destroyOnReturn) !== false) && (error3 === void 0 || stream._readableState.autoDestroy)) {
             destroyImpl.destroyer(stream, null);
           } else {
             stream.off("readable", next);
@@ -5652,9 +5652,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/writable.js
+  // node_modules/readable-stream/lib/internal/streams/writable.js
   var require_writable = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/writable.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/writable.js"(exports, module) {
       "use strict";
       var process = require_browser2();
       var {
@@ -6273,9 +6273,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/duplexify.js
+  // node_modules/readable-stream/lib/internal/streams/duplexify.js
   var require_duplexify = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/duplexify.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/duplexify.js"(exports, module) {
       var process = require_browser2();
       var bufferModule = require_buffer();
       var {
@@ -6620,9 +6620,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/duplex.js
+  // node_modules/readable-stream/lib/internal/streams/duplex.js
   var require_duplex = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/duplex.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/duplex.js"(exports, module) {
       "use strict";
       var {
         ObjectDefineProperties,
@@ -6737,9 +6737,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/transform.js
+  // node_modules/readable-stream/lib/internal/streams/transform.js
   var require_transform = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/transform.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/transform.js"(exports, module) {
       "use strict";
       var { ObjectSetPrototypeOf, Symbol: Symbol2 } = require_primordials();
       module.exports = Transform3;
@@ -6839,9 +6839,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/passthrough.js
+  // node_modules/readable-stream/lib/internal/streams/passthrough.js
   var require_passthrough = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/passthrough.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/passthrough.js"(exports, module) {
       "use strict";
       var { ObjectSetPrototypeOf } = require_primordials();
       module.exports = PassThrough;
@@ -6858,9 +6858,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/pipeline.js
+  // node_modules/readable-stream/lib/internal/streams/pipeline.js
   var require_pipeline = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module) {
       var process = require_browser2();
       var { ArrayIsArray, Promise: Promise2, SymbolAsyncIterator, SymbolDispose } = require_primordials();
       var eos = require_end_of_stream();
@@ -6936,11 +6936,11 @@
         yield* Readable2.prototype[SymbolAsyncIterator].call(val);
       }
       async function pumpToNode(iterable, writable, finish, { end }) {
-        let error2;
+        let error3;
         let onresolve = null;
         const resume = (err) => {
           if (err) {
-            error2 = err;
+            error3 = err;
           }
           if (onresolve) {
             const callback = onresolve;
@@ -6949,12 +6949,12 @@
           }
         };
         const wait = () => new Promise2((resolve, reject) => {
-          if (error2) {
-            reject(error2);
+          if (error3) {
+            reject(error3);
           } else {
             onresolve = () => {
-              if (error2) {
-                reject(error2);
+              if (error3) {
+                reject(error3);
               } else {
                 resolve();
               }
@@ -6984,7 +6984,7 @@
           }
           finish();
         } catch (err) {
-          finish(error2 !== err ? aggregateTwoErrors(error2, err) : err);
+          finish(error3 !== err ? aggregateTwoErrors(error3, err) : err);
         } finally {
           cleanup();
           writable.off("drain", resume);
@@ -7038,7 +7038,7 @@
         if (outerSignal) {
           disposable = addAbortListener(outerSignal, abort);
         }
-        let error2;
+        let error3;
         let value;
         const destroys = [];
         let finishCount = 0;
@@ -7047,23 +7047,23 @@
         }
         function finishImpl(err, final) {
           var _disposable;
-          if (err && (!error2 || error2.code === "ERR_STREAM_PREMATURE_CLOSE")) {
-            error2 = err;
+          if (err && (!error3 || error3.code === "ERR_STREAM_PREMATURE_CLOSE")) {
+            error3 = err;
           }
-          if (!error2 && !final) {
+          if (!error3 && !final) {
             return;
           }
           while (destroys.length) {
-            destroys.shift()(error2);
+            destroys.shift()(error3);
           }
           ;
           (_disposable = disposable) === null || _disposable === void 0 ? void 0 : _disposable[SymbolDispose]();
           ac.abort();
           if (final) {
-            if (!error2) {
+            if (!error3) {
               lastStreamCleanup.forEach((fn) => fn());
             }
-            process.nextTick(callback, error2, value);
+            process.nextTick(callback, error3, value);
           }
         }
         let ret;
@@ -7286,9 +7286,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/compose.js
+  // node_modules/readable-stream/lib/internal/streams/compose.js
   var require_compose = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/compose.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/compose.js"(exports, module) {
       "use strict";
       var { pipeline } = require_pipeline();
       var Duplex = require_duplex();
@@ -7479,9 +7479,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/internal/streams/operators.js
+  // node_modules/readable-stream/lib/internal/streams/operators.js
   var require_operators = __commonJS({
-    "../../node_modules/readable-stream/lib/internal/streams/operators.js"(exports, module) {
+    "node_modules/readable-stream/lib/internal/streams/operators.js"(exports, module) {
       "use strict";
       var AbortController = globalThis.AbortController || require_browser().AbortController;
       var {
@@ -7884,9 +7884,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/stream/promises.js
+  // node_modules/readable-stream/lib/stream/promises.js
   var require_promises = __commonJS({
-    "../../node_modules/readable-stream/lib/stream/promises.js"(exports, module) {
+    "node_modules/readable-stream/lib/stream/promises.js"(exports, module) {
       "use strict";
       var { ArrayPrototypePop, Promise: Promise2 } = require_primordials();
       var { isIterable, isNodeStream, isWebStream } = require_utils();
@@ -7926,9 +7926,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/stream.js
+  // node_modules/readable-stream/lib/stream.js
   var require_stream = __commonJS({
-    "../../node_modules/readable-stream/lib/stream.js"(exports, module) {
+    "node_modules/readable-stream/lib/stream.js"(exports, module) {
       "use strict";
       var { Buffer: Buffer3 } = require_buffer();
       var { ObjectDefineProperty, ObjectKeys, ReflectApply } = require_primordials();
@@ -8045,9 +8045,9 @@
     }
   });
 
-  // ../../node_modules/readable-stream/lib/ours/browser.js
+  // node_modules/readable-stream/lib/ours/browser.js
   var require_browser3 = __commonJS({
-    "../../node_modules/readable-stream/lib/ours/browser.js"(exports, module) {
+    "node_modules/readable-stream/lib/ours/browser.js"(exports, module) {
       "use strict";
       var CustomStream = require_stream();
       var promises = require_promises();
@@ -8937,11 +8937,11 @@
     return globalThis.requestAnimationFrame;
   })();
   function rebaseHref(relative, base) {
-    let url3 = new URL(relative, base);
+    let url2 = new URL(relative, base);
     if (include.cacheBuster) {
-      url3.searchParams.set("cb", include.cacheBuster);
+      url2.searchParams.set("cb", include.cacheBuster);
     }
-    return url3.href;
+    return url2.href;
   }
   var observer2;
   var loaded = {};
@@ -10415,7 +10415,7 @@
   });
   var flow_default = globalThis.simply;
 
-  // ../../node_modules/@muze-nl/metro/src/metro.mjs
+  // node_modules/@muze-nl/metro/src/metro.mjs
   var metro_exports = {};
   __export(metro_exports, {
     Client: () => Client,
@@ -10426,7 +10426,7 @@
     request: () => request,
     response: () => response,
     trace: () => trace2,
-    url: () => url2
+    url: () => url
   });
   var metroURL = "https://metro.muze.nl/details/";
   if (!Symbol.metroProxy) {
@@ -10437,7 +10437,7 @@
   }
   var Client = class _Client {
     clientOptions = {
-      url: typeof window != "undefined" ? url2(window.location) : url2("https://localhost"),
+      url: typeof window != "undefined" ? url(window.location) : url("https://localhost"),
       verbs: ["get", "post", "put", "delete", "patch", "head", "options", "query"]
     };
     static tracers = {};
@@ -10454,7 +10454,9 @@
     constructor(...options) {
       for (let option of options) {
         if (typeof option == "string" || option instanceof String) {
-          this.clientOptions.url = url2(this.clientOptions.url.href, option);
+          this.clientOptions.url = url(this.clientOptions.url.href, option);
+        } else if (option instanceof _Client) {
+          Object.assign(this.clientOptions, option.clientOptions);
         } else if (option instanceof Function) {
           this.#addMiddlewares([option]);
         } else if (option && typeof option == "object") {
@@ -10462,7 +10464,7 @@
             if (param == "middlewares") {
               this.#addMiddlewares(option[param]);
             } else if (param == "url") {
-              this.clientOptions.url = url2(this.clientOptions.url.href, option[param]);
+              this.clientOptions.url = url(this.clientOptions.url.href, option[param]);
             } else if (typeof option[param] == "function") {
               this.clientOptions[param] = option[param](this.clientOptions[param], this.clientOptions);
             } else {
@@ -10586,7 +10588,7 @@
         params2[prop] = value(params2[prop], params2);
       } else {
         if (prop == "url") {
-          params2.url = url2(params2.url, value);
+          params2.url = url(params2.url, value);
         } else if (prop == "headers") {
           params2.headers = new Headers(current.headers);
           if (!(value instanceof Headers)) {
@@ -10607,13 +10609,13 @@
   }
   function request(...options) {
     let requestParams = {
-      url: typeof window != "undefined" ? url2(window.location) : url2("https://localhost/"),
+      url: typeof window != "undefined" ? url(window.location) : url("https://localhost/"),
       duplex: "half"
       // required when setting body to ReadableStream, just set it here by default already
     };
     for (let option of options) {
       if (typeof option == "string" || option instanceof URL || option instanceof URLSearchParams) {
-        requestParams.url = url2(requestParams.url, option);
+        requestParams.url = url(requestParams.url, option);
       } else if (option && (option instanceof FormData || option instanceof ReadableStream || option instanceof Blob || option instanceof ArrayBuffer || option instanceof DataView)) {
         requestParams.body = option;
       } else if (option && typeof option == "object") {
@@ -10751,17 +10753,17 @@
       }
     });
   }
-  function appendSearchParams(url3, params2) {
+  function appendSearchParams(url2, params2) {
     if (typeof params2 == "function") {
-      params2(url3.searchParams, url3);
+      params2(url2.searchParams, url2);
     } else {
       params2 = new URLSearchParams(params2);
       params2.forEach((value, key) => {
-        url3.searchParams.append(key, value);
+        url2.searchParams.append(key, value);
       });
     }
   }
-  function url2(...options) {
+  function url(...options) {
     let validParams = [
       "hash",
       "host",
@@ -10829,7 +10831,7 @@
             break;
           case "with":
             result2 = function(...options2) {
-              return url2(target, ...options2);
+              return url(target, ...options2);
             };
             break;
           case "filename":
@@ -11008,7 +11010,7 @@
     return object;
   }
 
-  // ../../node_modules/@muze-nl/metro/src/mw/json.mjs
+  // node_modules/@muze-nl/metro/src/mw/json.mjs
   function jsonmw(options) {
     options = Object.assign({
       contentType: "application/json",
@@ -11042,7 +11044,7 @@
         }
       }
       let res = await next(req);
-      if (isJSON(res.headers.get("Content-Type"))) {
+      if (res && isJSON(res.headers?.get("Content-Type"))) {
         let tempRes = res.clone();
         let body = await tempRes.text();
         try {
@@ -11064,7 +11066,7 @@
     return /^text\/plain\b/.exec(contentType);
   }
 
-  // ../../node_modules/@muze-nl/metro/src/mw/thrower.mjs
+  // node_modules/@muze-nl/metro/src/mw/thrower.mjs
   function throwermw(options) {
     return async function thrower(req, next) {
       let res = await next(req);
@@ -11081,7 +11083,7 @@
     };
   }
 
-  // ../../node_modules/@muze-nl/metro/src/mw/getdata.mjs
+  // node_modules/@muze-nl/metro/src/mw/getdata.mjs
   function getdatamw() {
     return async function getdata(req, next) {
       let res = await next(req);
@@ -11092,7 +11094,7 @@
     };
   }
 
-  // ../../node_modules/@muze-nl/metro/src/api.mjs
+  // node_modules/@muze-nl/metro/src/api.mjs
   var API = class extends Client {
     constructor(base, methods, bind2 = null) {
       if (base instanceof Client) {
@@ -11130,7 +11132,7 @@
     return new JsonAPI(...deepClone(options));
   }
 
-  // ../../node_modules/@muze-nl/metro/src/everything.mjs
+  // node_modules/@muze-nl/metro/src/everything.mjs
   var metro2 = Object.assign({}, metro_exports, {
     mw: {
       json: jsonmw,
@@ -11145,8 +11147,8 @@
   }
   var everything_default = metro2;
 
-  // ../../node_modules/@muze-nl/oldm/src/oldm.mjs
-  function oldm2(options) {
+  // node_modules/@muze-nl/oldm/src/oldm.mjs
+  function oldm(options) {
     return new Context(options);
   }
   var rdfType = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
@@ -11167,15 +11169,15 @@
       this.sources = /* @__PURE__ */ Object.create(null);
       this.separator = options?.separator ?? "$";
     }
-    parse(input2, url3, type) {
-      const { quads, prefixes: prefixes3 } = this.parser(input2, url3, type);
+    parse(input2, url2, type) {
+      const { quads, prefixes: prefixes3 } = this.parser(input2, url2, type);
       if (prefixes3) {
         for (let prefix2 in prefixes3) {
           let prefixURL = prefixes3[prefix2];
           if (prefixURL.match(/^http(s?):\/\/$/i)) {
-            prefixURL += url3.substring(prefixURL.length);
+            prefixURL += url2.substring(prefixURL.length);
           } else try {
-            prefixURL = new URL(prefixes3[prefix2], url3).href;
+            prefixURL = new URL(prefixes3[prefix2], url2).href;
           } catch (err) {
             console.error("Could not parse prefix", prefixes3[prefix2], err.message);
           }
@@ -11184,8 +11186,8 @@
           }
         }
       }
-      this.sources[url3] = new Graph(quads, url3, type, prefixes3, this);
-      return this.sources[url3];
+      this.sources[url2] = new Graph(quads, url2, type, prefixes3, this);
+      return this.sources[url2];
     }
     setType(literal2, shortType) {
       if (!shortType) {
@@ -11211,9 +11213,9 @@
   };
   var Graph = class {
     #blankNodes = /* @__PURE__ */ Object.create(null);
-    constructor(quads, url3, mimetype, prefixes3, context) {
+    constructor(quads, url2, mimetype, prefixes3, context) {
       this.mimetype = mimetype;
-      this.url = url3;
+      this.url = url2;
       this.prefixes = prefixes3;
       this.context = context;
       this.subjects = /* @__PURE__ */ Object.create(null);
@@ -11245,8 +11247,8 @@
         }
         subject.addPredicate(quad2.predicate.id, quad2.object);
       }
-      if (this.subjects[url3]) {
-        this.primary = this.subjects[url3];
+      if (this.subjects[url2]) {
+        this.primary = this.subjects[url2];
       } else {
         this.primary = null;
       }
@@ -11414,17 +11416,17 @@
     }
   };
 
-  // ../../node_modules/@muze-nl/oldm/src/oldm-n3.mjs
+  // node_modules/@muze-nl/oldm/src/oldm-n3.mjs
   var oldm_n3_exports = {};
   __export(oldm_n3_exports, {
     n3Parser: () => n3Parser,
     n3Writer: () => n3Writer
   });
 
-  // ../../node_modules/n3/src/N3Lexer.js
+  // node_modules/n3/src/N3Lexer.js
   var import_buffer = __toESM(require_buffer());
 
-  // ../../node_modules/n3/src/IRIs.js
+  // node_modules/n3/src/IRIs.js
   var RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
   var XSD = "http://www.w3.org/2001/XMLSchema#";
   var SWAP = "http://www.w3.org/2000/10/swap/";
@@ -11456,7 +11458,7 @@
     }
   };
 
-  // ../../node_modules/n3/src/N3Lexer.js
+  // node_modules/n3/src/N3Lexer.js
   var { xsd } = IRIs_default;
   var escapeSequence = /\\u([a-fA-F0-9]{4})|\\U([a-fA-F0-9]{8})|\\([^])/g;
   var escapeReplacements = {
@@ -11839,9 +11841,9 @@
           queueMicrotask(() => this._tokenizeToEnd(callback, true));
         else {
           const tokens = [];
-          let error2;
-          this._tokenizeToEnd((e, t) => e ? error2 = e : tokens.push(t), true);
-          if (error2) throw error2;
+          let error3;
+          this._tokenizeToEnd((e, t) => e ? error3 = e : tokens.push(t), true);
+          if (error3) throw error3;
           return tokens;
         }
       } else {
@@ -11874,7 +11876,7 @@
     }
   };
 
-  // ../../node_modules/n3/src/N3DataFactory.js
+  // node_modules/n3/src/N3DataFactory.js
   var { rdf, xsd: xsd2 } = IRIs_default;
   var DEFAULTGRAPH;
   var _blankNodeCounter = 0;
@@ -12174,7 +12176,7 @@
     return quad(fromTerm(inQuad.subject), fromTerm(inQuad.predicate), fromTerm(inQuad.object), fromTerm(inQuad.graph));
   }
 
-  // ../../node_modules/n3/src/N3Parser.js
+  // node_modules/n3/src/N3Parser.js
   var blankNodePrefix = 0;
   var N3Parser = class {
     constructor(options) {
@@ -13055,27 +13057,27 @@
       this._quantified = /* @__PURE__ */ Object.create(null);
       if (!onQuad) {
         const quads = [];
-        let error2;
+        let error3;
         this._callback = (e, t) => {
-          e ? error2 = e : t && quads.push(t);
+          e ? error3 = e : t && quads.push(t);
         };
         this._lexer.tokenize(input2).every((token) => {
           return this._readCallback = this._readCallback(token);
         });
-        if (error2) throw error2;
+        if (error3) throw error3;
         return quads;
       }
-      let processNextToken = (error2, token) => {
-        if (error2 !== null)
-          this._callback(error2), this._callback = noop;
+      let processNextToken = (error3, token) => {
+        if (error3 !== null)
+          this._callback(error3), this._callback = noop;
         else if (this._readCallback)
           this._readCallback = this._readCallback(token);
       };
       if (onComment) {
         this._lexer.comments = true;
-        processNextToken = (error2, token) => {
-          if (error2 !== null)
-            this._callback(error2), this._callback = noop;
+        processNextToken = (error3, token) => {
+          if (error3 !== null)
+            this._callback(error3), this._callback = noop;
           else if (this._readCallback) {
             if (token.type === "comment")
               onComment(token.value);
@@ -13108,7 +13110,7 @@
   }
   initDataFactory(N3Parser.prototype, N3DataFactory_default);
 
-  // ../../node_modules/n3/src/N3Util.js
+  // node_modules/n3/src/N3Util.js
   var N3Util_exports = {};
   __export(N3Util_exports, {
     inDefaultGraph: () => inDefaultGraph,
@@ -13164,12 +13166,12 @@
     return processPrefix;
   }
 
-  // ../../node_modules/n3/src/Util.js
+  // node_modules/n3/src/Util.js
   function escapeRegex(regex) {
     return regex.replace(/[\]\/\(\)\*\+\?\.\\\$]/g, "\\$&");
   }
 
-  // ../../node_modules/n3/src/BaseIRI.js
+  // node_modules/n3/src/BaseIRI.js
   var BASE_UNSUPPORTED = /^:?[^:?#]*(?:[?#]|$)|^file:|^[^:]*:\/*[^?#]+?\/(?:\.\.?(?:\/|$)|\/)/i;
   var SUFFIX_SUPPORTED = /^(?:(?:[^/?#]{3,}|\.?[^/?#.]\.?)(?:\/[^/?#]{3,}|\.?[^/?#.]\.?)*\/?)?(?:[?#]|$)/;
   var CURRENT = "./";
@@ -13241,7 +13243,7 @@
     }
   };
 
-  // ../../node_modules/n3/src/N3Writer.js
+  // node_modules/n3/src/N3Writer.js
   var DEFAULTGRAPH2 = N3DataFactory_default.defaultGraph();
   var { rdf: rdf2, xsd: xsd3 } = IRIs_default;
   var escape = /["\\\t\n\r\b\f\u0000-\u0019\ud800-\udbff]/;
@@ -13325,8 +13327,8 @@
     ${this._encodePredicate(this._predicate = predicate)} ${this._encodeObject(object)}`, done);
         } else
           this._write(`${(this._subject === null ? "" : ".\n") + this._encodeSubject(this._subject = subject)} ${this._encodePredicate(this._predicate = predicate)} ${this._encodeObject(object)}`, done);
-      } catch (error2) {
-        done && done(error2);
+      } catch (error3) {
+        done && done(error3);
       }
     }
     // ### `_writeQuadLine` writes the quad to the output stream as a single line
@@ -13520,13 +13522,13 @@
         this._subject = null;
       }
       this._write = this._blockedWrite;
-      let singleDone = done && ((error2, result2) => {
-        singleDone = null, done(error2, result2);
+      let singleDone = done && ((error3, result2) => {
+        singleDone = null, done(error3, result2);
       });
       if (this._endStream) {
         try {
           return this._outputStream.end(singleDone);
-        } catch (error2) {
+        } catch (error3) {
         }
       }
       singleDone && singleDone();
@@ -13546,7 +13548,7 @@
     return result2;
   }
 
-  // ../../node_modules/n3/src/N3Store.js
+  // node_modules/n3/src/N3Store.js
   var import_readable_stream = __toESM(require_browser3());
   var ITERATOR = Symbol("iter");
   function merge(target, source, depth = 4) {
@@ -14552,14 +14554,14 @@
     }
   };
 
-  // ../../node_modules/n3/src/N3StoreFactory.js
+  // node_modules/n3/src/N3StoreFactory.js
   var N3DatasetCoreFactory = class {
     dataset(quads) {
       return new N3Store(quads);
     }
   };
 
-  // ../../node_modules/n3/src/N3Reasoner.js
+  // node_modules/n3/src/N3Reasoner.js
   function getRulesFromDataset(dataset) {
     const rules = [];
     for (const { subject, object } of dataset.match(null, N3DataFactory_default.namedNode("http://www.w3.org/2000/10/swap/log#implies"), null, N3DataFactory_default.defaultGraph())) {
@@ -14729,7 +14731,7 @@
     return t1.value === t2.value;
   }
 
-  // ../../node_modules/n3/src/N3StreamParser.js
+  // node_modules/n3/src/N3StreamParser.js
   var import_readable_stream2 = __toESM(require_browser3());
   var N3StreamParser = class extends import_readable_stream2.Transform {
     constructor(options) {
@@ -14739,8 +14741,8 @@
       let onData, onEnd;
       const callbacks = {
         // Handle quads by pushing them down the pipeline
-        onQuad: (error2, quad2) => {
-          error2 && this.emit("error", error2) || quad2 && this.push(quad2);
+        onQuad: (error3, quad2) => {
+          error3 && this.emit("error", error3) || quad2 && this.push(quad2);
         },
         // Emit prefixes through the `prefix` event
         onPrefix: (prefix2, uri) => {
@@ -14780,14 +14782,14 @@
       stream.on("end", () => {
         this.end();
       });
-      stream.on("error", (error2) => {
-        this.emit("error", error2);
+      stream.on("error", (error3) => {
+        this.emit("error", error3);
       });
       return this;
     }
   };
 
-  // ../../node_modules/n3/src/N3StreamWriter.js
+  // node_modules/n3/src/N3StreamWriter.js
   var import_readable_stream3 = __toESM(require_browser3());
   var N3StreamWriter = class extends import_readable_stream3.Transform {
     constructor(options) {
@@ -14817,8 +14819,8 @@
       stream.on("end", () => {
         this.end();
       });
-      stream.on("error", (error2) => {
-        this.emit("error", error2);
+      stream.on("error", (error3) => {
+        this.emit("error", error3);
       });
       stream.on("prefix", (prefix2, iri) => {
         this._writer.addPrefix(prefix2, iri);
@@ -14827,7 +14829,7 @@
     }
   };
 
-  // ../../node_modules/n3/src/index.js
+  // node_modules/n3/src/index.js
   var src_default = {
     Lexer: N3Lexer,
     Parser: N3Parser,
@@ -14853,15 +14855,15 @@
     termToId
   };
 
-  // ../../node_modules/@muze-nl/oldm/src/oldm-n3.mjs
+  // node_modules/@muze-nl/oldm/src/oldm-n3.mjs
   var n3Parser = (input2, uri, type) => {
     const parser = new src_default.Parser({
       blankNodePrefix: "",
       format: type
     });
     let prefixes3 = /* @__PURE__ */ Object.create(null);
-    const quads = parser.parse(input2, null, (prefix2, url3) => {
-      prefixes3[prefix2] = url3.id;
+    const quads = parser.parse(input2, null, (prefix2, url2) => {
+      prefixes3[prefix2] = url2.id;
     });
     return { quads, prefixes: prefixes3 };
   };
@@ -14994,25 +14996,25 @@
         writeClassNames(id, subject);
         writeProperties(id, subject);
       });
-      writer.end((error2, result2) => {
+      writer.end((error3, result2) => {
         if (result2) {
           resolve(result2);
         } else {
-          reject(error2);
+          reject(error3);
         }
       });
     });
   };
 
-  // ../../node_modules/@muze-nl/oldm/src/index.mjs
-  var oldm3 = {
-    context: oldm2,
+  // node_modules/@muze-nl/oldm/src/index.mjs
+  var oldm2 = {
+    context: oldm,
     ...oldm_n3_exports
   };
-  globalThis.oldm = oldm3;
-  var src_default2 = oldm3;
+  globalThis.oldm = oldm2;
+  var src_default2 = oldm2;
 
-  // ../../node_modules/@muze-nl/metro-oldm/src/oldmmw.mjs
+  // node_modules/@muze-nl/metro-oldm/src/oldmmw.mjs
   function oldmmw(options) {
     options = Object.assign({
       contentType: "text/turtle",
@@ -15092,15 +15094,15 @@
     return false;
   }
 
-  // ../../node_modules/@muze-nl/metro-oldm/src/index.mjs
+  // node_modules/@muze-nl/metro-oldm/src/index.mjs
   globalThis.oldmmw = oldmmw;
   var src_default3 = oldmmw;
 
-  // ../components/solid-webid.mjs
+  // components/solid-webid.mjs
   var solid_webid_default = {
     html: {
       webid: html`
-<dialog id="webidDialog" class="webid-dialog">
+<dialog id="webidDialog" class="solid-dialog">
 	<button class="ds-button ds-button-close" data-simply-command="webidClose">
 		<svg class="ds-icon ds-icon-feather">
             <use xlink:href="assets/icons/feather-sprite.svg#x"></use>
@@ -15110,7 +15112,7 @@
 	<div class="ds-alert ds-alert-error" data-flow-field="webid.error"></div>
 	<label>
 		Solid WebID
-		<input type="url" name="webidURL" placeholder="Enter your WebID">
+		<input autofocus type="url" name="webidURL" placeholder="Enter your WebID">
 	</label>
 	<p>Don't have a Solid WebID? Request a personal WebID at one of these providers: ....</p>
 	<div class="ds-form-buttons">
@@ -15126,27 +15128,29 @@
 	:root {
 		--ds-dialog-shadow: var(--ds-shadow-large);
 		--ds-dialog-radius: var(--ds-box-radius);
-		--ds-dialog-backdrop: rgba(0,0,0,0.5);
+		--ds-dialog-backdrop: rgba(255,255,255,0.1);
 	}
 }
-@layer components {
+@layer component {
 	:root {
-		--webid-space: var(--ds-space);
-		--webid-dialog-shadow: var(--ds-dialog-shadow);
-		--webid-dialog-radius: var(--ds-dialog-radius);
-		--webid-dialog-width: 400px;
-		--webid-dialog-height: 300px;
-		--webid-dialog-backdrop: var(--ds-dialog-backdrop);
+		--solid-dialog-shadow: var(--ds-dialog-shadow);
+		--solid-dialog-radius: var(--ds-dialog-radius);
+		--solid-dialog-width: 400px;
+		--solid-dialog-height: 300px;
+		--solid-dialog-backdrop: var(--ds-dialog-backdrop);
+		--solid-dialog-outline: 1px solid var(--ds-grey-40);
 	}
-	.webid-dialog {
-		width: var(--webid-dialog-width);
-		height: var(--webid-dialog-height);
+	.solid-dialog {
+		width: var(--solid-dialog-width);
+		height: var(--solid-dialog-height);
 		border: 0;
-		border-radius: var(--webid-dialog-radius);
-		box-shadow: var(--webid-dialog-shadow);
+		border-radius: var(--solid-dialog-radius);
+		box-shadow: var(--solid-dialog-shadow);
+		outline: var(--solid-dialog-outline);
 	}
-	.webid-dialog::backdrop {
-		background: var(--webid-dialog-backdrop);
+	.solid-dialog::backdrop {
+		background: var(--solid-dialog-backdrop);
+		backdrop-filter: blur(16px);
 	}
 }
 @media screen and (max-width:719px) {
@@ -15157,8 +15161,7 @@
     },
     commands: {
       webidDialog: async function(el, value) {
-        this.actions.webidErrors("");
-        document.getElementById("webidDialog").showModal();
+        this.actions.webidDialog();
       },
       webidSave: async function(form, values) {
         if (!values.webidURL) {
@@ -15187,11 +15190,15 @@
                 solid: "http://www.w3.org/ns/solid/terms#",
                 space: "http://www.w3.org/ns/pim/space#"
               },
-              parser: oldm.n3Parser
+              parser: src_default2.n3Parser
             }
           };
         }
         Object.assign(this.state.webid.config, config);
+      },
+      webidDialog: async function() {
+        this.actions.webidErrors("");
+        document.getElementById("webidDialog").showModal();
       },
       webidSave: async function(webID) {
         let linkeddata;
@@ -15210,13 +15217,13 @@
           }
           this.state.webid.profile = linkeddata.primary;
           return true;
-        } catch (error2) {
-          this.actions.webidErrors(error2.message);
+        } catch (error3) {
+          this.actions.webidErrors(error3.message);
         }
         return false;
       },
-      webidErrors: async function(error2) {
-        this.state.webid.error = error2;
+      webidErrors: async function(error3) {
+        this.state.webid.error = error3;
       }
     },
     hooks: {
@@ -15227,7 +15234,7 @@
     }
   };
 
-  // ../../node_modules/@muze-nl/jsfs/src/Path.js
+  // node_modules/@muze-nl/jsfs/src/Path.mjs
   var Path = class _Path {
     #value;
     constructor(path2) {
@@ -15352,7 +15359,7 @@
     }
   };
 
-  // ../../node_modules/@muze-nl/jsfs/src/FileSystem.js
+  // node_modules/@muze-nl/jsfs/src/FileSystem.mjs
   var FileSystem = class _FileSystem {
     #adapter;
     #path = "/";
@@ -15420,17 +15427,13 @@
     }
   };
 
-  // ../../node_modules/@muze-nl/jsfs/src/Adapters/HttpAdapter.js
-  var HttpAdapter = class _HttpAdapter {
-    #baseUrl;
+  // node_modules/@muze-nl/jsfs/src/Adapters/Http.mjs
+  var HttpAdapter = class {
+    #client;
     #path;
-    #exceptionHandler;
-    #fetchParams;
-    constructor(baseUrl, path2 = "/", exceptionHandler = null, fetchParams = {}) {
-      this.#baseUrl = new URL(baseUrl, window.location.href);
+    constructor(metroClient, path2 = "/") {
+      this.#client = client(metroClient);
       this.#path = new Path(path2);
-      this.#exceptionHandler = exceptionHandler;
-      this.#fetchParams = fetchParams;
     }
     get name() {
       return "HttpAdapter";
@@ -15451,26 +15454,22 @@
       if (!Path.isPath(path2)) {
         throw new TypeError(path2 + " is not a valid path");
       }
-      return new _HttpAdapter(this.#baseUrl.href, path2);
+      if (Path.isRelative(path2)) {
+        path2 = Path.collapse(path2, this.#path);
+      }
+      return new this.constructor(this.#client, path2);
     }
     //FIXME: return a jsfs result object instead of http response
     async write(path2, contents, metadata = null) {
-      let params2 = Object.assign({}, this.#fetchParams, {
-        method: "PUT",
-        body: contents
-      });
-      return this.#fetch(path2, params2);
+      return this.#client.put({ body: contents });
     }
     writeStream(path2, writer, metadata = null) {
       throw new Error("Not yet implemented");
     }
     async read(path2) {
-      let params2 = Object.assign({}, this.#fetchParams, {
-        method: "GET"
-      });
-      let response2 = await this.#fetch(path2, params2);
+      let response2 = await this.#client.get(path2);
       let result2 = {
-        type: this.#getMimetype(response2),
+        type: this.getMimetype(response2),
         name: Path.filename(path2),
         http: {
           headers: response2.headers,
@@ -15491,16 +15490,10 @@
       throw new Error("Not yet implemented");
     }
     async exists(path2) {
-      let params2 = Object.assign({}, this.#fetchParams, {
-        method: "HEAD"
-      });
-      return this.#fetch(path2, params2);
+      return this.#client.head(path2);
     }
     async delete(path2) {
-      let params2 = Object.assign({}, this.#fetchParams, {
-        method: "DELETE"
-      });
-      return this.#fetch(path2, params2);
+      return this.#client.delete(path2);
     }
     async list(path2) {
       let supportedContentTypes = [
@@ -15513,19 +15506,19 @@
       if (supportedContentTypes.includes(result2.type.split(";")[0])) {
         var html3 = result2.contents;
       } else {
-        let url3 = this.#getUrl(path2);
-        throw new TypeError("URL " + url3 + " is not of a supported content type", {
+        let url2 = this.getUrl(path2);
+        throw new TypeError("URL " + url2 + " is not of a supported content type", {
           cause: result2
         });
       }
-      let basePath = Path.collapse(this.#baseUrl.pathname);
-      let parentUrl = this.#getUrl(path2);
+      let basePath = url(this.#client.clientOptions.url).pathname;
+      let parentUrl = this.getUrl(path2);
       let dom = document.createElement("template");
       dom.innerHTML = html3;
       let links = dom.content.querySelectorAll("a[href]");
       return Array.from(links).map((link) => {
-        let url3 = new URL(link.getAttribute("href"), parentUrl.href);
-        link.href = url3.href;
+        let url2 = new URL(link.getAttribute("href"), parentUrl.href);
+        link.href = url2.href;
         return {
           filename: Path.filename(link.pathname),
           path: link.pathname,
@@ -15545,18 +15538,12 @@
         };
       });
     }
-    #getUrl(path2) {
-      path2 = Path.collapse(this.#baseUrl.pathname + Path.collapse(path2));
-      return new URL(path2, this.#baseUrl);
+    getUrl(path2) {
+      let basePath = url(this.#client.clientOptions.url).pathname;
+      path2 = Path.collapse(basePath + Path.collapse(path2));
+      return new URL(path2, this.#client.clientOptions.url);
     }
-    async #fetch(path2, options) {
-      return fetch(this.#getUrl(path2), options).catch((e) => {
-        if (!this.#exceptionHandler || !this.#exceptionHandler(url, options, e)) {
-          throw e;
-        }
-      });
-    }
-    #getMimetype(response2) {
+    getMimetype(response2) {
       if (response2.headers.has("Content-Type")) {
         return response2.headers.get("Content-Type");
       } else {
@@ -15587,7 +15574,7 @@
     ).then(() => true, () => false);
   })();
 
-  // ../../node_modules/@muze-nl/jsfs/src/browser.js
+  // node_modules/@muze-nl/jsfs/src/index.mjs
   var jsfs2 = {
     fs: FileSystem,
     adapters: {
@@ -15595,10 +15582,10 @@
     },
     path: Path
   };
-  window.jsfs = jsfs2;
-  var browser_default = jsfs2;
+  globalThis.jsfs = jsfs2;
+  var src_default4 = jsfs2;
 
-  // ../../node_modules/@muze-nl/assert/src/assert.mjs
+  // node_modules/@muze-nl/assert/src/assert.mjs
   globalThis.assertEnabled = false;
   function assert(source, test) {
     if (globalThis.assertEnabled) {
@@ -15621,7 +15608,7 @@
   function Required(pattern) {
     return function _Required(data, root, path2) {
       if (data == null || typeof data == "undefined") {
-        return error("data is required", data, pattern || "any value", path2);
+        return error2("data is required", data, pattern || "any value", path2);
       } else if (typeof pattern != "undefined") {
         return fails(data, pattern, root, path2);
       } else {
@@ -15646,17 +15633,17 @@
           return false;
         }
       }
-      return error("data does not match oneOf patterns", data, patterns, path2);
+      return error2("data does not match oneOf patterns", data, patterns, path2);
     };
   }
   function anyOf(...patterns) {
     return function _anyOf(data, root, path2) {
       if (!Array.isArray(data)) {
-        return error("data is not an array", data, "anyOf", path2);
+        return error2("data is not an array", data, "anyOf", path2);
       }
       for (let value of data) {
         if (oneOf(...patterns)(value)) {
-          return error("data does not match anyOf patterns", value, patterns, path2);
+          return error2("data does not match anyOf patterns", value, patterns, path2);
         }
       }
       return false;
@@ -15670,7 +15657,7 @@
       }
       problems = problems.filter(Boolean);
       if (problems.length) {
-        return error("data does not match all given patterns", data, patterns, path2, problems);
+        return error2("data does not match all given patterns", data, patterns, path2, problems);
       }
     };
   }
@@ -15679,32 +15666,32 @@
       if (data instanceof URL) {
         data = data.href;
       }
-      let url3 = new URL(data);
-      if (url3.href != data) {
-        if (!(url3.href + "/" == data || url3.href == data + "/")) {
-          return error("data is not a valid url", data, "validURL", path2);
+      let url2 = new URL(data);
+      if (url2.href != data) {
+        if (!(url2.href + "/" == data || url2.href == data + "/")) {
+          return error2("data is not a valid url", data, "validURL", path2);
         }
       }
     } catch (e) {
-      return error("data is not a valid url", data, "validURL", path2);
+      return error2("data is not a valid url", data, "validURL", path2);
     }
   }
   function validEmail(data, root, path2) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data)) {
-      return error("data is not a valid email", data, "validEmail", path2);
+      return error2("data is not a valid email", data, "validEmail", path2);
     }
   }
   function instanceOf(constructor) {
     return function _instanceOf(data, root, path2) {
       if (!(data instanceof constructor)) {
-        return error("data is not an instanceof pattern", data, constructor, path2);
+        return error2("data is not an instanceof pattern", data, constructor, path2);
       }
     };
   }
   function not(pattern) {
     return function _not(data, root, path2) {
       if (!fails(data, pattern, root, path2)) {
-        return error("data matches pattern, when required not to", data, pattern, path2);
+        return error2("data matches pattern, when required not to", data, pattern, path2);
       }
     };
   }
@@ -15715,29 +15702,29 @@
     let problems = [];
     if (pattern === Boolean) {
       if (typeof data != "boolean" && !(data instanceof Boolean)) {
-        problems.push(error("data is not a boolean", data, pattern, path2));
+        problems.push(error2("data is not a boolean", data, pattern, path2));
       }
     } else if (pattern === Number) {
       if (typeof data != "number" && !(data instanceof Number)) {
-        problems.push(error("data is not a number", data, pattern, path2));
+        problems.push(error2("data is not a number", data, pattern, path2));
       }
     } else if (pattern === String) {
       if (typeof data != "string" && !(data instanceof String)) {
-        problems.push(error("data is not a string", data, pattern, path2));
+        problems.push(error2("data is not a string", data, pattern, path2));
       }
       if (data == "") {
-        problems.push(error("data is an empty string, which is not allowed", data, pattern, path2));
+        problems.push(error2("data is an empty string, which is not allowed", data, pattern, path2));
       }
     } else if (pattern instanceof RegExp) {
       if (Array.isArray(data)) {
         let index = data.findIndex((element2, index2) => fails(element2, pattern, root, path2 + "[" + index2 + "]"));
         if (index > -1) {
-          problems.push(error("data[" + index + "] does not match pattern", data[index], pattern, path2 + "[" + index + "]"));
+          problems.push(error2("data[" + index + "] does not match pattern", data[index], pattern, path2 + "[" + index + "]"));
         }
       } else if (typeof data == "undefined") {
-        problems.push(error("data is undefined, should match pattern", data, pattern, path2));
+        problems.push(error2("data is undefined, should match pattern", data, pattern, path2));
       } else if (!pattern.test(data)) {
-        problems.push(error("data does not match pattern", data, pattern, path2));
+        problems.push(error2("data does not match pattern", data, pattern, path2));
       }
     } else if (pattern instanceof Function) {
       let problem = pattern(data, root, path2);
@@ -15750,7 +15737,7 @@
       }
     } else if (Array.isArray(pattern)) {
       if (!Array.isArray(data)) {
-        problems.push(error("data is not an array", data, [], path2));
+        problems.push(error2("data is not an array", data, [], path2));
       }
       for (let p of pattern) {
         for (let index of data.keys()) {
@@ -15766,10 +15753,10 @@
       if (Array.isArray(data)) {
         let index = data.findIndex((element2, index2) => fails(element2, pattern, root, path2 + "[" + index2 + "]"));
         if (index > -1) {
-          problems.push(error("data[" + index + "] does not match pattern", data[index], pattern, path2 + "[" + index + "]"));
+          problems.push(error2("data[" + index + "] does not match pattern", data[index], pattern, path2 + "[" + index + "]"));
         }
       } else if (!data || typeof data != "object") {
-        problems.push(error("data is not an object, pattern is", data, pattern, path2));
+        problems.push(error2("data is not an object, pattern is", data, pattern, path2));
       } else {
         if (data instanceof URLSearchParams) {
           data = Object.fromEntries(data);
@@ -15790,7 +15777,7 @@
       }
     } else {
       if (pattern != data) {
-        problems.push(error("data and pattern are not equal", data, pattern, path2));
+        problems.push(error2("data and pattern are not equal", data, pattern, path2));
       }
     }
     if (problems.length) {
@@ -15798,7 +15785,7 @@
     }
     return false;
   }
-  function error(message, found, expected, path2, problems) {
+  function error2(message, found, expected, path2, problems) {
     let result2 = {
       path: path2,
       message,
@@ -15814,7 +15801,7 @@
     console.warn("\u{1F170}\uFE0F  Assert: " + path2, message, pattern, data);
   }
 
-  // ../../node_modules/@muze-nl/metro-oauth2/src/tokenstore.mjs
+  // node_modules/@muze-nl/metro-oauth2/src/tokenstore.mjs
   function tokenStore(site) {
     let localState, localTokens;
     if (typeof localStorage !== "undefined") {
@@ -15846,7 +15833,7 @@
     };
   }
 
-  // ../../node_modules/@muze-nl/metro-oauth2/src/oauth2.mjs
+  // node_modules/@muze-nl/metro-oauth2/src/oauth2.mjs
   function oauth2mw(options) {
     const defaultOptions = {
       client: client(),
@@ -15859,17 +15846,17 @@
         grant_type: "authorization_code",
         code_verifier: generateCodeVerifier(64)
       },
-      authorize_callback: async (url3) => {
-        if (window.location.href != url3.href) {
-          window.location.replace(url3.href);
+      authorize_callback: async (url2) => {
+        if (window.location.href != url2.href) {
+          window.location.replace(url2.href);
         }
         return false;
       }
     };
     assert(options, {});
-    const oauth22 = Object.assign({}, defaultOptions.oauth2_configuration, options?.oauth2_configuration);
+    const oauth2 = Object.assign({}, defaultOptions.oauth2_configuration, options?.oauth2_configuration);
     options = Object.assign({}, defaultOptions, options);
-    options.oauth2_configuration = oauth22;
+    options.oauth2_configuration = oauth2;
     const store = tokenStore(options.site);
     if (!options.tokens) {
       options.tokens = store.tokens;
@@ -15886,12 +15873,12 @@
         redirect_uri: Required(validURL)
       }
     });
-    for (let option in oauth22) {
+    for (let option in oauth2) {
       switch (option) {
         case "access_token":
         case "authorization_code":
         case "refresh_token":
-          options.tokens.set(option, oauth22[option]);
+          options.tokens.set(option, oauth2[option]);
           break;
       }
     }
@@ -15962,17 +15949,17 @@
     }
     function getTokensFromLocation() {
       if (typeof window !== "undefined" && window?.location) {
-        let url3 = url2(window.location);
+        let url2 = url(window.location);
         let code, state, params2;
-        if (url3.searchParams.has("code")) {
-          params2 = url3.searchParams;
-          url3 = url3.with({ search: "" });
-          history.pushState({}, "", url3.href);
-        } else if (url3.hash) {
-          let query = url3.hash.substr(1);
+        if (url2.searchParams.has("code")) {
+          params2 = url2.searchParams;
+          url2 = url2.with({ search: "" });
+          history.pushState({}, "", url2.href);
+        } else if (url2.hash) {
+          let query = url2.hash.substr(1);
           params2 = new URLSearchParams("?" + query);
-          url3 = url3.with({ hash: "" });
-          history.pushState({}, "", url3.href);
+          url2 = url2.with({ hash: "" });
+          history.pushState({}, "", url2.href);
         }
         if (params2) {
           code = params2.get("code");
@@ -15988,7 +15975,7 @@
       }
     }
     async function fetchAccessToken() {
-      if (oauth22.grant_type === "authorization_code" && !options.tokens.has("authorization_code")) {
+      if (oauth2.grant_type === "authorization_code" && !options.tokens.has("authorization_code")) {
         let authReqURL = await getAuthorizationCodeURL();
         if (!options.authorize_callback || typeof options.authorize_callback !== "function") {
           throw metroError("oauth2mw: oauth2 with grant_type:authorization_code requires a callback function in client options.authorize_callback");
@@ -16046,11 +16033,11 @@
       return data;
     }
     async function getAuthorizationCodeURL() {
-      if (!oauth22.authorization_endpoint) {
+      if (!oauth2.authorization_endpoint) {
         throw metroError("oauth2mw: Missing options.oauth2_configuration.authorization_endpoint");
       }
-      let url3 = url2(oauth22.authorization_endpoint, { hash: "" });
-      assert(oauth22, {
+      let url2 = url(oauth2.authorization_endpoint, { hash: "" });
+      assert(oauth2, {
         client_id: /.+/,
         redirect_uri: /.+/,
         scope: /.*/
@@ -16058,56 +16045,56 @@
       let search = {
         response_type: "code",
         // implicit flow uses 'token' here, but is not considered safe, so not supported
-        client_id: oauth22.client_id,
-        redirect_uri: oauth22.redirect_uri,
-        state: oauth22.state || createState(40)
+        client_id: oauth2.client_id,
+        redirect_uri: oauth2.redirect_uri,
+        state: oauth2.state || createState(40)
         // OAuth2.1 RFC says optional, but its a good idea to always add/check it
       };
-      if (oauth22.response_type) {
-        search.response_type = oauth22.response_type;
+      if (oauth2.response_type) {
+        search.response_type = oauth2.response_type;
       }
-      if (oauth22.response_mode) {
-        search.response_mode = oauth22.response_mode;
+      if (oauth2.response_mode) {
+        search.response_mode = oauth2.response_mode;
       }
       options.state.set(search.state);
-      if (oauth22.client_secret) {
-        search.client_secret = oauth22.client_secret;
+      if (oauth2.client_secret) {
+        search.client_secret = oauth2.client_secret;
       }
-      if (oauth22.code_verifier) {
-        options.tokens.set("code_verifier", oauth22.code_verifier);
-        search.code_challenge = await generateCodeChallenge(oauth22.code_verifier);
+      if (oauth2.code_verifier) {
+        options.tokens.set("code_verifier", oauth2.code_verifier);
+        search.code_challenge = await generateCodeChallenge(oauth2.code_verifier);
         search.code_challenge_method = "S256";
       }
-      if (oauth22.scope) {
-        search.scope = oauth22.scope;
+      if (oauth2.scope) {
+        search.scope = oauth2.scope;
       }
-      if (oauth22.prompt) {
-        search.prompt = oauth22.prompt;
+      if (oauth2.prompt) {
+        search.prompt = oauth2.prompt;
       }
-      return url2(url3, { search });
+      return url(url2, { search });
     }
     function getAccessTokenRequest(grant_type = null) {
-      assert(oauth22, {
+      assert(oauth2, {
         client_id: /.+/,
         redirect_uri: /.+/
       });
-      if (!oauth22.token_endpoint) {
+      if (!oauth2.token_endpoint) {
         throw metroError("oauth2mw: Missing options.endpoints.token url");
       }
-      let url3 = url2(oauth22.token_endpoint, { hash: "" });
+      let url2 = url(oauth2.token_endpoint, { hash: "" });
       let params2 = {
-        grant_type: grant_type || oauth22.grant_type,
-        client_id: oauth22.client_id
+        grant_type: grant_type || oauth2.grant_type,
+        client_id: oauth2.client_id
       };
-      if (oauth22.client_secret) {
-        params2.client_secret = oauth22.client_secret;
+      if (oauth2.client_secret) {
+        params2.client_secret = oauth2.client_secret;
       }
-      if (oauth22.scope) {
-        params2.scope = oauth22.scope;
+      if (oauth2.scope) {
+        params2.scope = oauth2.scope;
       }
       switch (params2.grant_type) {
         case "authorization_code":
-          params2.redirect_uri = oauth22.redirect_uri;
+          params2.redirect_uri = oauth2.redirect_uri;
           params2.code = options.tokens.get("authorization_code");
           const code_verifier = options.tokens.get("code_verifier");
           if (code_verifier) {
@@ -16124,7 +16111,7 @@
           throw new Error("Unknown grant_type: ".oauth2.grant_type);
           break;
       }
-      return request(url3, { method: "POST", body: new URLSearchParams(params2) });
+      return request(url2, { method: "POST", body: new URLSearchParams(params2) });
     }
   }
   function isExpired(token) {
@@ -16172,10 +16159,10 @@
     return randomState;
   }
   function isRedirected() {
-    let url3 = new URL(document.location.href);
-    if (!url3.searchParams.has("code")) {
-      if (url3.hash) {
-        let query = url3.hash.substr(1);
+    let url2 = new URL(document.location.href);
+    if (!url2.searchParams.has("code")) {
+      if (url2.hash) {
+        let query = url2.hash.substr(1);
         params = new URLSearchParams("?" + query);
         if (params.has("code")) {
           return true;
@@ -16186,7 +16173,23 @@
     return true;
   }
 
-  // ../../node_modules/@muze-nl/metro-oauth2/src/keysstore.mjs
+  // node_modules/@muze-nl/metro-oauth2/src/oauth2.popup.mjs
+  function authorizePopup(authorizationCodeURL) {
+    return new Promise((resolve, reject) => {
+      addEventListener("message", (evt) => {
+        if (event.data.authorization_code) {
+          resolve(event.data.authorization_code);
+        } else if (event.data.error) {
+          reject(event.data.error);
+        } else {
+          reject("Unknown authorization error");
+        }
+      }, { once: true });
+      window.open(authorizationCodeURL);
+    });
+  }
+
+  // node_modules/@muze-nl/metro-oauth2/src/keysstore.mjs
   function keysStore() {
     return new Promise((resolve, reject) => {
       const request2 = globalThis.indexedDB.open("metro", 1);
@@ -16237,7 +16240,7 @@
     });
   }
 
-  // ../../node_modules/dpop/build/index.js
+  // node_modules/dpop/build/index.js
   var encoder = new TextEncoder();
   var decoder = new TextDecoder();
   function buf(input2) {
@@ -16437,7 +16440,7 @@
     return crypto.subtle.generateKey(algorithm, options?.extractable ?? false, ["sign", "verify"]);
   }
 
-  // ../../node_modules/@muze-nl/metro-oauth2/src/oauth2.dpop.mjs
+  // node_modules/@muze-nl/metro-oauth2/src/oauth2.dpop.mjs
   function dpopmw(options) {
     assert(options, {
       site: Required(validURL),
@@ -16454,7 +16457,7 @@
         keyInfo = { domain: options.site, keyPair };
         await keys2.set(keyInfo);
       }
-      const url3 = everything_default.url(req.url);
+      const url2 = everything_default.url(req.url);
       if (req.url.startsWith(options.authorization_endpoint)) {
         let params2 = req.body;
         if (params2 instanceof URLSearchParams || params2 instanceof FormData) {
@@ -16470,7 +16473,7 @@
           }
         });
       } else if (req.headers.has("Authorization")) {
-        const nonce = localStorage.getItem(url3.host + ":nonce") || void 0;
+        const nonce = localStorage.getItem(url2.host + ":nonce") || void 0;
         const accessToken = req.headers.get("Authorization").split(" ")[1];
         const dpopHeader = await DPoP(keyInfo.keyPair, req.url, req.method, nonce, accessToken);
         req = req.with({
@@ -16482,24 +16485,24 @@
       }
       let response2 = await next(req);
       if (response2.headers.get("DPoP-Nonce")) {
-        localStorage.setItem(url3.host + ":nonce", response2.headers.get("DPoP-Nonce"));
+        localStorage.setItem(url2.host + ":nonce", response2.headers.get("DPoP-Nonce"));
       }
       return response2;
     };
   }
 
-  // ../../node_modules/@muze-nl/metro-oidc/src/oidc.util.mjs
+  // node_modules/@muze-nl/metro-oidc/src/oidc.util.mjs
   var MustHave = (...options) => (value, root) => {
     if (options.filter((o) => root.hasOwnKey(o)).length > 0) {
       return false;
     }
-    return error("root data must have all of", root, options);
+    return error2("root data must have all of", root, options);
   };
   var MustInclude = (...options) => (value) => {
     if (Array.isArray(value) && options.filter((o) => !value.includes(o)).length == 0) {
       return false;
     } else {
-      return error("data must be an array which includes", value, options);
+      return error2("data must be an array which includes", value, options);
     }
   };
   var validJWA = [
@@ -16520,7 +16523,7 @@
     "private_key_jwt"
   ];
 
-  // ../../node_modules/@muze-nl/metro-oidc/src/oidc.discovery.mjs
+  // node_modules/@muze-nl/metro-oidc/src/oidc.discovery.mjs
   async function oidcDiscovery(options = {}) {
     assert(options, {
       client: Optional(instanceOf(everything_default.client().constructor)),
@@ -16532,7 +16535,7 @@
     };
     options = Object.assign({}, defaultOptions, options);
     const TestSucceeded = false;
-    function MustUseHTTPS(url3) {
+    function MustUseHTTPS(url2) {
       return TestSucceeded;
     }
     const openid_provider_metadata = {
@@ -16585,7 +16588,7 @@
     return openid_config;
   }
 
-  // ../../node_modules/@muze-nl/metro-oidc/src/oidc.register.mjs
+  // node_modules/@muze-nl/metro-oidc/src/oidc.register.mjs
   async function register(options) {
     const openid_client_metadata = {
       redirect_uris: Required([validURL]),
@@ -16649,7 +16652,7 @@
     return options.client_info;
   }
 
-  // ../../node_modules/@muze-nl/metro-oidc/src/oidc.store.mjs
+  // node_modules/@muze-nl/metro-oidc/src/oidc.store.mjs
   function oidcStore(site) {
     let store;
     if (typeof localStorage !== "undefined") {
@@ -16669,15 +16672,15 @@
     return store;
   }
 
-  // ../../node_modules/@muze-nl/metro-oidc/src/oidcmw.mjs
+  // node_modules/@muze-nl/metro-oidc/src/oidcmw.mjs
   function oidcmw(options = {}) {
     const defaultOptions = {
       client: client(),
       force_authorization: false,
       use_dpop: true,
-      authorize_callback: async (url3) => {
-        if (window.location.href != url3.href) {
-          window.location.replace(url3.href);
+      authorize_callback: async (url2) => {
+        if (window.location.href != url2.href) {
+          window.location.replace(url2.href);
         }
         return false;
       }
@@ -16802,7 +16805,7 @@
     return options.store.get("id_token");
   }
 
-  // ../../node_modules/@muze-nl/metro-oidc/src/browser.mjs
+  // node_modules/@muze-nl/metro-oidc/src/browser.mjs
   var oidc = {
     oidcmw,
     discover: oidcDiscovery,
@@ -16813,9 +16816,9 @@
   if (!globalThis.metro.oidc) {
     globalThis.metro.oidc = oidc;
   }
-  var browser_default2 = oidc;
+  var browser_default = oidc;
 
-  // ../../node_modules/@muze-nl/jaqt/src/jaqt.mjs
+  // node_modules/@muze-nl/jaqt/src/jaqt.mjs
   function isPrimitiveWrapper(data) {
     return [String, Boolean, Number, BigInt].includes(data?.constructor);
   }
@@ -17248,24 +17251,50 @@
   };
   var _ = new Proxy(getPointerFn(), pointerHandler());
 
-  // ../../node_modules/@muze-nl/jsfs-solid/src/SolidAdapter.js
+  // node_modules/@muze-nl/jsfs-solid/src/SolidAdapter.js
   var SolidAdapter = class extends HttpAdapter {
     #client;
     #path;
     constructor(metroClient, path2 = "/", solidConfiguration = {}) {
-      this.#client = client(metroClient).with(browser_default2.oidcmw(solidConfiguration)).with(src_default3(solidConfiguration));
-      this.#path = new Path(path2);
+      metroClient = client(metroClient).with(browser_default.oidcmw(solidConfiguration)).with(src_default3(solidConfiguration));
+      path2 = new Path(path2);
+      super(metroClient, path2);
+      this.#client = metroClient;
+      this.#path = path2;
     }
     get name() {
       return "SolidAdapter";
     }
+    async read(path2) {
+      let response2 = await this.#client.get(path2);
+      let result2 = {
+        type: this.getMimetype(response2),
+        name: Path.filename(path2),
+        http: {
+          headers: response2.headers,
+          status: response2.status,
+          url: response2.url
+        }
+      };
+      if (response2.data) {
+        result2.data = response2.data;
+      }
+      if (result2.type.match(/text\/.*/)) {
+        result2.contents = await response2.text();
+      } else if (result2.type.match(/application\/json.*/)) {
+        result2.contents = await response2.json();
+      } else {
+        result2.contents = await response2.blob();
+      }
+      return result2;
+    }
     async list(path2) {
-      let supportedContentTypes = [
-        "text/turtle"
-      ];
       let result2 = await this.read(path2);
       if (result2.data) {
-        from(result2.data).where({
+        if (!result2.data.primary?.ldp$contains) {
+          throw new Error(path2 + " could not find ldp container", { cause: result2 });
+        }
+        return from(result2.data.primary.ldp$contains).where({
           a: "ldp$Resource"
         }).select({
           filename: (o) => jsfs.path.filename(metro.url(o.id).pathname),
@@ -17278,11 +17307,164 @@
     }
   };
 
-  // ../components/solid-fs.mjs
+  // components/solid-fs.mjs
   var solid_fs_default = {
     actions: {
       solidFSInit: async function(client2, solidConfiguration) {
-        this.jsfs = new browser_default.fs(new SolidAdapter(client2, "/", solidConfiguration));
+        this.jsfs = new src_default4.fs(new SolidAdapter(client2, "/", solidConfiguration));
+      }
+    }
+  };
+
+  // components/solid-drawer.mjs
+  var solid_drawer_default = {
+    html: {
+      "solid-drawer": html`
+	<nav class="solid-drawer-position">
+		<label for="solidDrawerState" class="solid-drawer">
+			<svg class="ds-icon ds-icon-feather">
+	            <use xlink:href="assets/icons/feather-sprite.svg#user"></use>
+	        </svg>
+	    </label>
+        <input type="checkbox" id="solidDrawerState" class="ds-dropdown-state">
+	    <nav class="ds-dropdown-nav ds-dropdown-right ds-align-left">
+	        <ul class="ds-dropdown-list">
+	            <li class="ds-dropdown-item" data-simply-command="webidDialog">WebID</li>
+	            <li class="ds-dropdown-item" data-simply-command="swPreferences">Preferences</li>
+	            <li class="ds-dropdown-item" data-simply-command="swProfile">Profile</li>
+	            <li class="ds-dropdown-item" data-simply-command="swCustomize">Customize</li>
+	        </ul>
+	    </nav>
+	</nav>
+`,
+      "solid-preferences": html`
+<dialog id="solid-preferences-dialog" class="solid-dialog">
+	<button class="ds-button ds-button-close" data-simply-command="solidClose">
+		<svg class="ds-icon ds-icon-feather">
+            <use xlink:href="assets/icons/feather-sprite.svg#x"></use>
+        </svg>		
+	</button>
+<form data-simply-command="solidPreferencesSave">
+	<h2>Preferences</h2>
+	<div class="ds-margin-up ds-alert ds-alert-error" data-flow-field="solid.error"></div>
+	<table class="ds-margin-up">
+		<tr>
+			<th>Light/Dark</th>
+			<td>
+				<label class="ds-inline">
+					<input type="radio" name="solidPreferencesDarkmode" value="0">
+					Light
+				</label>
+				<label class="ds-inline">
+					<input type="radio" name="solidPreferencesDarkmode" value="1">
+					Dark
+				</label>
+				<label class="ds-inline">
+					<input type="radio" name="solidPreferencesDarkmode" value="auto">
+					Auto
+				</label>
+			</td>
+		</tr>
+	</label>
+	<div class="ds-form-buttons">
+		<button class="ds-button ds-button-primary">Save</button>
+	</div>
+</form>
+</dialog>
+		`
+    },
+    css: {
+      "solid-drawer": css`
+			@layer component {
+				.solid-drawer {
+					position: fixed;
+					top: 0;
+					right: 0;
+					clip-path: polygon( 0 0%, 17px 100%, 100% 100%, 100% 0);
+					padding: 6px 10px 6px 25px;
+					background: var(--ds-grey-70);
+					color: white;
+					margin: 0;
+				}
+				.solid-drawer-position .ds-dropdown-item {
+					padding: calc(0.25 * var(--ds-space)) calc(0.5 * var(--ds-space));
+					cursor: pointer;
+					border-bottom: 1px solid var(--ds-grey-20);
+				}
+				.solid-drawer-position .ds-dropdown-item:last-child {
+					border-bottom: 0;
+				}
+				.solid-drawer-position .ds-dropdown-right {
+					right: 6px;
+					top: 31px;
+				}
+			}
+			@layer utility {
+				.ds-inline {
+					display: inline-block;
+				}
+			}
+`,
+      "solid-alert": css`
+			@layer component {
+				.ds-alert:empty {
+					display: none;
+				}
+				.ds-alert {
+					padding: calc(0.5 * var(--ds-space));
+				}
+				.ds-alert-error, .ds-alert-info, .ds-alert-warning {
+					background-color: var(--ds-grey-30);
+				}
+				.ds-alert-error {
+					border-left: 10px solid var(--ds-alert-error-color);
+				}
+				.ds-alert-warning {
+					border-left: 10px solid var(--ds-alert-warning-color);
+				}
+				.ds-alert-info {
+					border-left: 10px solid var(--ds-alert-info-color);
+				}
+			}
+
+			`
+    },
+    commands: {
+      swPreferences: async function() {
+        this.actions.swPreferencesDialog();
+      },
+      solidClose: async function(el) {
+        el.closest("dialog").close();
+      },
+      solidPreferencesSave: async function() {
+        try {
+          await this.actions.swPreferencesSave();
+        } catch (err) {
+          this.actions.solidErrors(err.message);
+        }
+      }
+    },
+    actions: {
+      swPreferencesDialog: async function() {
+        this.actions.solidErrors("");
+        document.getElementById("solid-preferences-dialog").showModal();
+      },
+      swPreferencesDialogClose: async function() {
+        document.getElementById("solid-preferences-dialog").close();
+      },
+      solidErrors: async function(error3) {
+        this.state.solid.error = error3;
+      },
+      swPreferencesSave: async function() {
+        throw new Error("not yet implemented");
+      }
+    },
+    hooks: {
+      start: function(component) {
+        if (!this.state.solid) {
+          this.state.solid = {};
+        }
+        this.container.insertAdjacentHTML("beforeend", component.html["solid-preferences"]);
       }
     }
   };
@@ -17729,6 +17911,8 @@
     --ds-button-shadow: 0;
     --ds-button-shadow-hover: var(--ds-shadow-small);
     --ds-button-radius: 2px;
+    --ds-button-padding: calc(0.5 * var(--ds-line-height));
+    --ds-button-font-size: calc(0.875 * var(--ds-font-size));
   }
 }
 @layer base {
@@ -17743,9 +17927,9 @@
     color: inherit;
     display: inline-block;
     box-sizing: border-box;
-    padding: 0 calc(0.5 * var(--ds-line-height));
+    padding: 0 var(--ds-button-padding);
     vertical-align: middle;
-    font-size: calc(0.875 * var(--ds-font-size));
+    font-size: var(--ds-button-font-size);
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
@@ -18070,12 +18254,13 @@
     min-width: var(--ds-dialog-min-width);
     box-shadow: var(--ds-dialog-shadow);
     padding: 0;
-    z-index: 101;
+    z-index: 1001;
     border-radius: calc(2px + var(--ds-dialog-radius));
   }
   .ds-dialog-narrow {
     width: var(--ds-dialog-narrow);
   }
+
   .ds-dialog-header,
   .ds-dialog-header-image > img {
     border-radius: var(--ds-dialog-radius) var(--ds-dialog-radius) 0 0;
@@ -18509,6 +18694,34 @@
     background: rgba(0,0,0,0.2);
   }
 }`,
+      dsAlert: css`
+@layer theme {
+  :root {
+      --ds-alert-error-color: rgb(253, 143, 143);
+      --ds-alert-warning-color: #FFFFCC;
+      --ds-alert-info-color: rgb(140, 180, 250);
+  }
+}
+@layer component {
+  .ds-alert {
+      padding: 0.05px; /* contain child margins */
+  }
+  @supports (display: flow-root) {
+      .ds-alert {
+          display: flow-root;
+          padding: 0;
+      }
+  }
+  .ds-alert-error {
+      background-color: var(--ds-alert-error-color);
+  }
+  .ds-alert-warning {
+      background-color: var(--ds-alert-warning-color);
+  }
+  .ds-alert-info {
+      background-color: var(--ds-alert-info-color);
+  }
+}`,
       dsToast: css`@layer theme {
   :root {
     --ds-toast-height: 60px;
@@ -18521,9 +18734,9 @@
     --ds-toast-background: var(--ds-grey-80);
     --ds-toast-font-color: var(--ds-white);
     --ds-toast-default-color: var(--ds-grey-50);
-    --ds-toast-error-color: var(--ds-error-color);
-    --ds-toast-info-color: var(--ds-info-color);
-    --ds-toast-warning-color: var(--ds-warning-color);
+    --ds-toast-error-color: var(--ds-alert-error-color);
+    --ds-toast-info-color: var(--ds-alert-info-color);
+    --ds-toast-warning-color: var(--ds-alert-warning-color);
   }
 }
 @layer component {
@@ -18683,15 +18896,86 @@
     }
   };
 
-  // index.mjs
+  // podlist/index.mjs
   var podlist = simply.app({
+    css: {
+      solidTheme: css`
+			@layer theme {
+				:root {
+					--ds-primary: rgb(83, 80, 169);
+					--ds-box-radius: 0;
+				}
+			}
+			`,
+      solidDialog: css`
+			@layer component {
+				.solid-dialog .ds-button-close {
+					box-shadow: none;
+					margin: 0;
+				    right: 0;
+				    min-height: 0;
+				    line-height: 1rem;
+				    top: 0;
+				    color: white;
+				    border-radius: 0;
+				    clip-path: polygon( 0 0%, 17px 100%, 100% 100%, 100% 0);
+				    padding-left: 25px;
+				    background: var(--ds-grey-60);
+				}
+				.solid-dialog .ds-form-buttons {
+					position: absolute;
+					bottom: 0;
+					background: var(--ds-grey-40);
+					margin-left: -1em;
+					padding-left: 1em;
+					padding-top: calc(0.5 * var(--ds-space));
+					width: 66%;
+					clip-path: polygon( 0 0%, 0 100%, 100% 100%, calc(100% - 30px) 0);
+				}
+				.solid-dialog {
+					opacity: 0;
+					transform: scale(0.7)
+				}
+				.solid-dialog[open] {
+					animation: fadeIn .2s forwards;
+				}
+				@keyframes fadeIn {
+				  0%{
+				    opacity:0;
+				    transform: scale(0.7)
+				  }
+				  100%{
+				    opacity:1;
+				    transform: scale(1)
+				  }
+				}
+				@media screen and (max-width: 480px) {
+					.solid-dialog {
+						width: 100vw;
+						height: 100vh;
+					}
+				}
+			}`
+    },
     actions: {
       webidSave: async function(webidURL) {
+        this.actions.webidErrors("");
         const result2 = await solid_webid_default.actions.webidSave.call(this, webidURL);
         if (result2) {
           this.state.profileJSON = JSON.stringify(this.state.webid.profile, null, 4);
           const issuer = this.state.webid.profile.solid$oidcIssuer;
           this.state.solidConfiguration.issuer = issuer;
+          let pod = this.state.webid.profile.space$storage;
+          if (Array.isArray(pod)) {
+            pod = pod[0];
+          }
+          if (!pod?.id) {
+            this.actions.webidErrors("Geen storage pod gevonden in uw webid profiel");
+            return;
+          }
+          await this.actions.solidFSInit(pod.id, this.state.solidConfiguration);
+          let files = await this.jsfs.list();
+          this.state.profileJSON = JSON.stringify(files, null, 4);
         }
         return result2;
       }
@@ -18705,7 +18989,8 @@
           redirect_uris: [
             new URL("redirect.html", window.location.href)
           ]
-        }
+        },
+        authorize_callback: authorizePopup
       }
     }),
     hooks: {
@@ -18713,13 +18998,17 @@
         simply.bind({
           root: this.state
         });
-        this.state.solidConfiguration.authorize_callback = oauth2.authorizePopup;
+        delete document.body.dataset.swLoading;
+        if (!this.state.webid?.id) {
+          this.actions.webidDialog();
+        }
       }
     },
     components: {
       theds: theds_default,
       webid: solid_webid_default,
-      solidFS: solid_fs_default
+      solidFS: solid_fs_default,
+      solidDrawer: solid_drawer_default
     }
   });
   podlist.start();

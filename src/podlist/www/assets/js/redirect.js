@@ -22,7 +22,7 @@
     }
   }
 
-  // redirect.mjs
+  // podlist/redirect.mjs
   handleRedirect();
   window.close();
 })();

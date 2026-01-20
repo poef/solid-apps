@@ -5,7 +5,7 @@ import oldmmw from '@muze-nl/metro-oldm'
 export default {
 	html: {
 		webid: html`
-<dialog id="webidDialog" class="webid-dialog">
+<dialog id="webidDialog" class="solid-dialog">
 	<button class="ds-button ds-button-close" data-simply-command="webidClose">
 		<svg class="ds-icon ds-icon-feather">
             <use xlink:href="assets/icons/feather-sprite.svg#x"></use>
@@ -36,22 +36,23 @@ export default {
 }
 @layer component {
 	:root {
-		--webid-space: var(--ds-space);
-		--webid-dialog-shadow: var(--ds-dialog-shadow);
-		--webid-dialog-radius: var(--ds-dialog-radius);
-		--webid-dialog-width: 400px;
-		--webid-dialog-height: 300px;
-		--webid-dialog-backdrop: var(--ds-dialog-backdrop);
+		--solid-dialog-shadow: var(--ds-dialog-shadow);
+		--solid-dialog-radius: var(--ds-dialog-radius);
+		--solid-dialog-width: 400px;
+		--solid-dialog-height: 300px;
+		--solid-dialog-backdrop: var(--ds-dialog-backdrop);
+		--solid-dialog-outline: 1px solid var(--ds-grey-40);
 	}
-	.webid-dialog {
-		width: var(--webid-dialog-width);
-		height: var(--webid-dialog-height);
+	.solid-dialog {
+		width: var(--solid-dialog-width);
+		height: var(--solid-dialog-height);
 		border: 0;
-		border-radius: var(--webid-dialog-radius);
-		box-shadow: var(--webid-dialog-shadow);
+		border-radius: var(--solid-dialog-radius);
+		box-shadow: var(--solid-dialog-shadow);
+		outline: var(--solid-dialog-outline);
 	}
-	.webid-dialog::backdrop {
-		background: var(--webid-dialog-backdrop);
+	.solid-dialog::backdrop {
+		background: var(--solid-dialog-backdrop);
 		backdrop-filter: blur(16px);
 	}
 }
@@ -63,8 +64,7 @@ export default {
 	},
 	commands: {
 		webidDialog: async function(el, value) {
-			this.actions.webidErrors('')
-			document.getElementById('webidDialog').showModal()
+			this.actions.webidDialog()
 		},
 		webidSave: async function(form, values) {
 			if (!values.webidURL) {
@@ -98,6 +98,10 @@ export default {
 				}
 			}
 			Object.assign(this.state.webid.config, config)
+		},
+		webidDialog: async function() {
+			this.actions.webidErrors('')
+			document.getElementById('webidDialog').showModal()
 		},
 		webidSave: async function(webID) {
 			let linkeddata
