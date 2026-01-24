@@ -66,6 +66,7 @@ export default {
 					background: var(--ds-grey-70);
 					color: white;
 					margin: 0;
+					z-index: 1001;
 				}
 				.solid-drawer-position .ds-dropdown-item {
 					padding: calc(0.25 * var(--ds-space)) calc(0.5 * var(--ds-space));
