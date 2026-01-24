@@ -18,7 +18,7 @@
     "@muze-nl/oldm": "^0.3.6",
     "@muze-nl/theds": "^0.1.5",
     "simplyflow": "^0.5.0",
-    "simplyview": "^3.4.3"
+    "simplyview": "^3.4.4"
   },
   "devDependencies": {
     "esbuild": "^0.25.12",

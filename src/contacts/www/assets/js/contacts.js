@@ -8081,7 +8081,7 @@
     }
   });
 
-  // ../../../simplyedit/simplyview/src/activate.mjs
+  // node_modules/simplyview/src/activate.mjs
   if (!Symbol.onDestroy) {
     Symbol.onDestroy = Symbol("onDestroy");
   }
@@ -8162,7 +8162,7 @@
     childList: true
   });
 
-  // ../../../simplyedit/simplyview/src/action.mjs
+  // node_modules/simplyview/src/action.mjs
   function actions(options, optionsCompat) {
     if (optionsCompat) {
       let app2 = options;
@@ -8229,7 +8229,7 @@
     }
   }
 
-  // ../../../simplyedit/simplyview/src/route.mjs
+  // node_modules/simplyview/src/route.mjs
   function routes(options, optionsCompat) {
     if (optionsCompat) {
       let app2 = options;
@@ -8448,7 +8448,7 @@
     return routeInfo;
   }
 
-  // ../../../simplyedit/simplyview/src/command.mjs
+  // node_modules/simplyview/src/command.mjs
   var SimplyCommands = class {
     constructor(options = {}) {
       if (!options.app) {
@@ -8593,7 +8593,7 @@
     }
   ];
 
-  // ../../../simplyedit/simplyview/src/key.mjs
+  // node_modules/simplyview/src/key.mjs
   var KEY = Object.freeze({
     Compose: 229,
     Control: 17,
@@ -8693,7 +8693,7 @@
     return new SimplyKey(options);
   }
 
-  // ../../../simplyedit/simplyview/src/view.mjs
+  // node_modules/simplyview/src/view.mjs
   function view(options, optionsCompat) {
     if (optionsCompat) {
       let app2 = options;
@@ -8719,7 +8719,7 @@
     }
   }
 
-  // ../../../simplyedit/simplyview/src/highlight.mjs
+  // node_modules/simplyview/src/highlight.mjs
   function html2(strings, ...values) {
     const outputArray = values.map(
       (value, index) => `${strings[index]}${value}`
@@ -8730,7 +8730,7 @@
     return html2(strings, ...values);
   }
 
-  // ../../../simplyedit/simplyview/src/app.mjs
+  // node_modules/simplyview/src/app.mjs
   var SimplyApp = class {
     constructor(options = {}) {
       this.container = options.container || document.body;
@@ -8913,7 +8913,7 @@
     }
   }
 
-  // ../../../simplyedit/simplyview/src/include.mjs
+  // node_modules/simplyview/src/include.mjs
   function throttle(callbackFunction, intervalTime) {
     let eventId = 0;
     return () => {
@@ -9085,7 +9085,7 @@
   observe();
   handleChanges2();
 
-  // ../../../simplyedit/simplyview/src/path.mjs
+  // node_modules/simplyview/src/path.mjs
   var path = {
     get(dataset, pointer) {
       if (typeof pointer !== "string") {
@@ -9123,7 +9123,7 @@
   };
   var path_default = path;
 
-  // ../../../simplyedit/simplyview/src/render.mjs
+  // node_modules/simplyview/src/render.mjs
   var SimplyRender = class extends HTMLElement {
     constructor() {
       super();
@@ -9166,7 +9166,7 @@
   };
   observe2();
 
-  // ../../../simplyedit/simplyview/src/everything.mjs
+  // node_modules/simplyview/src/everything.mjs
   var simply2 = {
     activate,
     action: actions,

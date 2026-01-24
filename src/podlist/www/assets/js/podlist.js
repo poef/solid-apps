@@ -1829,11 +1829,11 @@
         ArrayIsArray(self2) {
           return Array.isArray(self2);
         },
-        ArrayPrototypeIncludes(self2, el) {
-          return self2.includes(el);
+        ArrayPrototypeIncludes(self2, el2) {
+          return self2.includes(el2);
         },
-        ArrayPrototypeIndexOf(self2, el) {
-          return self2.indexOf(el);
+        ArrayPrototypeIndexOf(self2, el2) {
+          return self2.indexOf(el2);
         },
         ArrayPrototypeJoin(self2, sep) {
           return self2.join(sep);
@@ -1841,11 +1841,11 @@
         ArrayPrototypeMap(self2, fn) {
           return self2.map(fn);
         },
-        ArrayPrototypePop(self2, el) {
-          return self2.pop(el);
+        ArrayPrototypePop(self2, el2) {
+          return self2.pop(el2);
         },
-        ArrayPrototypePush(self2, el) {
-          return self2.push(el);
+        ArrayPrototypePush(self2, el2) {
+          return self2.push(el2);
         },
         ArrayPrototypeSlice(self2, start, end) {
           return self2.slice(start, end);
@@ -8156,8 +8156,8 @@
       callListeners(node);
     }
   }
-  var observer = new MutationObserver(handleChanges);
-  observer.observe(document, {
+  var observer2 = new MutationObserver(handleChanges);
+  observer2.observe(document, {
     subtree: true,
     childList: true
   });
@@ -8483,12 +8483,12 @@
       options.app.container.addEventListener("change", commandHandler);
       options.app.container.addEventListener("input", commandHandler);
     }
-    call(command, el, value) {
+    call(command, el2, value) {
       if (!this[command]) {
         console.error("simply.command: undefined command " + command);
         return;
       }
-      return this[command].call(this.app, el, value);
+      return this[command].call(this.app, el2, value);
     }
     action(name) {
       console.warn("deprecated call to `this.commands.action`");
@@ -8512,15 +8512,15 @@
     return new SimplyCommands(options);
   }
   function getCommand(evt, handlers) {
-    var el = evt.target.closest("[data-simply-command]");
-    if (el) {
+    var el2 = evt.target.closest("[data-simply-command]");
+    if (el2) {
       for (let handler of handlers) {
-        if (el.matches(handler.match)) {
-          if (handler.check(el, evt)) {
+        if (el2.matches(handler.match)) {
+          if (handler.check(el2, evt)) {
             return {
-              name: el.dataset.simplyCommand,
-              source: el,
-              value: handler.get(el)
+              name: el2.dataset.simplyCommand,
+              source: el2,
+              value: handler.get(el2)
             };
           }
           return null;
@@ -8532,36 +8532,36 @@
   var defaultHandlers = [
     {
       match: "input,select,textarea",
-      get: function(el) {
-        if (el.tagName === "SELECT" && el.multiple) {
+      get: function(el2) {
+        if (el2.tagName === "SELECT" && el2.multiple) {
           let values = [];
-          for (let option of el.options) {
+          for (let option of el2.options) {
             if (option.selected) {
               values.push(option.value);
             }
           }
           return values;
         }
-        return el.dataset.simplyValue || el.value;
+        return el2.dataset.simplyValue || el2.value;
       },
-      check: function(el, evt) {
-        return evt.type == "change" || el.dataset.simplyImmediate && evt.type == "input";
+      check: function(el2, evt) {
+        return evt.type == "change" || el2.dataset.simplyImmediate && evt.type == "input";
       }
     },
     {
       match: "a,button",
-      get: function(el) {
-        return el.dataset.simplyValue || el.href || el.value;
+      get: function(el2) {
+        return el2.dataset.simplyValue || el2.href || el2.value;
       },
-      check: function(el, evt) {
+      check: function(el2, evt) {
         return evt.type == "click" && evt.ctrlKey == false && evt.button == 0;
       }
     },
     {
       match: "form",
-      get: function(el) {
+      get: function(el2) {
         let data = {};
-        for (let input2 of Array.from(el.elements)) {
+        for (let input2 of Array.from(el2.elements)) {
           if (input2.tagName == "INPUT" && (input2.type == "checkbox" || input2.type == "radio")) {
             if (!input2.checked) {
               return;
@@ -8578,16 +8578,16 @@
         }
         return data;
       },
-      check: function(el, evt) {
+      check: function(el2, evt) {
         return evt.type == "submit";
       }
     },
     {
       match: "*",
-      get: function(el) {
-        return el.dataset.simplyValue;
+      get: function(el2) {
+        return el2.dataset.simplyValue;
       },
-      check: function(el, evt) {
+      check: function(el2, evt) {
         return evt.type == "click" && evt.ctrlKey == false && evt.button == 0;
       }
     }
@@ -8943,7 +8943,7 @@
     }
     return url2.href;
   }
-  var observer2;
+  var observer3;
   var loaded = {};
   var head = globalThis.document.querySelector("head");
   var currentScript = globalThis.document.currentScript;
@@ -9076,8 +9076,8 @@
     });
   });
   var observe = () => {
-    observer2 = new MutationObserver(handleChanges2);
-    observer2.observe(globalThis.document, {
+    observer3 = new MutationObserver(handleChanges2);
+    observer3.observe(globalThis.document, {
       subtree: true,
       childList: true
     });
@@ -9094,10 +9094,9 @@
       if (!pointer) {
         return dataset;
       }
-      pointer.split(".").reduce(function(acc, name) {
+      return pointer.split(".").reduce(function(acc, name) {
         return acc && acc[name] ? acc[name] : null;
       }, dataset);
-      return dataset;
     },
     set: function(dataset, pointer, value) {
       const parent = path.get(dataset, path.parent(pointer));
@@ -9128,6 +9127,8 @@
   var SimplyRender = class extends HTMLElement {
     constructor() {
       super();
+    }
+    connectedCallback() {
       let templateId = this.getAttribute("rel");
       let template = document.getElementById(templateId);
       if (template) {
@@ -9148,6 +9149,22 @@
   if (!customElements.get("simply-render")) {
     customElements.define("simply-render", SimplyRender);
   }
+  var handleChanges3 = () => {
+    const simplyrenders = globalThis.document.querySelectorAll("simply-render[rel]");
+    for (el of simplyrenders) {
+      if (document.querySelector("template#" + el.getAttribute("rel"))) {
+        el.replaceWith(el);
+      }
+    }
+  };
+  var observe2 = () => {
+    observer = new MutationObserver(handleChanges3);
+    observer.observe(globalThis.document, {
+      subtree: true,
+      childList: true
+    });
+  };
+  observe2();
 
   // node_modules/simplyview/src/everything.mjs
   var simply2 = {
@@ -9746,8 +9763,8 @@
       context.element.appendChild(clone);
     }
   }
-  function getParentPath(el, attribute) {
-    const parentEl = el.parentElement?.closest(`[${attribute}-list],[${attribute}-map]`);
+  function getParentPath(el2, attribute) {
+    const parentEl = el2.parentElement?.closest(`[${attribute}-list],[${attribute}-map]`);
     if (!parentEl) {
       return "";
     }
@@ -9757,20 +9774,20 @@
     return parentEl.getAttribute(`${attribute}-map`) + ".";
   }
   function input(context) {
-    const el = context.element;
+    const el2 = context.element;
     let value = context.value;
     element(context);
     if (typeof value == "undefined") {
       value = "";
     }
-    if (el.type == "checkbox" || el.type == "radio") {
-      if (matchValue(el.value, value)) {
-        el.checked = true;
+    if (el2.type == "checkbox" || el2.type == "radio") {
+      if (matchValue(el2.value, value)) {
+        el2.checked = true;
       } else {
-        el.checked = false;
+        el2.checked = false;
       }
-    } else if (!matchValue(el.value, value)) {
-      el.value = "" + value;
+    } else if (!matchValue(el2.value, value)) {
+      el2.value = "" + value;
     }
   }
   function button(context) {
@@ -9778,15 +9795,15 @@
     setProperties(context.element, context.value, "value");
   }
   function select(context) {
-    const el = context.element;
+    const el2 = context.element;
     let value = context.value;
     if (value === null) {
       value = "";
     }
     if (typeof value != "object") {
-      if (el.multiple) {
+      if (el2.multiple) {
         if (Array.isArray(value)) {
-          for (let option of el.options) {
+          for (let option of el2.options) {
             if (value.indexOf(option.value) === false) {
               option.selected = false;
             } else {
@@ -9795,7 +9812,7 @@
           }
         }
       } else {
-        let option = el.options.find((o) => matchValue(o.value, value));
+        let option = el2.options.find((o) => matchValue(o.value, value));
         if (option) {
           option.selected = true;
           option.setAttribute("selected", true);
@@ -9803,12 +9820,12 @@
       }
     } else {
       if (value.options) {
-        setSelectOptions(el, value.options);
+        setSelectOptions(el2, value.options);
       }
       if (value.selected) {
         select(Object.asssign({}, context, { value: value.selected }));
       }
-      setProperties(el, value, "name", "id", "selectedIndex", "className");
+      setProperties(el2, value, "name", "id", "selectedIndex", "className");
     }
   }
   function addOption(select2, option) {
@@ -9849,19 +9866,19 @@
     setProperties(context.element, context.value, "content", "id");
   }
   function element(context) {
-    const el = context.element;
+    const el2 = context.element;
     let value = context.value;
     if (typeof value == "undefined" || value == null) {
       value = "";
     }
     let strValue = "" + value;
     if (typeof value != "object" || strValue.substring(0, 8) != "[object ") {
-      el.innerHTML = strValue;
+      el2.innerHTML = strValue;
       return;
     }
-    setProperties(el, value, "innerHTML", "title", "id", "className");
+    setProperties(el2, value, "innerHTML", "title", "id", "className");
   }
-  function setProperties(el, data, ...properties) {
+  function setProperties(el2, data, ...properties) {
     if (!data || typeof data !== "object") {
       return;
     }
@@ -9869,13 +9886,13 @@
       if (typeof data[property] === "undefined") {
         continue;
       }
-      if (matchValue(el[property], data[property])) {
+      if (matchValue(el2[property], data[property])) {
         continue;
       }
       if (data[property] === null) {
-        el[property] = "";
+        el2[property] = "";
       } else {
-        el[property] = "" + data[property];
+        el2[property] = "" + data[property];
       }
     }
   }
@@ -9942,28 +9959,28 @@
       const attribute = this.options.attribute;
       const bindAttributes = [attribute + "-field", attribute + "-list", attribute + "-map"];
       const transformAttribute = attribute + "-transform";
-      const getBindingAttribute = (el) => {
-        const foundAttribute = bindAttributes.find((attr) => el.hasAttribute(attr));
+      const getBindingAttribute = (el2) => {
+        const foundAttribute = bindAttributes.find((attr) => el2.hasAttribute(attr));
         if (!foundAttribute) {
-          console.error("No matching attribute found", el, bindAttributes);
+          console.error("No matching attribute found", el2, bindAttributes);
         }
         return foundAttribute;
       };
-      const renderElement = (el) => {
-        this.bindings.set(el, throttledEffect(() => {
-          if (!el.isConnected) {
-            untrack(el, this.getBindingPath(el));
-            destroy(this.bindings.get(el));
+      const renderElement = (el2) => {
+        this.bindings.set(el2, throttledEffect(() => {
+          if (!el2.isConnected) {
+            untrack(el2, this.getBindingPath(el2));
+            destroy(this.bindings.get(el2));
             return;
           }
           let context = {
-            templates: el.querySelectorAll(":scope > template"),
-            attribute: getBindingAttribute(el)
+            templates: el2.querySelectorAll(":scope > template"),
+            attribute: getBindingAttribute(el2)
           };
-          context.path = this.getBindingPath(el);
+          context.path = this.getBindingPath(el2);
           context.value = getValueByPath(this.options.root, context.path);
-          context.element = el;
-          track(el, context);
+          context.element = el2;
+          track(el2, context);
           runTransformers(context);
         }, 50));
       };
@@ -10117,15 +10134,15 @@
      * @param HTMLElement el
      * @return string The path referenced, or void
      */
-    getBindingPath(el) {
+    getBindingPath(el2) {
       const attributes = [
         this.options.attribute + "-field",
         this.options.attribute + "-list",
         this.options.attribute + "-map"
       ];
       for (let attr of attributes) {
-        if (el.hasAttribute(attr)) {
-          return el.getAttribute(attr);
+        if (el2.hasAttribute(attr)) {
+          return el2.getAttribute(attr);
         }
       }
     }
@@ -10192,17 +10209,17 @@
     return new SimplyBind(options);
   }
   var tracking = /* @__PURE__ */ new Map();
-  function track(el, context) {
+  function track(el2, context) {
     if (!tracking.has(context.path)) {
       tracking.set(context.path, [context]);
     } else {
       tracking.get(context.path).push(context);
     }
   }
-  function untrack(el, path2) {
+  function untrack(el2, path2) {
     let list2 = tracking.get(path2);
     if (list2) {
-      list2 = list2.filter((context) => context.element == el);
+      list2 = list2.filter((context) => context.element == el2);
       tracking.set(path2, list2);
     }
   }
@@ -15160,7 +15177,7 @@
 		`
     },
     commands: {
-      webidDialog: async function(el, value) {
+      webidDialog: async function(el2, value) {
         this.actions.webidDialog();
       },
       webidSave: async function(form, values) {
@@ -15173,7 +15190,7 @@
           document.getElementById("webidDialog").close();
         }
       },
-      webidClose: async function(el, value) {
+      webidClose: async function(el2, value) {
         document.getElementById("webidDialog").close();
       }
     },
@@ -17385,6 +17402,7 @@
 					background: var(--ds-grey-70);
 					color: white;
 					margin: 0;
+					z-index: 1001;
 				}
 				.solid-drawer-position .ds-dropdown-item {
 					padding: calc(0.25 * var(--ds-space)) calc(0.5 * var(--ds-space));
@@ -17433,8 +17451,8 @@
       swPreferences: async function() {
         this.actions.swPreferencesDialog();
       },
-      solidClose: async function(el) {
-        el.closest("dialog").close();
+      solidClose: async function(el2) {
+        el2.closest("dialog").close();
       },
       solidPreferencesSave: async function() {
         try {
@@ -18960,7 +18978,7 @@
     actions: {
       webidSave: async function(webidURL) {
         this.actions.webidErrors("");
-        const result2 = await solid_webid_default.actions.webidSave.call(this, webidURL);
+        const result2 = await this.components.webid.actions.webidSave.call(this, webidURL);
         if (result2) {
           this.state.profileJSON = JSON.stringify(this.state.webid.profile, null, 4);
           const issuer = this.state.webid.profile.solid$oidcIssuer;
