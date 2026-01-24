@@ -69,7 +69,7 @@ const podlist = simply.app({
 	actions: {
 		webidSave: async function(webidURL) {
 			this.actions.webidErrors('')
-			const result = await webid.actions.webidSave.call(this, webidURL)
+			const result = await this.components.webid.actions.webidSave.call(this, webidURL)
 			if (result) {
 				this.state.profileJSON = JSON.stringify(this.state.webid.profile, null, 4)
 				const issuer = this.state.webid.profile.solid$oidcIssuer
