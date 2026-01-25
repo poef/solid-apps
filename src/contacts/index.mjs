@@ -31,13 +31,37 @@ const contacts = simply.app({
 			contactsModel.addEffect(simply.flow.sort({
 				sortBy: 'sort_name'
 			}))
+			contactsModel.addEffect(simply.flow.filter({
+				name: 'name',
+				filters: {
+					text: ''
+				},
+				enabled: true,
+				properties: ['last_name','first_name'],
+				matches: function(p) {
+					if (!this.filters.text) {
+						return true
+					}
+					const filterBy = new RegExp(this.filters.text, 'i')
+					for (const prop of this.properties) {
+						if (p[prop].match(filterBy)) {
+							return true
+						}
+					}
+					return false
+				}
+			}))
 			contactsModel.addEffect(function(data) {
 				let result = {}
 				for (const entry of data.current) {
 					const capital = entry.sort_name[0]
 					if (!result[capital]) {
 						result[capital] = {
-							capital,
+							capital: {
+								innerHTML: capital,
+								href: '#'+capital,
+								name: capital
+							},
 							entries: []
 						}
 					}
@@ -93,4 +117,4 @@ const contacts = simply.app({
 })
 contacts.start()
 
-globalThis.contacts = contacts
+globalThis.contactsApp = contacts
