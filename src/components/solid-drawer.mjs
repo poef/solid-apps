@@ -19,13 +19,13 @@ export default {
 	</nav>
 `,
 	'solid-preferences': html`
-<dialog id="solid-preferences-dialog" class="solid-dialog">
+<dialog id="solid-preferences-dialog" class="ds-dialog">
 	<button class="ds-button ds-button-close" data-simply-command="solidClose">
 		<svg class="ds-icon ds-icon-feather">
             <use xlink:href="assets/icons/feather-sprite.svg#x"></use>
         </svg>		
 	</button>
-<form data-simply-command="solidPreferencesSave">
+<form data-simply-command="solidPreferencesSave" class="ds-space">
 	<h2>Preferences</h2>
 	<div class="ds-margin-up ds-alert ds-alert-error" data-flow-field="solid.error"></div>
 	<table class="ds-margin-up">
@@ -33,20 +33,20 @@ export default {
 			<th>Light/Dark</th>
 			<td>
 				<label class="ds-inline">
-					<input type="radio" name="solidPreferencesDarkmode" value="0">
+					<input type="radio" name="solidPreferencesDarkmode" value="0" data-simply-command="solidDarkmode">
 					Light
 				</label>
 				<label class="ds-inline">
-					<input type="radio" name="solidPreferencesDarkmode" value="1">
+					<input type="radio" name="solidPreferencesDarkmode" value="1" data-simply-command="solidDarkmode">
 					Dark
 				</label>
 				<label class="ds-inline">
-					<input type="radio" name="solidPreferencesDarkmode" value="auto">
+					<input type="radio" name="solidPreferencesDarkmode" value="auto" data-simply-command="solidDarkmode">
 					Auto
 				</label>
 			</td>
 		</tr>
-	</label>
+	</table>
 	<div class="ds-form-buttons">
 		<button class="ds-button ds-button-primary">Save</button>
 	</div>
@@ -57,21 +57,23 @@ export default {
 	css: {
 		'solid-drawer': css`
 			@layer component {
-				.solid-drawer {
+				.solid-drawer-position {
 					position: fixed;
 					top: 0;
 					right: 0;
+					z-index: 100;
+				}
+				.solid-drawer {
 					clip-path: polygon( 0 0%, 17px 100%, 100% 100%, 100% 0);
 					padding: 6px 10px 6px 25px;
 					background: var(--ds-grey-70);
 					color: white;
 					margin: 0;
-					z-index: 1001;
 				}
 				.solid-drawer-position .ds-dropdown-item {
 					padding: calc(0.25 * var(--ds-space)) calc(0.5 * var(--ds-space));
 					cursor: pointer;
-					border-bottom: 1px solid var(--ds-grey-20);
+					border-bottom: 1px solid var(--ds-grey-low);
 				}
 				.solid-drawer-position .ds-dropdown-item:last-child {
 					border-bottom: 0;
@@ -79,6 +81,9 @@ export default {
 				.solid-drawer-position .ds-dropdown-right {
 					right: 6px;
 					top: 31px;
+				}
+				a[data-simply-command] {
+					cursor: pointer;
 				}
 			}
 			@layer utility {
@@ -123,6 +128,21 @@ export default {
 				await this.actions.swPreferencesSave()
 			} catch(err) {
 				this.actions.solidErrors(err.message)
+			}
+		},
+		solidDarkmode: async function(el, value) {
+			if (value=='auto') {
+				document.body.classList.add('ds-darkmode-auto')
+				document.body.classList.remove('ds-darkmode')
+				document.body.classList.remove('ds-lightmode')
+			} else if (value=='1') {
+				document.body.classList.add('ds-darkmode')
+				document.body.classList.remove('ds-lightmode')
+				document.body.classList.remove('ds-darkmode-auto')
+			} else {
+				document.body.classList.add('ds-lightmode')
+				document.body.classList.remove('ds-darkmode')
+				document.body.classList.remove('ds-darkmode-auto')
 			}
 		}
 	},
