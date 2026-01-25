@@ -6,13 +6,18 @@ import {html,css} from 'simplyview/src/highlight.mjs'
 export default {
 	html: {
 		'solid-contacts': html`
-<div class="solid-contacts" data-flow-list="contacts.view.current">
+<div class="solid-contacts" data-flow-map="contacts.view">
 	<template>
-		<div class="solid-contacts-entry">
-			<span class="solid-contacts-avatar"></span>
-			<div class="solid-contacts-name">
-				<span class="solid-contacts-lastname" data-flow-field="last_name" data-flow-transform="firstLetterBlock"></span>,
-				<span class="solid-contacts-firstname" data-flow-field="first_name"></span>
+		<div class="solid-contacts-section">
+			<div class="solid-contacts-letter" data-flow-field="capital"></div>
+			<div class="solid-contacts-list" data-flow-list="entries">
+				<template>
+					<div class="solid-contacts-entry">
+						<span class="solid-contacts-avatar"></span>
+						<span class="solid-contacts-lastname" data-flow-field="last_name"></span>,
+						<span class="solid-contacts-firstname" data-flow-field="first_name"></span>
+					</div>
+				</template>
 			</div>
 		</div>
 	</template>
@@ -28,6 +33,8 @@ export default {
 					background: var(--ds-white);
 				}
 				.solid-contacts-letter {
+					background: var(--ds-primary);
+					color: var(--ds-primary-contrast);
 					width: calc(var(--ds-space-d2) + var(--ds-line-height));
 					padding: var(--ds-space-d4);
 					text-align: center;
@@ -48,28 +55,5 @@ export default {
 				}
 			}
 		`
-	},
-	transformers: {
-		firstLetterBlock: function(context, next) {
-			const capitalPos = context.value.search(/[A-Z]/)
-			let firstLetter
-			if (capitalPos == -1) {
-				firstLetter = '#'
-			} else {
-				firstLetter = context.value[capitalPos].toUpperCase()
-			}
-			const list = context.element.closest('[data-flow-list]')
-			if (firstLetter!=list.firstLetter) {
-				list.firstLetter = firstLetter
-				const letterBlock = html`<div class="solid-contacts-letter ds-bg-primary">
-					${firstLetter.toUpperCase()}
-				</div>`
-				const templ = document.createElement('template')
-				templ.innerHTML = letterBlock
-				context.element.closest('.solid-contacts')
-					.insertBefore(templ.content, context.element.closest('.solid-contacts-entry'))
-			}
-			next(context)
-		}
 	}
 }

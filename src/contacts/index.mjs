@@ -31,6 +31,20 @@ const contacts = simply.app({
 			contactsModel.addEffect(simply.flow.sort({
 				sortBy: 'sort_name'
 			}))
+			contactsModel.addEffect(function(data) {
+				let result = {}
+				for (const entry of data.current) {
+					const capital = entry.sort_name[0]
+					if (!result[capital]) {
+						result[capital] = {
+							capital,
+							entries: []
+						}
+					}
+					result[capital].entries.push(entry)
+				}
+				return result
+			})
 			this.state.contacts = contactsModel
 			console.log('contacts',contactsModel)
 		}

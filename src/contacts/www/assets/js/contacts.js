@@ -17491,13 +17491,18 @@
   var solid_contacts_default = {
     html: {
       "solid-contacts": html2`
-<div class="solid-contacts" data-flow-list="contacts.view.current">
+<div class="solid-contacts" data-flow-map="contacts.view">
 	<template>
-		<div class="solid-contacts-entry">
-			<span class="solid-contacts-avatar"></span>
-			<div class="solid-contacts-name">
-				<span class="solid-contacts-lastname" data-flow-field="last_name" data-flow-transform="firstLetterBlock"></span>,
-				<span class="solid-contacts-firstname" data-flow-field="first_name"></span>
+		<div class="solid-contacts-section">
+			<div class="solid-contacts-letter" data-flow-field="capital"></div>
+			<div class="solid-contacts-list" data-flow-list="entries">
+				<template>
+					<div class="solid-contacts-entry">
+						<span class="solid-contacts-avatar"></span>
+						<span class="solid-contacts-lastname" data-flow-field="last_name"></span>,
+						<span class="solid-contacts-firstname" data-flow-field="first_name"></span>
+					</div>
+				</template>
 			</div>
 		</div>
 	</template>
@@ -17513,6 +17518,8 @@
 					background: var(--ds-white);
 				}
 				.solid-contacts-letter {
+					background: var(--ds-primary);
+					color: var(--ds-primary-contrast);
 					width: calc(var(--ds-space-d2) + var(--ds-line-height));
 					padding: var(--ds-space-d4);
 					text-align: center;
@@ -17533,28 +17540,6 @@
 				}
 			}
 		`
-    },
-    transformers: {
-      firstLetterBlock: function(context, next) {
-        const capitalPos = context.value.search(/[A-Z]/);
-        let firstLetter;
-        if (capitalPos == -1) {
-          firstLetter = "#";
-        } else {
-          firstLetter = context.value[capitalPos].toUpperCase();
-        }
-        const list2 = context.element.closest("[data-flow-list]");
-        if (firstLetter != list2.firstLetter) {
-          list2.firstLetter = firstLetter;
-          const letterBlock = html2`<div class="solid-contacts-letter ds-bg-primary">
-					${firstLetter.toUpperCase()}
-				</div>`;
-          const templ = document.createElement("template");
-          templ.innerHTML = letterBlock;
-          context.element.closest(".solid-contacts").insertBefore(templ.content, context.element.closest(".solid-contacts-entry"));
-        }
-        next(context);
-      }
     }
   };
 
@@ -17583,6 +17568,20 @@
         contactsModel.addEffect(simply.flow.sort({
           sortBy: "sort_name"
         }));
+        contactsModel.addEffect(function(data) {
+          let result2 = {};
+          for (const entry of data.current) {
+            const capital = entry.sort_name[0];
+            if (!result2[capital]) {
+              result2[capital] = {
+                capital,
+                entries: []
+              };
+            }
+            result2[capital].entries.push(entry);
+          }
+          return result2;
+        });
         this.state.contacts = contactsModel;
         console.log("contacts", contactsModel);
       }
