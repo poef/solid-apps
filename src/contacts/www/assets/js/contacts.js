@@ -15119,13 +15119,13 @@
   var solid_webid_default = {
     html: {
       webid: html`
-<dialog id="webidDialog" class="solid-dialog">
+<dialog id="webidDialog" class="ds-dialog">
 	<button class="ds-button ds-button-close" data-simply-command="webidClose">
 		<svg class="ds-icon ds-icon-feather">
             <use xlink:href="assets/icons/feather-sprite.svg#x"></use>
         </svg>		
 	</button>
-<form data-simply-command="webidSave">
+<form class="ds-space" data-simply-command="webidSave">
 	<div class="ds-alert ds-alert-error" data-flow-field="webid.error"></div>
 	<label>
 		Solid WebID
@@ -15168,6 +15168,9 @@
 	.solid-dialog::backdrop {
 		background: var(--solid-dialog-backdrop);
 		backdrop-filter: blur(16px);
+	}
+	.ds-dialog::backdrop {
+		backdrop-filter: blur(16px);		
 	}
 }
 @media screen and (max-width:719px) {
@@ -17355,13 +17358,13 @@
 	</nav>
 `,
       "solid-preferences": html`
-<dialog id="solid-preferences-dialog" class="solid-dialog">
+<dialog id="solid-preferences-dialog" class="ds-dialog">
 	<button class="ds-button ds-button-close" data-simply-command="solidClose">
 		<svg class="ds-icon ds-icon-feather">
             <use xlink:href="assets/icons/feather-sprite.svg#x"></use>
         </svg>		
 	</button>
-<form data-simply-command="solidPreferencesSave">
+<form data-simply-command="solidPreferencesSave" class="ds-space">
 	<h2>Preferences</h2>
 	<div class="ds-margin-up ds-alert ds-alert-error" data-flow-field="solid.error"></div>
 	<table class="ds-margin-up">
@@ -17369,20 +17372,20 @@
 			<th>Light/Dark</th>
 			<td>
 				<label class="ds-inline">
-					<input type="radio" name="solidPreferencesDarkmode" value="0">
+					<input type="radio" name="solidPreferencesDarkmode" value="0" data-simply-command="solidDarkmode">
 					Light
 				</label>
 				<label class="ds-inline">
-					<input type="radio" name="solidPreferencesDarkmode" value="1">
+					<input type="radio" name="solidPreferencesDarkmode" value="1" data-simply-command="solidDarkmode">
 					Dark
 				</label>
 				<label class="ds-inline">
-					<input type="radio" name="solidPreferencesDarkmode" value="auto">
+					<input type="radio" name="solidPreferencesDarkmode" value="auto" data-simply-command="solidDarkmode">
 					Auto
 				</label>
 			</td>
 		</tr>
-	</label>
+	</table>
 	<div class="ds-form-buttons">
 		<button class="ds-button ds-button-primary">Save</button>
 	</div>
@@ -17393,21 +17396,23 @@
     css: {
       "solid-drawer": css`
 			@layer component {
-				.solid-drawer {
+				.solid-drawer-position {
 					position: fixed;
 					top: 0;
 					right: 0;
+					z-index: 100;
+				}
+				.solid-drawer {
 					clip-path: polygon( 0 0%, 17px 100%, 100% 100%, 100% 0);
 					padding: 6px 10px 6px 25px;
 					background: var(--ds-grey-70);
 					color: white;
 					margin: 0;
-					z-index: 1001;
 				}
 				.solid-drawer-position .ds-dropdown-item {
 					padding: calc(0.25 * var(--ds-space)) calc(0.5 * var(--ds-space));
 					cursor: pointer;
-					border-bottom: 1px solid var(--ds-grey-20);
+					border-bottom: 1px solid var(--ds-grey-low);
 				}
 				.solid-drawer-position .ds-dropdown-item:last-child {
 					border-bottom: 0;
@@ -17415,6 +17420,9 @@
 				.solid-drawer-position .ds-dropdown-right {
 					right: 6px;
 					top: 31px;
+				}
+				a[data-simply-command] {
+					cursor: pointer;
 				}
 			}
 			@layer utility {
@@ -17460,6 +17468,21 @@
         } catch (err) {
           this.actions.solidErrors(err.message);
         }
+      },
+      solidDarkmode: async function(el2, value) {
+        if (value == "auto") {
+          document.body.classList.add("ds-darkmode-auto");
+          document.body.classList.remove("ds-darkmode");
+          document.body.classList.remove("ds-lightmode");
+        } else if (value == "1") {
+          document.body.classList.add("ds-darkmode");
+          document.body.classList.remove("ds-lightmode");
+          document.body.classList.remove("ds-darkmode-auto");
+        } else {
+          document.body.classList.add("ds-lightmode");
+          document.body.classList.remove("ds-darkmode");
+          document.body.classList.remove("ds-darkmode-auto");
+        }
       }
     },
     actions: {
@@ -17494,39 +17517,68 @@
 <div class="solid-contacts" data-flow-map="contacts.view">
 	<template>
 		<div class="solid-contacts-section">
-			<div class="solid-contacts-letter" data-flow-field="capital"></div>
+			<a class="solid-contacts-letter" data-flow-field="capital" data-simply-command="solid-contacts-letter-nav"></a>
 			<div class="solid-contacts-list" data-flow-list="entries">
 				<template>
-					<div class="solid-contacts-entry">
+					<a class="solid-contacts-entry" data-simply-command="solid-contacts-show">
 						<span class="solid-contacts-avatar"></span>
 						<span class="solid-contacts-lastname" data-flow-field="last_name"></span>,
 						<span class="solid-contacts-firstname" data-flow-field="first_name"></span>
-					</div>
+					</a>
 				</template>
 			</div>
 		</div>
 	</template>
-</div>`
+</div>`,
+      "solid-contacts-filter": html2`
+<div class="solid-contacts-filter">
+	<input type="search" class="solid-contacts-filter-input"
+		data-simply-command="solid-contacts-filter" 
+		data-simply-immediate
+		data-simply-value="contacts">
+</div>
+		`
     },
     css: {
+      "solid": css2`
+			@layer theme {
+				:root {
+					--ds-box-radius: 0;
+					scroll-behavior: smooth;
+				}
+				.solid {
+					width: 100%;
+					height: 100%;
+					min-height: 100vh;
+					min-width: 100vw;
+				}
+			}
+		`,
       "solid-contacts": css2`
 			@layer component {
 				.solid-sticky-top {
 					position: sticky;
 					top: 0;
 					z-index: 10;
-					background: var(--ds-white);
+					background: var(--ds-color-background);
+				}
+				.solid-contacts {
+					display: flow-root;
 				}
 				.solid-contacts-letter {
+					position: sticky;
+					z-index: 9;
+					top: calc(2 * var(--ds-line-height));
+					text-decoration: none;
+					scroll-margin-top: calc(2 * var(--ds-line-height));
+					display: block;
+					margin: var(--ds-space-d4) var(--ds-space-d4) 0 0;
 					background: var(--ds-primary);
 					color: var(--ds-primary-contrast);
 					width: calc(var(--ds-space-d2) + var(--ds-line-height));
 					padding: var(--ds-space-d4);
 					text-align: center;
-					margin: var(--ds-space-d4) var(--ds-space-d2) 0 0;
-					position: sticky;
-					z-index: 9;
-					top: calc(2 * var(--ds-line-height));
+
 				}
 				.solid-contacts-entry {
 					display: flex;
@@ -17536,10 +17588,41 @@
 					width: calc(var(--ds-space-d2) + var(--ds-line-height));
 					aspect-ratio: 1;
 					margin: var(--ds-space-d4) var(--ds-space-d2) 0 0;
-					background-color: var(--ds-grey-80);
+					background-color: var(--ds-grey-medium);
+				}
+				.solid-contacts-letters-nav .solid-contacts-section {
+					float: left;
+				}
+				.solid-contacts-letters-nav .solid-contacts-entry {
+					display: none;
+				}
+				.solid-contacts-letters-nav .solid-contacts-letter {
+					float: left;
+				}
+				.solid-contacts-filter {
+					position: sticky;
+					bottom: 0;
+					z-index: 10;
+					background: var(--ds-white);
 				}
 			}
 		`
+    },
+    commands: {
+      "solid-contacts-letter-nav": async function(el2, value) {
+        const contacts2 = el2.closest(".solid-contacts");
+        contacts2.classList.toggle("solid-contacts-letters-nav");
+        if (!contacts2.classList.contains("solid-contacts-letters-nav")) {
+          window.location.hash = el2.hash;
+          window.setTimeout(() => {
+            el2.scrollIntoView({ behavior: "smooth" });
+          }, 100);
+        }
+      },
+      "solid-contacts-filter": async function(el2, value) {
+        const model2 = simply.path.get(this.state, el2.dataset.simplyValue);
+        model2.state.options.name.filters.text = el2.value;
+      }
     }
   };
 
@@ -17568,13 +17651,37 @@
         contactsModel.addEffect(simply.flow.sort({
           sortBy: "sort_name"
         }));
+        contactsModel.addEffect(simply.flow.filter({
+          name: "name",
+          filters: {
+            text: ""
+          },
+          enabled: true,
+          properties: ["last_name", "first_name"],
+          matches: function(p) {
+            if (!this.filters.text) {
+              return true;
+            }
+            const filterBy = new RegExp(this.filters.text, "i");
+            for (const prop of this.properties) {
+              if (p[prop].match(filterBy)) {
+                return true;
+              }
+            }
+            return false;
+          }
+        }));
         contactsModel.addEffect(function(data) {
           let result2 = {};
           for (const entry of data.current) {
             const capital = entry.sort_name[0];
             if (!result2[capital]) {
               result2[capital] = {
-                capital,
+                capital: {
+                  innerHTML: capital,
+                  href: "#" + capital,
+                  name: capital
+                },
                 entries: []
               };
             }
@@ -17628,7 +17735,7 @@
     }
   });
   contacts.start();
-  globalThis.contacts = contacts;
+  globalThis.contactsApp = contacts;
 })();
 /*! Bundled license information:
 

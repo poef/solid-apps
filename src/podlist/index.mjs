@@ -3,7 +3,6 @@ import 'simplyflow'
 import webid from '../components/solid-webid.mjs'
 import solidFS from '../components/solid-fs.mjs'
 import solidDrawer from '../components/solid-drawer.mjs'
-import theds from '@muze-nl/theds'
 import {authorizePopup} from '@muze-nl/metro-oauth2/src/oauth2.popup.mjs'
 
 const podlist = simply.app({
@@ -114,7 +113,6 @@ const podlist = simply.app({
 		}
 	},
 	components: {
-		theds,
 		webid,
 		solidFS,
 		solidDrawer

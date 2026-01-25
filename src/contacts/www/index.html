@@ -8,13 +8,16 @@
 		--ds-primary-contrast: white;
 	}
 </style>
-<body>
+<body class="ds-darkmode">
 <header data-flow-field="webid">
 	<simply-render rel="solid-drawer"></simply-render>
 </header>
-<main class="ds-space">
-	<h1 class="solid-sticky-top ds-bg-white">People</h1>
-	<simply-render rel="solid-contacts"></simply-render>
+<main class="ds-space solid solid-panels">
+	<div class="solid-panels-pane">
+		<h1 class="solid-sticky-top">People</h1>
+		<simply-render rel="solid-contacts"></simply-render>
+		<simply-render rel="solid-contacts-filter"></simply-render>
+	</div>
 </main>
 <script src="assets/js/contacts.js"></script>
 </body>
