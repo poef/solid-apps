@@ -5,13 +5,13 @@ import oldmmw from '@muze-nl/metro-oldm'
 export default {
 	html: {
 		webid: html`
-<dialog id="webidDialog" class="solid-dialog">
+<dialog id="webidDialog" class="ds-dialog">
 	<button class="ds-button ds-button-close" data-simply-command="webidClose">
 		<svg class="ds-icon ds-icon-feather">
             <use xlink:href="assets/icons/feather-sprite.svg#x"></use>
         </svg>		
 	</button>
-<form data-simply-command="webidSave">
+<form class="ds-space" data-simply-command="webidSave">
 	<div class="ds-alert ds-alert-error" data-flow-field="webid.error"></div>
 	<label>
 		Solid WebID
@@ -54,6 +54,9 @@ export default {
 	.solid-dialog::backdrop {
 		background: var(--solid-dialog-backdrop);
 		backdrop-filter: blur(16px);
+	}
+	.ds-dialog::backdrop {
+		backdrop-filter: blur(16px);		
 	}
 }
 @media screen and (max-width:719px) {
