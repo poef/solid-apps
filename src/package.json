@@ -1,5 +1,5 @@
 {
-  "name": "podlist",
+  "name": "solid-suite",
   "version": "0.1.0",
   "type": "module",
   "main": "index.mjs",
@@ -16,7 +16,7 @@
     "@muze-nl/metro-oldm": "^0.2.1",
     "@muze-nl/metro-oauth2": "^0.7.4",
     "@muze-nl/oldm": "^0.3.6",
-    "@muze-nl/theds": "^0.1.5",
+    "@muze-nl/theds": "^0.2.0",
     "simplyflow": "^0.5.0",
     "simplyview": "^3.4.4"
   },
