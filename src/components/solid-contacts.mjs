@@ -6,7 +6,7 @@ import {html,css} from 'simplyview/src/highlight.mjs'
 export default {
 	html: {
 		'solid-contacts': html`
-<div class="solid-contacts" data-flow-map="contacts.view">
+<div class="solid-contacts" data-flow-map="contacts.view.current">
 	<template>
 		<div class="solid-contacts-section">
 			<a class="solid-contacts-letter" data-flow-field="capital" data-simply-command="solid-contacts-letter-nav"></a>
@@ -24,7 +24,7 @@ export default {
 </div>`,
 		'solid-contacts-filter':html`
 <div class="solid-contacts-filter">
-	<input type="search" class="solid-contacts-filter-input"
+	<input type="text" class="solid-contacts-filter-input"
 		data-simply-command="solid-contacts-filter" 
 		data-simply-immediate
 		data-simply-value="contacts">
@@ -95,7 +95,8 @@ export default {
 					position: sticky;
 					bottom: 0;
 					z-index: 10;
-					background: var(--ds-white);
+					background-color: var(--ds-color-background);
+					color: var(--ds-color-contrast);
 				}
 			}
 		`
