@@ -26,7 +26,7 @@ export default {
 <div class="solid-contacts-filter">
 	<input type="text" class="solid-contacts-filter-input"
 		data-simply-command="solid-contacts-filter" 
-		data-simply-immediate
+		data-simply-immediate="true"
 		data-simply-value="contacts">
 </div>
 		`
@@ -97,6 +97,7 @@ export default {
 					z-index: 10;
 					background-color: var(--ds-color-background);
 					color: var(--ds-color-contrast);
+					padding: var(--ds-space) 0;
 				}
 			}
 		`
