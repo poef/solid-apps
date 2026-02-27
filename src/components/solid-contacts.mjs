@@ -24,10 +24,36 @@ export default {
 </div>`,
 		'solid-contacts-filter':html`
 <div class="solid-contacts-filter">
+	<svg class="solid-contacts-filter-icon ds-icon ds-icon-feather">
+	    <use xlink:href="assets/icons/feather-sprite.svg#search"></use>
+	</svg>
 	<input type="text" class="solid-contacts-filter-input"
 		data-simply-command="solid-contacts-filter" 
 		data-simply-immediate="true"
 		data-simply-value="contacts">
+</div>
+		`,
+		'solid-contacts-contact':html`
+<div class="solid-contacts-contact">
+	<h2>Auke van Slooten</h2>
+	<div>
+		<h3>
+			<svg class="ds-icon ds-icon-feather">
+		    	<use xlink:href="assets/icons/feather-sprite.svg#phone"></use>
+			</svg>
+			Call Mobile
+		</h3>
+		<p class="ds-margin-up"><a href="tel:+31626528325">+31 6 26 528 325</a></p>
+	</div>
+	<div>
+		<h3>
+			<svg class="ds-icon ds-icon-feather">
+		    	<use xlink:href="assets/icons/feather-sprite.svg#mail"></use>
+			</svg>
+			Email
+		</h3>
+		<p class="ds-margin-up"><a href="mailto:auke@muze.nl">auke@muze.nl</a></p>
+	</div>
 </div>
 		`
 	},
@@ -41,8 +67,22 @@ export default {
 				.solid {
 					width: 100%;
 					height: 100%;
-					min-height: 100vh;
+					min-height: 100svh;
 					min-width: 100vw;
+				}
+				.solid-panels {
+
+				}
+				.solid-panels-split-horizontal {
+					display: flex;
+				}
+				.solid-panels-pane {
+					padding: var(--ds-space);
+				}
+			}
+			@layer base {
+				a:link {
+					color: var(--ds-light-link-color);
 				}
 			}
 		`,
@@ -93,12 +133,24 @@ export default {
 				}
 				.solid-contacts-filter {
 					position: sticky;
+					position: fixed;
 					bottom: 0;
 					z-index: 10;
 					background-color: var(--ds-color-background);
 					color: var(--ds-color-contrast);
 					padding: var(--ds-space) 0;
 				}
+				.solid-contacts-filter-input {
+					border-left: calc(var(--ds-space-d2) + var(--ds-line-height)) solid var(--ds-grey-medium);
+					padding-left: var(--ds-space-d2);
+					width: calc(100% - 2 * var(--ds-space));
+					margin: 0;
+				}
+				.solid-contacts-filter-icon {
+					position: absolute;
+					margin-top: var(--ds-space-d4);
+					margin-left: var(--ds-space-d2);
+  				}
 			}
 		`
 	},
