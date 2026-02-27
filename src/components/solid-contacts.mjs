@@ -54,6 +54,17 @@ export default {
 		</h3>
 		<p class="ds-margin-up"><a href="mailto:auke@muze.nl">auke@muze.nl</a></p>
 	</div>
+	<div>
+		<button class="ds-button ds-margin-up solid-add"><h3>
+			<svg class="ds-icon ds-icon-feather">
+		    	<use xlink:href="assets/icons/feather-sprite.svg#plus-circle"></use>
+			</svg>
+			Add
+			<svg class="ds-icon ds-icon-feather">
+		    	<use xlink:href="assets/icons/feather-sprite.svg#chevron-down"></use>
+			</svg>
+		</h3></button>
+	</div>
 </div>
 		`
 	},
@@ -64,11 +75,11 @@ export default {
 					--ds-box-radius: 0;
 					scroll-behavior: smooth;
 				}
+			}
+			@layer component {
 				.solid {
-					width: 100%;
-					height: 100%;
-					min-height: 100svh;
-					min-width: 100vw;
+					width: 100vw;
+					height: 100vh;
 				}
 				.solid-panels {
 
@@ -77,7 +88,13 @@ export default {
 					display: flex;
 				}
 				.solid-panels-pane {
+					height: 100%;
+					overflow: auto;
 					padding: var(--ds-space);
+				}
+				.solid-add {
+					padding: 0;
+					text-transform: none;
 				}
 			}
 			@layer base {
@@ -90,17 +107,18 @@ export default {
 			@layer component {
 				.solid-sticky-top {
 					position: sticky;
-					top: 0;
+					top: calc(-1 * var(--ds-space));
 					z-index: 10;
 					background: var(--ds-color-background);
 				}
 				.solid-contacts {
 					display: flow-root;
+					margin-bottom: var(--ds-space-x4);
 				}
 				.solid-contacts-letter {
 					position: sticky;
 					z-index: 9;
-					top: calc(2 * var(--ds-line-height));
+					top: var(--ds-line-height);
 					text-decoration: none;
 					scroll-margin-top: calc(2 * var(--ds-line-height));
 					display: block;
