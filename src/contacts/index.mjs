@@ -52,22 +52,24 @@ const contacts = simply.app({
 				}
 			}))
 			contactsModel.addEffect(function(data) {
-				let result = {}
-				for (const entry of data.current) {
-					const capital = entry.sort_name[0]
-					if (!result[capital]) {
-						result[capital] = {
-							capital: {
-								innerHTML: capital,
-								href: '#'+capital,
-								name: capital
-							},
-							entries: []
+				return simply.state.effect(() =>{
+					let result = {}
+					for (const entry of data.current) {
+						const capital = entry.sort_name[0]
+						if (!result[capital]) {
+							result[capital] = {
+								capital: {
+									innerHTML: capital,
+									href: '#'+capital,
+									name: capital
+								},
+								entries: []
+							}
 						}
+						result[capital].entries.push(entry)
 					}
-					result[capital].entries.push(entry)
-				}
-				return result
+					return result
+				})
 			})
 			this.state.contacts = contactsModel
 			console.log('contacts',contactsModel)
@@ -92,6 +94,15 @@ const contacts = simply.app({
 				root: this.state,
 				transformers: this.transformers
 			})
+
+			// TODO: if this is a common best practice elevate
+			// this code to simply.app()
+			for (const name in this.components) {
+				if (this.components[name].hooks?.start) {
+					await this.components[name].hooks.start.call(this, this.components[name])
+				}
+			}
+
 			delete document.body.dataset.swLoading
 			if (!this.state.webid?.id) {
 				await this.actions.webidDialog()
@@ -115,6 +126,5 @@ const contacts = simply.app({
 		solidContacts
 	}
 })
-contacts.start()
 
 globalThis.contactsApp = contacts
