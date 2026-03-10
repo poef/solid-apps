@@ -5,7 +5,7 @@ import oldmmw from '@muze-nl/metro-oldm'
 export default {
 	html: {
 		webid: html`
-<dialog id="webidDialog" class="ds-dialog">
+<dialog id="webidDialog" class="ds-dialog solid-dialog">
 	<button class="ds-button ds-button-close" data-simply-command="webidClose">
 		<svg class="ds-icon ds-icon-feather">
             <use xlink:href="assets/icons/feather-sprite.svg#x"></use>
@@ -35,7 +35,7 @@ export default {
 	}
 }
 @layer component {
-	:root {
+	.solid-dialog {
 		--solid-dialog-shadow: var(--ds-dialog-shadow);
 		--solid-dialog-radius: var(--ds-dialog-radius);
 		--solid-dialog-width: 400px;
@@ -49,14 +49,27 @@ export default {
 		border: 0;
 		border-radius: var(--solid-dialog-radius);
 		box-shadow: var(--solid-dialog-shadow);
-		outline: var(--solid-dialog-outline);
+		xoutline: var(--solid-dialog-outline);
+		padding-top: var(--ds-space);
 	}
 	.solid-dialog::backdrop {
 		background: var(--solid-dialog-backdrop);
 		backdrop-filter: blur(16px);
 	}
-	.ds-dialog::backdrop {
-		backdrop-filter: blur(16px);		
+	.solid-dialog .ds-button-close {
+		clip-path: polygon( 0 0%, 17px 100%, 100% 100%, 100% 0);
+		padding: 6px 10px 6px 25px;
+		background: var(--ds-grey-70);
+		color: white;
+		margin: 0;
+		right: 0;
+		top: 0;
+	}
+	.solid-dialog .ds-form-buttons {
+		position: absolute;
+		bottom: 0;
+		background: var(--ds-color-background);
+		padding-bottom: var(--ds-space-d2);
 	}
 }
 @media screen and (max-width:719px) {

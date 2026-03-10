@@ -23,7 +23,7 @@ export default {
 	</template>
 </div>`,
 		'solid-contacts-filter':html`
-<div class="solid-contacts-filter">
+<div class="solid-contacts-filter ds-sticky-bottom">
 	<svg class="solid-contacts-filter-icon ds-icon ds-icon-feather">
 	    <use xlink:href="assets/icons/feather-sprite.svg#search"></use>
 	</svg>
@@ -34,8 +34,8 @@ export default {
 </div>
 		`,
 		'solid-contacts-contact':html`
-<div class="solid-contacts-contact">
-	<h2>Auke van Slooten</h2>
+<div class="solid-contacts-contact ds-sticky-top" style="--ds-top: 2em;">
+	<h2 class="ds-margin-up">Auke van Slooten</h2>
 	<div>
 		<h3>
 			<svg class="ds-icon ds-icon-feather">
@@ -118,7 +118,7 @@ export default {
 				.solid-contacts-letter {
 					position: sticky;
 					z-index: 9;
-					top: var(--ds-line-height);
+					top: calc(var(--ds-line-height) * 1.5);
 					text-decoration: none;
 					scroll-margin-top: calc(2 * var(--ds-line-height));
 					display: block;
@@ -151,7 +151,6 @@ export default {
 				}
 				.solid-contacts-filter {
 					position: sticky;
-					position: fixed;
 					bottom: 0;
 					z-index: 10;
 					background-color: var(--ds-color-background);
@@ -161,7 +160,7 @@ export default {
 				.solid-contacts-filter-input {
 					border-left: calc(var(--ds-space-d2) + var(--ds-line-height)) solid var(--ds-grey-medium);
 					padding-left: var(--ds-space-d2);
-					width: calc(100% - 2 * var(--ds-space));
+					width: 20em;
 					margin: 0;
 				}
 				.solid-contacts-filter-icon {

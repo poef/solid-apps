@@ -19,7 +19,7 @@ export default {
 	</nav>
 `,
 	'solid-preferences': html`
-<dialog id="solid-preferences-dialog" class="ds-dialog">
+<dialog id="solid-preferences-dialog" class="ds-dialog solid-dialog">
 	<button class="ds-button ds-button-close" data-simply-command="solidClose">
 		<svg class="ds-icon ds-icon-feather">
             <use xlink:href="assets/icons/feather-sprite.svg#x"></use>
