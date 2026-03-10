@@ -4,22 +4,69 @@
 <link rel="stylesheet" href="assets/css/theds.css">
 <style>
 	:root {
-		--ds-primary: rgb(83, 80, 169);
+		--ds-primary: oklch(0.4866 0.1142 255.31);
 		--ds-primary-contrast: white;
+		--ds-glow-1: rgb(from var(--ds-white) r g b / 0.1);
+	    --ds-glow-2: rgb( from var(--ds-primary-low) r g b / 0.2);
+	    --ds-glow-3: rgb(from var(--ds-grey-low) r g b / 0.1);
+	    --ds-shadow-large: 
+	    	0 -2px 2px var(--ds-shadow-light), 
+	    	0 4px 2px var(--ds-shadow-light), 
+	    	0 8px 4px var(--ds-shadow-light), 
+	    	0 16px 8px var(--ds-shadow-light), 
+	    	0 32px 16px var(--ds-shadow-light);
+	   	--ds-input-border: var(--ds-grey-medium);
+    }
+	html,body {
+		height: 100%;
 	}
+	/* temp fixes */
+	.ds-panels-container {
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
+		overflow-x: scroll;
+	}
+    @media screen and (min-width: 720px) {
+        .ds-panels-list-details .ds-panels-panes {
+            grid-template-columns: 20em 1fr;
+        }
+    }
+    .ds-sticky-top {
+    	z-index: 2;
+    }
+    .ds-panels-title::after {
+    	background: var(--ds-color-background);
+    	width: 20em;
+    	height: 1.5em;
+    	display: block;
+    	content: "";
+    	margin-top: -1.5em;
+    }
+    .ds-panels-heading {
+    	z-index: 10;
+    }
+    .ds-panels-title,
+    .ds-panels-pane {
+    	padding: var(--ds-space-d4);
+    }
 </style>
-<body class="ds-darkmode">
+<body class="ds-darkmode-auto ds-panels-container">
 <header>
 	<simply-render rel="solid-drawer"></simply-render>
 </header>
-<main class="solid solid-panels solid-panels-split-horizontal">
-	<div class="solid-panels-pane">
-		<h1 class="solid-sticky-top">People</h1>
-		<simply-render rel="solid-contacts"></simply-render>
-		<simply-render rel="solid-contacts-filter"></simply-render>
-	</div>
-	<div class="solid-panels-pane">
-		<simply-render rel="solid-contacts-contact"></simply-render>
+<main class="ds-panels-list-details">
+	<heading class="ds-panels-heading ds-sticky-top" style="--ds-top: 0.5em;">
+		<h1 class="ds-panels-title ds-sticky-left">People</h1>
+	</heading>
+	<div class="ds-panels-panes">
+		<div class="ds-panels-pane ds-panels-list">
+			<simply-render rel="solid-contacts"></simply-render>
+			<simply-render rel="solid-contacts-filter"></simply-render>
+		</div>
+		<div class="ds-panels-pane ds-panels-details">
+			<simply-render rel="solid-contacts-contact"></simply-render>
+		</div>
 	</div>
 </main>
 <script src="assets/js/contacts.js"></script>
