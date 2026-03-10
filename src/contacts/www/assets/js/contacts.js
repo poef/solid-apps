@@ -1829,11 +1829,11 @@
         ArrayIsArray(self2) {
           return Array.isArray(self2);
         },
-        ArrayPrototypeIncludes(self2, el2) {
-          return self2.includes(el2);
+        ArrayPrototypeIncludes(self2, el) {
+          return self2.includes(el);
         },
-        ArrayPrototypeIndexOf(self2, el2) {
-          return self2.indexOf(el2);
+        ArrayPrototypeIndexOf(self2, el) {
+          return self2.indexOf(el);
         },
         ArrayPrototypeJoin(self2, sep) {
           return self2.join(sep);
@@ -1841,11 +1841,11 @@
         ArrayPrototypeMap(self2, fn) {
           return self2.map(fn);
         },
-        ArrayPrototypePop(self2, el2) {
-          return self2.pop(el2);
+        ArrayPrototypePop(self2, el) {
+          return self2.pop(el);
         },
-        ArrayPrototypePush(self2, el2) {
-          return self2.push(el2);
+        ArrayPrototypePush(self2, el) {
+          return self2.push(el);
         },
         ArrayPrototypeSlice(self2, start, end) {
           return self2.slice(start, end);
@@ -8081,7 +8081,7 @@
     }
   });
 
-  // node_modules/simplyview/src/activate.mjs
+  // ../../../simplyedit/simplyview/src/activate.mjs
   if (!Symbol.onDestroy) {
     Symbol.onDestroy = Symbol("onDestroy");
   }
@@ -8156,13 +8156,13 @@
       callListeners(node);
     }
   }
-  var observer2 = new MutationObserver(handleChanges);
-  observer2.observe(document, {
+  var observer = new MutationObserver(handleChanges);
+  observer.observe(document, {
     subtree: true,
     childList: true
   });
 
-  // node_modules/simplyview/src/action.mjs
+  // ../../../simplyedit/simplyview/src/action.mjs
   function actions(options, optionsCompat) {
     if (optionsCompat) {
       let app2 = options;
@@ -8170,42 +8170,18 @@
       options.app = app2;
     }
     if (options.app) {
-      const waitHandler = {
-        apply(target, thisArg, argumentsList) {
-          try {
-            const result2 = target(...argumentsList);
-            if (result2 instanceof Promise) {
-              options.app.hooks.wait(true);
-              return result2.finally(() => {
-                options.app.hooks.wait(false, target);
-              });
-            }
-            return result2;
-          } catch (err) {
-          }
-        }
-      };
       const functionHandler = {
         apply(target, thisArg, argumentsList) {
           try {
             const result2 = target(...argumentsList);
             if (result2 instanceof Promise) {
-              if (options.app.hooks.wait) {
-                options.app.hooks.wait(true, target);
-                return result2.catch((err) => {
-                  return options.app.hooks.error(err, target);
-                }).finally(() => {
-                  options.app.hooks.wait(false, target);
-                });
-              } else {
-                return result2.catch((err) => {
-                  return options.app.hooks.error(err, target);
-                });
-              }
+              return result2.catch((err) => {
+                return options.app.hooks.error.call(this, err, target);
+              });
             }
             return result2;
           } catch (err) {
-            return options.app.hooks.error(err, target);
+            return options.app.hooks.error.call(this, err, target);
           }
         }
       };
@@ -8216,8 +8192,6 @@
           }
           if (options.app.hooks?.error) {
             return new Proxy(target[property].bind(options.app), functionHandler);
-          } else if (options.app.hooks?.wait) {
-            return new Proxy(target[property].bind(options.app), waitHandler);
           } else {
             return target[property].bind(options.app);
           }
@@ -8229,7 +8203,7 @@
     }
   }
 
-  // node_modules/simplyview/src/route.mjs
+  // ../../../simplyedit/simplyview/src/route.mjs
   function routes(options, optionsCompat) {
     if (optionsCompat) {
       let app2 = options;
@@ -8270,13 +8244,13 @@
       path2 = args.path ? args.path : path2;
       let matches;
       if (!path2) {
-        if (this.match(document.location.pathname + document.location.hash)) {
-          return true;
+        if (this.has(document.location.pathname + document.location.hash)) {
+          path2 = document.location.pathname + document.location.hash;
         } else {
-          return this.match(document.location.pathname);
+          path2 = document.location.pathname;
         }
       }
-      path2 = getPath(path2);
+      path2 = getPath(path2, this.baseURL);
       for (let route of this.routeInfo) {
         matches = route.match.exec(path2);
         if (this.addMissingSlash && !matches?.length) {
@@ -8329,9 +8303,7 @@
     }
     handleEvents() {
       globalThis.addEventListener("popstate", () => {
-        if (this.match(getPath(document.location.pathname + document.location.hash, this.baseURL)) === false) {
-          this.match(getPath(document.location.pathname, this.baseURL));
-        }
+        this.match();
       });
       this.app.container.addEventListener("click", (evt) => {
         if (evt.ctrlKey) {
@@ -8406,7 +8378,7 @@
     if (path2.substring(0, baseURL.length) == baseURL || baseURL[baseURL.length - 1] == "/" && path2.length == baseURL.length - 1 && path2 == baseURL.substring(0, path2.length)) {
       path2 = path2.substring(baseURL.length);
     }
-    if (path2[0] != "/" && path2[0] != "#") {
+    if (path2[0] != "/") {
       path2 = "/" + path2;
     }
     return path2;
@@ -8422,10 +8394,13 @@
     return baseURL + path2;
   }
   function getRegexpFromRoute(route, exact = false) {
-    if (exact) {
-      return new RegExp("^" + route.replace(/:\w+/g, "([^/]+)").replace(/:\*/, "(.*)") + "(\\?|$)");
+    if (route[0] != "#") {
+      route = "^" + route;
     }
-    return new RegExp("^" + route.replace(/:\w+/g, "([^/]+)").replace(/:\*/, "(.*)"));
+    if (exact) {
+      return new RegExp(route.replace(/:\w+/g, "([^/]+)").replace(/:\*/, "(.*)") + "(\\?|$)");
+    }
+    return new RegExp(route.replace(/:\w+/g, "([^/]+)").replace(/:\*/, "(.*)"));
   }
   function parseRoutes(routes2, routeInfo, exact = false) {
     const paths = Object.keys(routes2);
@@ -8448,7 +8423,7 @@
     return routeInfo;
   }
 
-  // node_modules/simplyview/src/command.mjs
+  // ../../../simplyedit/simplyview/src/command.mjs
   var SimplyCommands = class {
     constructor(options = {}) {
       if (!options.app) {
@@ -8483,12 +8458,12 @@
       options.app.container.addEventListener("change", commandHandler);
       options.app.container.addEventListener("input", commandHandler);
     }
-    call(command, el2, value) {
+    call(command, el, value) {
       if (!this[command]) {
         console.error("simply.command: undefined command " + command);
         return;
       }
-      return this[command].call(this.app, el2, value);
+      return this[command].call(this.app, el, value);
     }
     action(name) {
       console.warn("deprecated call to `this.commands.action`");
@@ -8512,15 +8487,15 @@
     return new SimplyCommands(options);
   }
   function getCommand(evt, handlers) {
-    var el2 = evt.target.closest("[data-simply-command]");
-    if (el2) {
+    var el = evt.target.closest("[data-simply-command]");
+    if (el) {
       for (let handler of handlers) {
-        if (el2.matches(handler.match)) {
-          if (handler.check(el2, evt)) {
+        if (el.matches(handler.match)) {
+          if (handler.check(el, evt)) {
             return {
-              name: el2.dataset.simplyCommand,
-              source: el2,
-              value: handler.get(el2)
+              name: el.dataset.simplyCommand,
+              source: el,
+              value: handler.get(el)
             };
           }
           return null;
@@ -8532,36 +8507,36 @@
   var defaultHandlers = [
     {
       match: "input,select,textarea",
-      get: function(el2) {
-        if (el2.tagName === "SELECT" && el2.multiple) {
+      get: function(el) {
+        if (el.tagName === "SELECT" && el.multiple) {
           let values = [];
-          for (let option of el2.options) {
+          for (let option of el.options) {
             if (option.selected) {
               values.push(option.value);
             }
           }
           return values;
         }
-        return el2.dataset.simplyValue || el2.value;
+        return el.dataset.simplyValue || el.value;
       },
-      check: function(el2, evt) {
-        return evt.type == "change" || el2.dataset.simplyImmediate && evt.type == "input";
+      check: function(el, evt) {
+        return evt.type == "change" || el.dataset.simplyImmediate && evt.type == "input";
       }
     },
     {
       match: "a,button",
-      get: function(el2) {
-        return el2.dataset.simplyValue || el2.href || el2.value;
+      get: function(el) {
+        return el.dataset.simplyValue || el.href || el.value;
       },
-      check: function(el2, evt) {
+      check: function(el, evt) {
         return evt.type == "click" && evt.ctrlKey == false && evt.button == 0;
       }
     },
     {
       match: "form",
-      get: function(el2) {
+      get: function(el) {
         let data = {};
-        for (let input2 of Array.from(el2.elements)) {
+        for (let input2 of Array.from(el.elements)) {
           if (input2.tagName == "INPUT" && (input2.type == "checkbox" || input2.type == "radio")) {
             if (!input2.checked) {
               return;
@@ -8578,22 +8553,27 @@
         }
         return data;
       },
-      check: function(el2, evt) {
+      check: function(el, evt) {
         return evt.type == "submit";
       }
     },
     {
       match: "*",
-      get: function(el2) {
-        return el2.dataset.simplyValue;
+      get: function(el) {
+        return el.dataset.simplyValue;
       },
-      check: function(el2, evt) {
+      check: function(el, evt) {
         return evt.type == "click" && evt.ctrlKey == false && evt.button == 0;
       }
     }
   ];
 
-  // node_modules/simplyview/src/key.mjs
+  // ../../../simplyedit/simplyview/src/dom.mjs
+  function findAttribute(el, attr) {
+    return el.closest("[" + attr + "]")?.getAttribute(attr);
+  }
+
+  // ../../../simplyedit/simplyview/src/key.mjs
   var KEY = Object.freeze({
     Compose: 229,
     Control: 17,
@@ -8611,71 +8591,40 @@
       }
       Object.assign(this, options.keys);
       const keyHandler = (e) => {
-        if (e.isComposing || e.keyCode === KEY.Compose) {
-          return;
-        }
-        if (e.defaultPrevented) {
-          return;
-        }
-        if (!e.target) {
-          return;
-        }
-        let selectedKeyboard = "default";
-        if (e.target.closest("[data-simply-keyboard]")) {
-          selectedKeyboard = e.target.closest("[data-simply-keyboard]").dataset.simplyKeyboard;
-        }
-        let keyCombination = [];
-        if (e.ctrlKey && e.keyCode != KEY.Control) {
-          keyCombination.push("Control");
-        }
-        if (e.metaKey && e.keyCode != KEY.Meta) {
-          keyCombination.push("Meta");
-        }
-        if (e.altKey && e.keyCode != KEY.Alt) {
-          keyCombination.push("Alt");
-        }
-        if (e.shiftKey && e.keyCode != KEY.Shift) {
-          keyCombination.push("Shift");
-        }
-        keyCombination.push(e.key.toLowerCase());
         let keyboards = [];
         let keyboardElement = event.target.closest("[data-simply-keyboard]");
         while (keyboardElement) {
           keyboards.push(keyboardElement.dataset.simplyKeyboard);
           keyboardElement = keyboardElement.parentNode.closest("[data-simply-keyboard]");
         }
-        keyboards.push("");
-        let keyboard, subkeyboard;
+        if (keyboards[keyboards.length - 1] != "default") {
+          keyboards.push("default");
+        }
+        let keyboard;
         let separators = ["+", "-"];
-        for (let i in keyboards) {
-          keyboard = keyboards[i];
-          if (keyboard == "") {
-            subkeyboard = "default";
-          } else {
-            subkeyboard = keyboard;
-            keyboard += ".";
-          }
-          for (let separator of separators) {
-            let keyString = keyCombination.join(separator);
-            if (this[subkeyboard] && typeof this[subkeyboard][keyString] == "function") {
-              let _continue = this[subkeyboard][keyString].call(options.app, e);
+        for (let separator of separators) {
+          const keyString = getKeyString(e, separator);
+          for (let i in keyboards) {
+            keyboard = keyboards[i];
+            if (this[keyboard] && typeof this[keyboard][keyString] == "function") {
+              let _continue = this[keyboard][keyString].call(options.app, e);
               if (!_continue) {
                 e.preventDefault();
                 return;
               }
             }
-            if (typeof this[subkeyboard + keyString] == "function") {
-              let _continue = this[subkeyboard + keyString].call(options.app, e);
+            if (typeof this[keyboard + "." + keyString] == "function") {
+              let _continue = this[keyboard + "." + keyString].call(options.app, e);
               if (!_continue) {
                 e.preventDefault();
                 return;
               }
             }
-            if (this[selectedKeyboard] && this[selectedKeyboard][keyString]) {
-              let targets = options.app.container.querySelectorAll('[data-simply-accesskey="' + keyboard + keyString + '"]');
-              if (targets.length) {
-                targets.forEach((t) => t.click());
+            if (typeof this[keyString] == "function") {
+              let _continue = this[keyString].call(options.app, e);
+              if (!_continue) {
                 e.preventDefault();
+                return;
               }
             }
           }
@@ -8684,6 +8633,36 @@
       options.app.container.addEventListener("keydown", keyHandler);
     }
   };
+  function getKeyString(e, separator = "+") {
+    if (e.isComposing || e.keyCode === KEY.Compose) {
+      return;
+    }
+    if (e.defaultPrevented) {
+      return;
+    }
+    if (!e.target) {
+      return;
+    }
+    let selectedKeyboard = "default";
+    if (e.target.closest("[data-simply-keyboard]")) {
+      selectedKeyboard = e.target.closest("[data-simply-keyboard]").dataset.simplyKeyboard;
+    }
+    let keyCombination = [];
+    if (e.ctrlKey && e.keyCode != KEY.Control) {
+      keyCombination.push("Control");
+    }
+    if (e.metaKey && e.keyCode != KEY.Meta) {
+      keyCombination.push("Meta");
+    }
+    if (e.altKey && e.keyCode != KEY.Alt) {
+      keyCombination.push("Alt");
+    }
+    if (e.shiftKey && e.keyCode != KEY.Shift) {
+      keyCombination.push("Shift");
+    }
+    keyCombination.push(e.key.toLowerCase());
+    return keyCombination.join(separator);
+  }
   function keys(options = {}, optionsCompat) {
     if (optionsCompat) {
       let app2 = options;
@@ -8692,8 +8671,24 @@
     }
     return new SimplyKey(options);
   }
+  function accesskeys(app2) {
+    const container = app2.container || document.body;
+    container.addEventListener("keydown", (e) => {
+      const separators = ["+", "-"];
+      for (const separator of separators) {
+        const keyString = getKeyString(e, separator);
+        const selector = "[data-simply-accesskey='" + keyString + "']";
+        const targets = container.querySelectorAll(selector);
+        if (targets.length) {
+          targets.forEach(function(target) {
+            target.click();
+          });
+        }
+      }
+    });
+  }
 
-  // node_modules/simplyview/src/view.mjs
+  // ../../../simplyedit/simplyview/src/view.mjs
   function view(options, optionsCompat) {
     if (optionsCompat) {
       let app2 = options;
@@ -8719,7 +8714,7 @@
     }
   }
 
-  // node_modules/simplyview/src/highlight.mjs
+  // ../../../simplyedit/simplyview/src/highlight.mjs
   function html2(strings, ...values) {
     const outputArray = values.map(
       (value, index) => `${strings[index]}${value}`
@@ -8730,7 +8725,7 @@
     return html2(strings, ...values);
   }
 
-  // node_modules/simplyview/src/app.mjs
+  // ../../../simplyedit/simplyview/src/app.mjs
   var SimplyApp = class {
     constructor(options = {}) {
       this.container = options.container || document.body;
@@ -8772,8 +8767,10 @@
             this.commands = commands({ app: this, container: this.container, commands: options.commands });
             break;
           case "keys":
-          case "keyboard":
             this.keys = keys({ app: this, keys: options.keys });
+            break;
+          case "keyboard":
+            this.keys = keys({ app: this, keys: options.keyboard });
             break;
           case "root":
           // backwards compatibility
@@ -8796,71 +8793,50 @@
             this.view = view({ app: this, view: options.view });
             break;
           case "hooks":
-            const moduleHandler = {
-              get: (target, property) => {
-                if (!target[property]) {
-                  return void 0;
-                }
-                if (typeof target[property] == "function") {
-                  return new Proxy(target[property], functionHandler);
-                } else if (target[property] && typeof target[property] == "object") {
-                  return new Proxy(target[property], moduleHandler);
-                } else {
-                  return target[property];
-                }
-              }
-            };
-            const functionHandler = {
-              apply: (target, thisArg, argumentsList) => {
-                return target.apply(this, argumentsList);
-              }
-            };
-            this[key] = new Proxy(options[key], moduleHandler);
+          case "components":
+            this[key] = options[key];
             break;
-            components:
-              this.components = components;
+          case "prototype":
+          case "__proto__":
             break;
-            prototype:
-              __proto__:
-                break;
           default:
             console.log('simply.app: unknown initialization option "' + key + '", added as-is');
             this[key] = options[key];
             break;
         }
       }
+      accesskeys({ app: this });
     }
     get app() {
       return this;
     }
-    async start() {
-      if (this.components) {
-        for (const name in this.components) {
-          if (this.components[name].hooks?.start) {
-            await this.components[name].hooks.start.call(this, this.components[name]);
-          }
-        }
-      }
-      if (this.hooks?.start) {
-        await this.hooks.start();
-      }
-      if (this.routes) {
-        if (this.baseURL) {
-          this.routes.init({ baseURL: this.baseURL });
-        }
-        this.routes.handleEvents();
-        globalThis.setTimeout(() => {
-          if (this.routes.has(globalThis.location?.hash)) {
-            this.routes.match(globalThis.location.hash);
-          } else {
-            this.routes.match(globalThis.location?.pathname + globalThis.location?.hash);
-          }
-        });
-      }
+    findAttribute(...params2) {
+      return findAttribute.apply(this, params2);
     }
   };
+  function initRoutes(app2) {
+    if (app2.routes) {
+      if (app2.baseURL) {
+        app2.routes.init({ baseURL: this.baseURL });
+      }
+      app2.routes.handleEvents();
+      globalThis.setTimeout(() => {
+        if (app2.routes.has(globalThis.location?.hash)) {
+          app2.routes.match(globalThis.location.hash);
+        } else {
+          app2.routes.match(globalThis.location?.pathname + globalThis.location?.hash);
+        }
+      });
+    }
+  }
   function app(options = {}) {
-    return new SimplyApp(options);
+    const app2 = new SimplyApp(options);
+    if (app2.hooks?.start) {
+      app2.hooks.start.call(app2).then(() => initRoutes(app2));
+    } else {
+      initRoutes(app2);
+    }
+    return app2;
   }
   if (!globalThis.html) {
     globalThis.html = html2;
@@ -8886,9 +8862,9 @@
       }
     }
   }
-  function mergeComponents(options, components2) {
-    for (const name in components2) {
-      const component = components2[name];
+  function mergeComponents(options, components) {
+    for (const name in components) {
+      const component = components[name];
       if (component.components) {
         mergeComponents(options, component.components);
       }
@@ -8913,7 +8889,7 @@
     }
   }
 
-  // node_modules/simplyview/src/include.mjs
+  // ../../../simplyedit/simplyview/src/include.mjs
   function throttle(callbackFunction, intervalTime) {
     let eventId = 0;
     return () => {
@@ -8943,7 +8919,7 @@
     }
     return url2.href;
   }
-  var observer3;
+  var observer2;
   var loaded = {};
   var head = globalThis.document.querySelector("head");
   var currentScript = globalThis.document.currentScript;
@@ -9076,8 +9052,8 @@
     });
   });
   var observe = () => {
-    observer3 = new MutationObserver(handleChanges2);
-    observer3.observe(globalThis.document, {
+    observer2 = new MutationObserver(handleChanges2);
+    observer2.observe(globalThis.document, {
       subtree: true,
       childList: true
     });
@@ -9085,7 +9061,7 @@
   observe();
   handleChanges2();
 
-  // node_modules/simplyview/src/path.mjs
+  // ../../../simplyedit/simplyview/src/path.mjs
   var path = {
     get(dataset, pointer) {
       if (typeof pointer !== "string") {
@@ -9123,50 +9099,7 @@
   };
   var path_default = path;
 
-  // node_modules/simplyview/src/render.mjs
-  var SimplyRender = class extends HTMLElement {
-    constructor() {
-      super();
-    }
-    connectedCallback() {
-      let templateId = this.getAttribute("rel");
-      let template = document.getElementById(templateId);
-      if (template) {
-        let content = template.content.cloneNode(true);
-        for (const node of content.childNodes) {
-          const clone = node.cloneNode(true);
-          if (clone.nodeType == document.ELEMENT_NODE) {
-            clone.querySelectorAll("template").forEach(function(t) {
-              t.setAttribute("simply-render", "");
-            });
-          }
-          this.parentNode.insertBefore(clone, this);
-        }
-        this.parentNode.removeChild(this);
-      }
-    }
-  };
-  if (!customElements.get("simply-render")) {
-    customElements.define("simply-render", SimplyRender);
-  }
-  var handleChanges3 = () => {
-    const simplyrenders = globalThis.document.querySelectorAll("simply-render[rel]");
-    for (el of simplyrenders) {
-      if (document.querySelector("template#" + el.getAttribute("rel"))) {
-        el.replaceWith(el);
-      }
-    }
-  };
-  var observe2 = () => {
-    observer = new MutationObserver(handleChanges3);
-    observer.observe(globalThis.document, {
-      subtree: true,
-      childList: true
-    });
-  };
-  observe2();
-
-  // node_modules/simplyview/src/everything.mjs
+  // ../../../simplyedit/simplyview/src/everything.mjs
   var simply2 = {
     activate,
     action: actions,
@@ -9176,11 +9109,12 @@
     key: keys,
     path: path_default,
     route: routes,
-    view
+    view,
+    findAttribute
   };
   globalThis.simply = simply2;
 
-  // node_modules/simplyflow/src/state.mjs
+  // ../../../simplyedit/simplyflow/src/state.mjs
   var state_exports = {};
   __export(state_exports, {
     batch: () => batch,
@@ -9594,7 +9528,7 @@
     }
   }
 
-  // node_modules/simplyflow/src/bind.transformers.mjs
+  // ../../../simplyedit/simplyflow/src/bind.transformers.mjs
   function escape_html(context, next) {
     let content = context.value.innerHTML;
     if (typeof context.value == "string") {
@@ -9616,7 +9550,7 @@
     next(context);
   }
 
-  // node_modules/simplyflow/src/bind.render.mjs
+  // ../../../simplyedit/simplyflow/src/bind.render.mjs
   function field(context) {
     if (context.templates?.length) {
       fieldByTemplates.call(this, context);
@@ -9763,8 +9697,8 @@
       context.element.appendChild(clone);
     }
   }
-  function getParentPath(el2, attribute) {
-    const parentEl = el2.parentElement?.closest(`[${attribute}-list],[${attribute}-map]`);
+  function getParentPath(el, attribute) {
+    const parentEl = el.parentElement?.closest(`[${attribute}-list],[${attribute}-map]`);
     if (!parentEl) {
       return "";
     }
@@ -9774,20 +9708,20 @@
     return parentEl.getAttribute(`${attribute}-map`) + ".";
   }
   function input(context) {
-    const el2 = context.element;
+    const el = context.element;
     let value = context.value;
     element(context);
     if (typeof value == "undefined") {
       value = "";
     }
-    if (el2.type == "checkbox" || el2.type == "radio") {
-      if (matchValue(el2.value, value)) {
-        el2.checked = true;
+    if (el.type == "checkbox" || el.type == "radio") {
+      if (matchValue(el.value, value)) {
+        el.checked = true;
       } else {
-        el2.checked = false;
+        el.checked = false;
       }
-    } else if (!matchValue(el2.value, value)) {
-      el2.value = "" + value;
+    } else if (!matchValue(el.value, value)) {
+      el.value = "" + value;
     }
   }
   function button(context) {
@@ -9795,15 +9729,15 @@
     setProperties(context.element, context.value, "value");
   }
   function select(context) {
-    const el2 = context.element;
+    const el = context.element;
     let value = context.value;
     if (value === null) {
       value = "";
     }
     if (typeof value != "object") {
-      if (el2.multiple) {
+      if (el.multiple) {
         if (Array.isArray(value)) {
-          for (let option of el2.options) {
+          for (let option of el.options) {
             if (value.indexOf(option.value) === false) {
               option.selected = false;
             } else {
@@ -9812,7 +9746,7 @@
           }
         }
       } else {
-        let option = el2.options.find((o) => matchValue(o.value, value));
+        let option = el.options.find((o) => matchValue(o.value, value));
         if (option) {
           option.selected = true;
           option.setAttribute("selected", true);
@@ -9820,12 +9754,12 @@
       }
     } else {
       if (value.options) {
-        setSelectOptions(el2, value.options);
+        setSelectOptions(el, value.options);
       }
       if (value.selected) {
         select(Object.asssign({}, context, { value: value.selected }));
       }
-      setProperties(el2, value, "name", "id", "selectedIndex", "className");
+      setProperties(el, value, "name", "id", "selectedIndex", "className");
     }
   }
   function addOption(select2, option) {
@@ -9866,19 +9800,19 @@
     setProperties(context.element, context.value, "content", "id");
   }
   function element(context) {
-    const el2 = context.element;
+    const el = context.element;
     let value = context.value;
     if (typeof value == "undefined" || value == null) {
       value = "";
     }
     let strValue = "" + value;
     if (typeof value != "object" || strValue.substring(0, 8) != "[object ") {
-      el2.innerHTML = strValue;
+      el.innerHTML = strValue;
       return;
     }
-    setProperties(el2, value, "innerHTML", "title", "id", "className");
+    setProperties(el, value, "innerHTML", "title", "id", "className");
   }
-  function setProperties(el2, data, ...properties) {
+  function setProperties(el, data, ...properties) {
     if (!data || typeof data !== "object") {
       return;
     }
@@ -9886,13 +9820,13 @@
       if (typeof data[property] === "undefined") {
         continue;
       }
-      if (matchValue(el2[property], data[property])) {
+      if (matchValue(el[property], data[property])) {
         continue;
       }
       if (data[property] === null) {
-        el2[property] = "";
+        el[property] = "";
       } else {
-        el2[property] = "" + data[property];
+        el[property] = "" + data[property];
       }
     }
   }
@@ -9909,7 +9843,7 @@
     return false;
   }
 
-  // node_modules/simplyflow/src/bind.mjs
+  // ../../../simplyedit/simplyflow/src/bind.mjs
   if (!Symbol.bindTemplate) {
     Symbol.bindTemplate = Symbol("bindTemplate");
   }
@@ -9959,28 +9893,28 @@
       const attribute = this.options.attribute;
       const bindAttributes = [attribute + "-field", attribute + "-list", attribute + "-map"];
       const transformAttribute = attribute + "-transform";
-      const getBindingAttribute = (el2) => {
-        const foundAttribute = bindAttributes.find((attr) => el2.hasAttribute(attr));
+      const getBindingAttribute = (el) => {
+        const foundAttribute = bindAttributes.find((attr) => el.hasAttribute(attr));
         if (!foundAttribute) {
-          console.error("No matching attribute found", el2, bindAttributes);
+          console.error("No matching attribute found", el, bindAttributes);
         }
         return foundAttribute;
       };
-      const renderElement = (el2) => {
-        this.bindings.set(el2, throttledEffect(() => {
-          if (!el2.isConnected) {
-            untrack(el2, this.getBindingPath(el2));
-            destroy(this.bindings.get(el2));
+      const renderElement = (el) => {
+        this.bindings.set(el, throttledEffect(() => {
+          if (!el.isConnected) {
+            untrack(el, this.getBindingPath(el));
+            destroy(this.bindings.get(el));
             return;
           }
           let context = {
-            templates: el2.querySelectorAll(":scope > template"),
-            attribute: getBindingAttribute(el2)
+            templates: el.querySelectorAll(":scope > template"),
+            attribute: getBindingAttribute(el)
           };
-          context.path = this.getBindingPath(el2);
+          context.path = this.getBindingPath(el);
           context.value = getValueByPath(this.options.root, context.path);
-          context.element = el2;
-          track(el2, context);
+          context.element = el;
+          track(el, context);
           runTransformers(context);
         }, 50));
       };
@@ -10134,15 +10068,15 @@
      * @param HTMLElement el
      * @return string The path referenced, or void
      */
-    getBindingPath(el2) {
+    getBindingPath(el) {
       const attributes = [
         this.options.attribute + "-field",
         this.options.attribute + "-list",
         this.options.attribute + "-map"
       ];
       for (let attr of attributes) {
-        if (el2.hasAttribute(attr)) {
-          return el2.getAttribute(attr);
+        if (el.hasAttribute(attr)) {
+          return el.getAttribute(attr);
         }
       }
     }
@@ -10209,17 +10143,17 @@
     return new SimplyBind(options);
   }
   var tracking = /* @__PURE__ */ new Map();
-  function track(el2, context) {
+  function track(el, context) {
     if (!tracking.has(context.path)) {
       tracking.set(context.path, [context]);
     } else {
       tracking.get(context.path).push(context);
     }
   }
-  function untrack(el2, path2) {
+  function untrack(el, path2) {
     let list2 = tracking.get(path2);
     if (list2) {
-      list2 = list2.filter((context) => context.element == el2);
+      list2 = list2.filter((context) => context.element == el);
       tracking.set(path2, list2);
     }
   }
@@ -10236,7 +10170,7 @@
     return curr;
   }
 
-  // node_modules/simplyflow/src/model.mjs
+  // ../../../simplyedit/simplyflow/src/model.mjs
   var model_exports = {};
   __export(model_exports, {
     columns: () => columns,
@@ -10251,14 +10185,21 @@
      * Creates a new datamodel, with a state property that contains
      * all the data passed to this constructor
      * @param state	Object with all the data for this model
+     * @throws Error if state is not set
      */
     constructor(state) {
+      if (!state) {
+        throw new Error("no options set");
+      }
+      if (state.data == null || typeof state.data[Symbol.iterator] !== "function") {
+        console.warn("SimplyFlowModel: options.data is not iterable");
+      }
       this.state = signal(state);
       if (!this.state.options) {
         this.state.options = {};
       }
-      this.effects = [{ current: state.data }];
-      this.view = signal(state.data);
+      this.effects = [{ current: this.state.data }];
+      this.view = this.state.data;
     }
     /**
      * Adds an effect to run whenever a signal it depends on
@@ -10270,8 +10211,15 @@
      * list. And the last effect added is set as this.view
      */
     addEffect(fn) {
+      if (!fn || typeof fn !== "function") {
+        throw new Error("addEffect requires an effect function as its parameter", { cause: fn });
+      }
       const dataSignal = this.effects[this.effects.length - 1];
-      this.view = fn.call(this, dataSignal);
+      const connectedSignal = fn.call(this, dataSignal);
+      if (!connectedSignal || !connectedSignal[Symbol.Signal]) {
+        throw new Error("addEffect function parameter must return a Signal", { cause: fn });
+      }
+      this.view = connectedSignal;
       this.effects.push(this.view);
     }
   };
@@ -10421,7 +10369,56 @@
     };
   }
 
-  // node_modules/simplyflow/src/flow.mjs
+  // ../../../simplyedit/simplyflow/src/render.mjs
+  var SimplyRender = class extends HTMLElement {
+    constructor() {
+      super();
+    }
+    connectedCallback() {
+      let templateId = this.getAttribute("rel");
+      let template = document.getElementById(templateId);
+      if (template) {
+        let content = template.content.cloneNode(true);
+        for (const node of content.childNodes) {
+          const clone = node.cloneNode(true);
+          if (clone.nodeType == document.ELEMENT_NODE) {
+            clone.querySelectorAll("template").forEach(function(t) {
+              t.setAttribute("simply-render", "");
+            });
+            if (this.attributes) {
+              for (const attr of this.attributes) {
+                if (attr.name != "rel") {
+                  clone.setAttribute(attr.name, attr.value);
+                }
+              }
+            }
+          }
+          this.parentNode.insertBefore(clone, this);
+        }
+        this.parentNode.removeChild(this);
+      } else {
+        const observe2 = () => {
+          const observer3 = new MutationObserver(() => {
+            template = document.getElementById(templateId);
+            if (template) {
+              observer3.disconnect();
+              this.replaceWith(this);
+            }
+          });
+          observer3.observe(globalThis.document, {
+            subtree: true,
+            childList: true
+          });
+        };
+        observe2();
+      }
+    }
+  };
+  if (!customElements.get("simply-render")) {
+    customElements.define("simply-render", SimplyRender);
+  }
+
+  // ../../../simplyedit/simplyflow/src/flow.mjs
   if (!globalThis.simply) {
     globalThis.simply = {};
   }
@@ -15119,7 +15116,7 @@
   var solid_webid_default = {
     html: {
       webid: html`
-<dialog id="webidDialog" class="ds-dialog">
+<dialog id="webidDialog" class="ds-dialog solid-dialog">
 	<button class="ds-button ds-button-close" data-simply-command="webidClose">
 		<svg class="ds-icon ds-icon-feather">
             <use xlink:href="assets/icons/feather-sprite.svg#x"></use>
@@ -15149,7 +15146,7 @@
 	}
 }
 @layer component {
-	:root {
+	.solid-dialog {
 		--solid-dialog-shadow: var(--ds-dialog-shadow);
 		--solid-dialog-radius: var(--ds-dialog-radius);
 		--solid-dialog-width: 400px;
@@ -15163,14 +15160,27 @@
 		border: 0;
 		border-radius: var(--solid-dialog-radius);
 		box-shadow: var(--solid-dialog-shadow);
-		outline: var(--solid-dialog-outline);
+		xoutline: var(--solid-dialog-outline);
+		padding-top: var(--ds-space);
 	}
 	.solid-dialog::backdrop {
 		background: var(--solid-dialog-backdrop);
 		backdrop-filter: blur(16px);
 	}
-	.ds-dialog::backdrop {
-		backdrop-filter: blur(16px);		
+	.solid-dialog .ds-button-close {
+		clip-path: polygon( 0 0%, 17px 100%, 100% 100%, 100% 0);
+		padding: 6px 10px 6px 25px;
+		background: var(--ds-grey-70);
+		color: white;
+		margin: 0;
+		right: 0;
+		top: 0;
+	}
+	.solid-dialog .ds-form-buttons {
+		position: absolute;
+		bottom: 0;
+		background: var(--ds-color-background);
+		padding-bottom: var(--ds-space-d2);
 	}
 }
 @media screen and (max-width:719px) {
@@ -15180,7 +15190,7 @@
 		`
     },
     commands: {
-      webidDialog: async function(el2, value) {
+      webidDialog: async function(el, value) {
         this.actions.webidDialog();
       },
       webidSave: async function(form, values) {
@@ -15193,7 +15203,7 @@
           document.getElementById("webidDialog").close();
         }
       },
-      webidClose: async function(el2, value) {
+      webidClose: async function(el, value) {
         document.getElementById("webidDialog").close();
       }
     },
@@ -17030,6 +17040,12 @@
   }
   function groupBy(data, pointerFunctions) {
     let pointerFn = pointerFunctions.shift();
+    if (typeof pointerFn == "string") {
+      pointerFn = _[pointerFn];
+    }
+    if (typeof pointerFn != "function") {
+      throw new Error("groupBy parameters must be either a property name or a pointer function (e.g.: _.name)");
+    }
     let groups = getMatchingGroups(data, pointerFn);
     if (pointerFunctions.length) {
       for (let group in groups) {
@@ -17358,7 +17374,7 @@
 	</nav>
 `,
       "solid-preferences": html`
-<dialog id="solid-preferences-dialog" class="ds-dialog">
+<dialog id="solid-preferences-dialog" class="ds-dialog solid-dialog">
 	<button class="ds-button ds-button-close" data-simply-command="solidClose">
 		<svg class="ds-icon ds-icon-feather">
             <use xlink:href="assets/icons/feather-sprite.svg#x"></use>
@@ -17459,8 +17475,8 @@
       swPreferences: async function() {
         this.actions.swPreferencesDialog();
       },
-      solidClose: async function(el2) {
-        el2.closest("dialog").close();
+      solidClose: async function(el) {
+        el.closest("dialog").close();
       },
       solidPreferencesSave: async function() {
         try {
@@ -17469,7 +17485,7 @@
           this.actions.solidErrors(err.message);
         }
       },
-      solidDarkmode: async function(el2, value) {
+      solidDarkmode: async function(el, value) {
         if (value == "auto") {
           document.body.classList.add("ds-darkmode-auto");
           document.body.classList.remove("ds-darkmode");
@@ -17514,7 +17530,7 @@
   var solid_contacts_default = {
     html: {
       "solid-contacts": html2`
-<div class="solid-contacts" data-flow-map="contacts.view">
+<div class="solid-contacts" data-flow-map="contacts.view.current">
 	<template>
 		<div class="solid-contacts-section">
 			<a class="solid-contacts-letter" data-flow-field="capital" data-simply-command="solid-contacts-letter-nav"></a>
@@ -17531,11 +17547,48 @@
 	</template>
 </div>`,
       "solid-contacts-filter": html2`
-<div class="solid-contacts-filter">
-	<input type="search" class="solid-contacts-filter-input"
+<div class="solid-contacts-filter ds-sticky-bottom">
+	<svg class="solid-contacts-filter-icon ds-icon ds-icon-feather">
+	    <use xlink:href="assets/icons/feather-sprite.svg#search"></use>
+	</svg>
+	<input type="text" class="solid-contacts-filter-input"
 		data-simply-command="solid-contacts-filter" 
-		data-simply-immediate
+		data-simply-immediate="true"
 		data-simply-value="contacts">
+</div>
+		`,
+      "solid-contacts-contact": html2`
+<div class="solid-contacts-contact ds-sticky-top" style="--ds-top: 2em;">
+	<h2 class="ds-margin-up">Auke van Slooten</h2>
+	<div>
+		<h3>
+			<svg class="ds-icon ds-icon-feather">
+		    	<use xlink:href="assets/icons/feather-sprite.svg#phone"></use>
+			</svg>
+			Call Mobile
+		</h3>
+		<p class="ds-margin-up"><a href="tel:+31626528325">+31 6 26 528 325</a></p>
+	</div>
+	<div>
+		<h3>
+			<svg class="ds-icon ds-icon-feather">
+		    	<use xlink:href="assets/icons/feather-sprite.svg#mail"></use>
+			</svg>
+			Email
+		</h3>
+		<p class="ds-margin-up"><a href="mailto:auke@muze.nl">auke@muze.nl</a></p>
+	</div>
+	<div>
+		<button class="ds-button ds-margin-up solid-add"><h3>
+			<svg class="ds-icon ds-icon-feather">
+		    	<use xlink:href="assets/icons/feather-sprite.svg#plus-circle"></use>
+			</svg>
+			Add
+			<svg class="ds-icon ds-icon-feather">
+		    	<use xlink:href="assets/icons/feather-sprite.svg#chevron-down"></use>
+			</svg>
+		</h3></button>
+	</div>
 </div>
 		`
     },
@@ -17546,11 +17599,31 @@
 					--ds-box-radius: 0;
 					scroll-behavior: smooth;
 				}
+			}
+			@layer component {
 				.solid {
-					width: 100%;
+					width: 100vw;
+					height: 100vh;
+				}
+				.solid-panels {
+
+				}
+				.solid-panels-split-horizontal {
+					display: flex;
+				}
+				.solid-panels-pane {
 					height: 100%;
-					min-height: 100vh;
-					min-width: 100vw;
+					overflow: auto;
+					padding: var(--ds-space);
+				}
+				.solid-add {
+					padding: 0;
+					text-transform: none;
+				}
+			}
+			@layer base {
+				a:link {
+					color: var(--ds-light-link-color);
 				}
 			}
 		`,
@@ -17558,17 +17631,18 @@
 			@layer component {
 				.solid-sticky-top {
 					position: sticky;
-					top: 0;
+					top: calc(-1 * var(--ds-space));
 					z-index: 10;
 					background: var(--ds-color-background);
 				}
 				.solid-contacts {
 					display: flow-root;
+					margin-bottom: var(--ds-space-x4);
 				}
 				.solid-contacts-letter {
 					position: sticky;
 					z-index: 9;
-					top: calc(2 * var(--ds-line-height));
+					top: calc(var(--ds-line-height) * 1.5);
 					text-decoration: none;
 					scroll-margin-top: calc(2 * var(--ds-line-height));
 					display: block;
@@ -17603,25 +17677,38 @@
 					position: sticky;
 					bottom: 0;
 					z-index: 10;
-					background: var(--ds-white);
+					background-color: var(--ds-color-background);
+					color: var(--ds-color-contrast);
+					padding: var(--ds-space) 0;
 				}
+				.solid-contacts-filter-input {
+					border-left: calc(var(--ds-space-d2) + var(--ds-line-height)) solid var(--ds-grey-medium);
+					padding-left: var(--ds-space-d2);
+					width: 20em;
+					margin: 0;
+				}
+				.solid-contacts-filter-icon {
+					position: absolute;
+					margin-top: var(--ds-space-d4);
+					margin-left: var(--ds-space-d2);
+  				}
 			}
 		`
     },
     commands: {
-      "solid-contacts-letter-nav": async function(el2, value) {
-        const contacts2 = el2.closest(".solid-contacts");
+      "solid-contacts-letter-nav": async function(el, value) {
+        const contacts2 = el.closest(".solid-contacts");
         contacts2.classList.toggle("solid-contacts-letters-nav");
         if (!contacts2.classList.contains("solid-contacts-letters-nav")) {
-          window.location.hash = el2.hash;
+          window.location.hash = el.hash;
           window.setTimeout(() => {
-            el2.scrollIntoView({ behavior: "smooth" });
+            el.scrollIntoView({ behavior: "smooth" });
           }, 100);
         }
       },
-      "solid-contacts-filter": async function(el2, value) {
-        const model2 = simply.path.get(this.state, el2.dataset.simplyValue);
-        model2.state.options.name.filters.text = el2.value;
+      "solid-contacts-filter": async function(el, value) {
+        const model2 = simply.path.get(this.state, el.dataset.simplyValue);
+        model2.state.options.name.filters.text = el.value;
       }
     }
   };
@@ -17672,22 +17759,24 @@
           }
         }));
         contactsModel.addEffect(function(data) {
-          let result2 = {};
-          for (const entry of data.current) {
-            const capital = entry.sort_name[0];
-            if (!result2[capital]) {
-              result2[capital] = {
-                capital: {
-                  innerHTML: capital,
-                  href: "#" + capital,
-                  name: capital
-                },
-                entries: []
-              };
+          return simply.state.effect(() => {
+            let result2 = {};
+            for (const entry of data.current) {
+              const capital = entry.sort_name[0];
+              if (!result2[capital]) {
+                result2[capital] = {
+                  capital: {
+                    innerHTML: capital,
+                    href: "#" + capital,
+                    name: capital
+                  },
+                  entries: []
+                };
+              }
+              result2[capital].entries.push(entry);
             }
-            result2[capital].entries.push(entry);
-          }
-          return result2;
+            return result2;
+          });
         });
         this.state.contacts = contactsModel;
         console.log("contacts", contactsModel);
@@ -17712,6 +17801,11 @@
           root: this.state,
           transformers: this.transformers
         });
+        for (const name in this.components) {
+          if (this.components[name].hooks?.start) {
+            await this.components[name].hooks.start.call(this, this.components[name]);
+          }
+        }
         delete document.body.dataset.swLoading;
         if (!this.state.webid?.id) {
           await this.actions.webidDialog();
@@ -17734,7 +17828,6 @@
       solidContacts: solid_contacts_default
     }
   });
-  contacts.start();
   globalThis.contactsApp = contacts;
 })();
 /*! Bundled license information:
