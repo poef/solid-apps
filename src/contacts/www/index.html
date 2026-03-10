@@ -35,13 +35,18 @@
     .ds-sticky-top {
     	z-index: 2;
     }
+    .ds-panels-heading::after {
+		background: var(--ds-color-background);
+		width: 20em;
+		height: calc((var(--ds-line-height) * 1.5) + var(--ds-space-d4));
+		display: block;
+		content: "";
+		position: absolute;
+		top: calc(-1 * var(--ds-space-d2));
+		z-index: -1;
+    }
     .ds-panels-title::after {
-    	background: var(--ds-color-background);
-    	width: 20em;
-    	height: 1.5em;
-    	display: block;
-    	content: "";
-    	margin-top: -1.5em;
+    	display: none;
     }
     .ds-panels-heading {
     	z-index: 10;
@@ -57,7 +62,7 @@
 </header>
 <main class="ds-panels-list-details">
 	<heading class="ds-panels-heading ds-sticky-top" style="--ds-top: 0.5em;">
-		<h1 class="ds-panels-title ds-sticky-left">People</h1>
+		<h1 class="ds-panels-title ds-sticky-left" style="--ds-left: -1em;">People</h1>
 	</heading>
 	<div class="ds-panels-panes">
 		<div class="ds-panels-pane ds-panels-list">
