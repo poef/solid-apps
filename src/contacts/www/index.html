@@ -1,7 +1,6 @@
 <!doctype html>
 <meta charset="utf-8">
 <title>People</title>
-<link rel="stylesheet" href="assets/css/theds.css">
 <style>
 	:root {
 		--ds-primary: oklch(0.4866 0.1142 255.31);
@@ -20,41 +19,6 @@
 	html,body {
 		height: 100%;
 	}
-	/* temp fixes */
-	.ds-panels-container {
-		height: 100%;
-		width: 100%;
-		overflow: hidden;
-		overflow-x: scroll;
-	}
-    @media screen and (min-width: 720px) {
-        .ds-panels-list-details .ds-panels-panes {
-            grid-template-columns: 20em 1fr;
-        }
-    }
-    .ds-sticky-top {
-    	z-index: 2;
-    }
-    .ds-panels-heading::after {
-		background: var(--ds-color-background);
-		width: 20em;
-		height: calc((var(--ds-line-height) * 1.5) + var(--ds-space-d4));
-		display: block;
-		content: "";
-		position: absolute;
-		top: calc(-1 * var(--ds-space-d2));
-		z-index: -1;
-    }
-    .ds-panels-title::after {
-    	display: none;
-    }
-    .ds-panels-heading {
-    	z-index: 10;
-    }
-    .ds-panels-title,
-    .ds-panels-pane {
-    	padding: var(--ds-space-d4);
-    }
 </style>
 <body class="ds-darkmode-auto ds-panels-container">
 <header>
