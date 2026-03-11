@@ -57,6 +57,10 @@ export default {
 	css: {
 		'solid-drawer': css`
 			@layer component {
+				.ds-button {
+					border-radius: 0;
+					text-transform: none;
+				}
 				.solid-drawer-position {
 					position: fixed;
 					top: 0;
