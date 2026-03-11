@@ -6,6 +6,7 @@ import solidDrawer from '../components/solid-drawer.mjs'
 import solidContacts from '../components/solid-contacts.mjs'
 import {authorizePopup} from '@muze-nl/metro-oauth2/src/oauth2.popup.mjs'
 import metro from '@muze-nl/metro'
+import theds from '@muze-nl/theds'
 
 const contacts = simply.app({
 	actions: {
@@ -120,6 +121,7 @@ const contacts = simply.app({
 		}
 	}),
 	components: {
+		theds,
 		webid,
 		solidFS,
 		solidDrawer,
