@@ -2,20 +2,20 @@ export default {
 	html: {
 		'solid-drawer': html`
 	<nav class="solid-drawer-position">
-		<label for="solidDrawerState" class="solid-drawer">
-			<svg class="ds-icon ds-icon-feather">
-	            <use xlink:href="assets/icons/feather-sprite.svg#user"></use>
-	        </svg>
-	    </label>
-        <input type="checkbox" id="solidDrawerState" class="ds-dropdown-state">
-	    <nav class="ds-dropdown-nav ds-dropdown-right ds-align-left">
-	        <ul class="ds-dropdown-list">
-	            <li class="ds-dropdown-item" data-simply-command="webidDialog">WebID</li>
-	            <li class="ds-dropdown-item" data-simply-command="swPreferences">Preferences</li>
-	            <li class="ds-dropdown-item" data-simply-command="swProfile">Profile</li>
-	            <li class="ds-dropdown-item" data-simply-command="swCustomize">Customize</li>
-	        </ul>
-	    </nav>
+		<label class="ds-align-right ds-dropdown solid-drawer" data-simply-activate="ds-dropdown">
+			<svg class="ds-dropdown-icon ds-icon ds-icon-feather">
+				<use xlink:href="assets/icons/feather-sprite.svg#user"></use>
+			</svg>
+			<input type="checkbox" class="ds-dropdown-state">
+			<nav class="ds-dropdown-nav ds-dropdown-right">
+		        <ul class="ds-dropdown-list">
+		            <li class="ds-dropdown-item"><a class="ds-dropdown-link" data-simply-command="webidDialog">WebID</a></li>
+		            <li class="ds-dropdown-item"><a class="ds-dropdown-link"  data-simply-command="swPreferences">Preferences</a></li>
+		            <li class="ds-dropdown-item"><a class="ds-dropdown-link"  data-simply-command="swProfile">Profile</a></li>
+		            <li class="ds-dropdown-item"><a class="ds-dropdown-link"  data-simply-command="swCustomize">Customize</a></li>
+		        </ul>
+			</nav>
+		</label>
 	</nav>
 `,
 	'solid-preferences': html`
@@ -78,13 +78,15 @@ export default {
 				.solid-drawer-position .ds-dropdown-item:last-child {
 					border-bottom: 0;
 				}
-				.solid-drawer-position .ds-dropdown-right {
-					right: 6px;
-					top: 31px;
-				}
 				a[data-simply-command] {
 					cursor: pointer;
 				}
+				@supports (not (position-try-fallbacks)) {
+					.solid-drawer-position .ds-dropdown-right {
+						right: 10px;
+					}
+				}
+
 			}
 			@layer utility {
 				.ds-inline {
