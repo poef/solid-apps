@@ -17412,6 +17412,10 @@
     css: {
       "solid-drawer": css`
 			@layer component {
+				.ds-button {
+					border-radius: 0;
+					text-transform: none;
+				}
 				.solid-drawer-position {
 					position: fixed;
 					top: 0;
@@ -17625,7 +17629,7 @@
 			}
 			@layer base {
 				:root {
-					--ds-light-link-color: oklch( from var(--ds-primary) calc(l + 0.3) c h);
+					--ds-light-link-color: oklch( from var(--ds-primary) calc(l + 0.5) c h);
 				}
 				.ds-darkmode a:link {
 					color: var(--ds-light-link-color);
@@ -17695,6 +17699,9 @@
 					padding: var(--ds-space) 0;
 					display: flex;
 					gap: var(--ds-space-d4);
+				}
+				.solid-contacts-filter .ds-button {
+					outline: var(--ds-primary) solid 1px;
 				}
 				.solid-contacts-filter-input {
 					border: 0;
