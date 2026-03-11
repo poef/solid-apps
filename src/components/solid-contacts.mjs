@@ -31,6 +31,11 @@ export default {
 		data-simply-command="solid-contacts-filter" 
 		data-simply-immediate="true"
 		data-simply-value="contacts">
+	<button class="ds-button ds-button-primary">
+		<svg class="ds-icon ds-icon-feather">
+		    <use xlink:href="assets/icons/feather-sprite.svg#plus"></use>
+		</svg>
+	</button>
 </div>
 		`,
 		'solid-contacts-contact':html`
@@ -75,22 +80,17 @@ export default {
 					--ds-box-radius: 0;
 					scroll-behavior: smooth;
 				}
+				a:link {
+					text-decoration: none;
+				}
+				a:hover, a:focus {
+					text-decoration: underline;
+				}
 			}
 			@layer component {
 				.solid {
 					width: 100vw;
 					height: 100vh;
-				}
-				.solid-panels {
-
-				}
-				.solid-panels-split-horizontal {
-					display: flex;
-				}
-				.solid-panels-pane {
-					height: 100%;
-					overflow: auto;
-					padding: var(--ds-space);
 				}
 				.solid-add {
 					padding: 0;
@@ -98,8 +98,16 @@ export default {
 				}
 			}
 			@layer base {
-				a:link {
+				:root {
+					--ds-light-link-color: oklch( from var(--ds-primary) calc(l + 0.3) c h);
+				}
+				.ds-darkmode a:link {
 					color: var(--ds-light-link-color);
+				}
+				@media (prefers-color-scheme: dark) {
+				    .ds-darkmode-auto a:link {
+						color: var(--ds-light-link-color);
+					}
 				}
 			}
 		`,
@@ -114,6 +122,9 @@ export default {
 				.solid-contacts {
 					display: flow-root;
 					margin-bottom: var(--ds-space-x4);
+				}
+				.solid-contacts-contact {
+					margin-top: var(--ds-line-height);
 				}
 				.solid-contacts-letter {
 					position: sticky;
@@ -156,9 +167,13 @@ export default {
 					background-color: var(--ds-color-background);
 					color: var(--ds-color-contrast);
 					padding: var(--ds-space) 0;
+					display: flex;
+					gap: var(--ds-space-d4);
 				}
 				.solid-contacts-filter-input {
+					border: 0;
 					border-left: calc(var(--ds-space-d2) + var(--ds-line-height)) solid var(--ds-grey-medium);
+					outline: var(--ds-grey-medium) solid 1px;
 					padding-left: var(--ds-space-d2);
 					width: 20em;
 					margin: 0;
