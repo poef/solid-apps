@@ -17523,7 +17523,7 @@
         if (!this.state.solid) {
           this.state.solid = {};
         }
-        this.container.insertAdjacentHTML("beforeend", component.html["solid-preferences"]);
+        this.container.insertAdjacentHTML("beforeend", '<simply-render rel="solid-preferences"></simply-render>');
       }
     }
   };
