@@ -8081,7 +8081,7 @@
     }
   });
 
-  // ../../../simplyedit/simplyview/src/activate.mjs
+  // node_modules/simplyview/src/activate.mjs
   if (!Symbol.onDestroy) {
     Symbol.onDestroy = Symbol("onDestroy");
   }
@@ -8162,7 +8162,7 @@
     childList: true
   });
 
-  // ../../../simplyedit/simplyview/src/action.mjs
+  // node_modules/simplyview/src/action.mjs
   function actions(options, optionsCompat) {
     if (optionsCompat) {
       let app2 = options;
@@ -8203,7 +8203,7 @@
     }
   }
 
-  // ../../../simplyedit/simplyview/src/route.mjs
+  // node_modules/simplyview/src/route.mjs
   function routes(options, optionsCompat) {
     if (optionsCompat) {
       let app2 = options;
@@ -8423,7 +8423,7 @@
     return routeInfo;
   }
 
-  // ../../../simplyedit/simplyview/src/command.mjs
+  // node_modules/simplyview/src/command.mjs
   var SimplyCommands = class {
     constructor(options = {}) {
       if (!options.app) {
@@ -8568,12 +8568,12 @@
     }
   ];
 
-  // ../../../simplyedit/simplyview/src/dom.mjs
+  // node_modules/simplyview/src/dom.mjs
   function findAttribute(el, attr) {
     return el.closest("[" + attr + "]")?.getAttribute(attr);
   }
 
-  // ../../../simplyedit/simplyview/src/key.mjs
+  // node_modules/simplyview/src/key.mjs
   var KEY = Object.freeze({
     Compose: 229,
     Control: 17,
@@ -8688,7 +8688,7 @@
     });
   }
 
-  // ../../../simplyedit/simplyview/src/view.mjs
+  // node_modules/simplyview/src/view.mjs
   function view(options, optionsCompat) {
     if (optionsCompat) {
       let app2 = options;
@@ -8714,7 +8714,7 @@
     }
   }
 
-  // ../../../simplyedit/simplyview/src/highlight.mjs
+  // node_modules/simplyview/src/highlight.mjs
   function html2(strings, ...values) {
     const outputArray = values.map(
       (value, index) => `${strings[index]}${value}`
@@ -8725,7 +8725,7 @@
     return html2(strings, ...values);
   }
 
-  // ../../../simplyedit/simplyview/src/app.mjs
+  // node_modules/simplyview/src/app.mjs
   var SimplyApp = class {
     constructor(options = {}) {
       this.container = options.container || document.body;
@@ -8757,7 +8757,7 @@
               let style = this.container.querySelector("style#" + name);
               if (!style) {
                 style = document.createElement("style");
-                style.id = name;
+                style.id = name + ".css";
                 this.container.appendChild(style);
               }
               style.innerHTML = options.css[name];
@@ -8889,7 +8889,7 @@
     }
   }
 
-  // ../../../simplyedit/simplyview/src/include.mjs
+  // node_modules/simplyview/src/include.mjs
   function throttle(callbackFunction, intervalTime) {
     let eventId = 0;
     return () => {
@@ -9061,7 +9061,7 @@
   observe();
   handleChanges2();
 
-  // ../../../simplyedit/simplyview/src/path.mjs
+  // node_modules/simplyview/src/path.mjs
   var path = {
     get(dataset, pointer) {
       if (typeof pointer !== "string") {
@@ -9099,7 +9099,7 @@
   };
   var path_default = path;
 
-  // ../../../simplyedit/simplyview/src/everything.mjs
+  // node_modules/simplyview/src/everything.mjs
   var simply2 = {
     activate,
     action: actions,
@@ -9114,7 +9114,7 @@
   };
   globalThis.simply = simply2;
 
-  // ../../../simplyedit/simplyflow/src/state.mjs
+  // node_modules/simplyflow/src/state.mjs
   var state_exports = {};
   __export(state_exports, {
     batch: () => batch,
@@ -9528,7 +9528,7 @@
     }
   }
 
-  // ../../../simplyedit/simplyflow/src/bind.transformers.mjs
+  // node_modules/simplyflow/src/bind.transformers.mjs
   function escape_html(context, next) {
     let content = context.value.innerHTML;
     if (typeof context.value == "string") {
@@ -9550,7 +9550,7 @@
     next(context);
   }
 
-  // ../../../simplyedit/simplyflow/src/bind.render.mjs
+  // node_modules/simplyflow/src/bind.render.mjs
   function field(context) {
     if (context.templates?.length) {
       fieldByTemplates.call(this, context);
@@ -9843,7 +9843,7 @@
     return false;
   }
 
-  // ../../../simplyedit/simplyflow/src/bind.mjs
+  // node_modules/simplyflow/src/bind.mjs
   if (!Symbol.bindTemplate) {
     Symbol.bindTemplate = Symbol("bindTemplate");
   }
@@ -10170,7 +10170,7 @@
     return curr;
   }
 
-  // ../../../simplyedit/simplyflow/src/model.mjs
+  // node_modules/simplyflow/src/model.mjs
   var model_exports = {};
   __export(model_exports, {
     columns: () => columns,
@@ -10369,7 +10369,7 @@
     };
   }
 
-  // ../../../simplyedit/simplyflow/src/render.mjs
+  // node_modules/simplyflow/src/render.mjs
   var SimplyRender = class extends HTMLElement {
     constructor() {
       super();
@@ -10418,7 +10418,7 @@
     customElements.define("simply-render", SimplyRender);
   }
 
-  // ../../../simplyedit/simplyflow/src/flow.mjs
+  // node_modules/simplyflow/src/flow.mjs
   if (!globalThis.simply) {
     globalThis.simply = {};
   }
@@ -17357,20 +17357,20 @@
     html: {
       "solid-drawer": html`
 	<nav class="solid-drawer-position">
-		<label for="solidDrawerState" class="solid-drawer">
-			<svg class="ds-icon ds-icon-feather">
-	            <use xlink:href="assets/icons/feather-sprite.svg#user"></use>
-	        </svg>
-	    </label>
-        <input type="checkbox" id="solidDrawerState" class="ds-dropdown-state">
-	    <nav class="ds-dropdown-nav ds-dropdown-right ds-align-left">
-	        <ul class="ds-dropdown-list">
-	            <li class="ds-dropdown-item" data-simply-command="webidDialog">WebID</li>
-	            <li class="ds-dropdown-item" data-simply-command="swPreferences">Preferences</li>
-	            <li class="ds-dropdown-item" data-simply-command="swProfile">Profile</li>
-	            <li class="ds-dropdown-item" data-simply-command="swCustomize">Customize</li>
-	        </ul>
-	    </nav>
+		<label class="ds-align-right ds-dropdown solid-drawer" data-simply-activate="ds-dropdown">
+			<svg class="ds-dropdown-icon ds-icon ds-icon-feather">
+				<use xlink:href="assets/icons/feather-sprite.svg#user"></use>
+			</svg>
+			<input type="checkbox" class="ds-dropdown-state">
+			<nav class="ds-dropdown-nav ds-dropdown-right">
+		        <ul class="ds-dropdown-list">
+		            <li class="ds-dropdown-item"><a class="ds-dropdown-link" data-simply-command="webidDialog">WebID</a></li>
+		            <li class="ds-dropdown-item"><a class="ds-dropdown-link"  data-simply-command="swPreferences">Preferences</a></li>
+		            <li class="ds-dropdown-item"><a class="ds-dropdown-link"  data-simply-command="swProfile">Profile</a></li>
+		            <li class="ds-dropdown-item"><a class="ds-dropdown-link"  data-simply-command="swCustomize">Customize</a></li>
+		        </ul>
+			</nav>
+		</label>
 	</nav>
 `,
       "solid-preferences": html`
@@ -17433,13 +17433,15 @@
 				.solid-drawer-position .ds-dropdown-item:last-child {
 					border-bottom: 0;
 				}
-				.solid-drawer-position .ds-dropdown-right {
-					right: 6px;
-					top: 31px;
-				}
 				a[data-simply-command] {
 					cursor: pointer;
 				}
+				@supports (not (position-try-fallbacks)) {
+					.solid-drawer-position .ds-dropdown-right {
+						right: 10px;
+					}
+				}
+
 			}
 			@layer utility {
 				.ds-inline {
