@@ -99,7 +99,7 @@ export default {
 			}
 			@layer base {
 				:root {
-					--ds-light-link-color: oklch( from var(--ds-primary) calc(l + 0.3) c h);
+					--ds-light-link-color: oklch( from var(--ds-primary) calc(l + 0.5) c h);
 				}
 				.ds-darkmode a:link {
 					color: var(--ds-light-link-color);
@@ -169,6 +169,9 @@ export default {
 					padding: var(--ds-space) 0;
 					display: flex;
 					gap: var(--ds-space-d4);
+				}
+				.solid-contacts-filter .ds-button {
+					outline: var(--ds-primary) solid 1px;
 				}
 				.solid-contacts-filter-input {
 					border: 0;
