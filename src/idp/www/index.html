@@ -17,13 +17,26 @@
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-position: center;
+ 	}
+ 	main {
+ 		position: absolute;
+ 		top: 0;
+ 		left: 0;
+ 		width: 100%;
+ 		height: 100%;
+ 	}
+	body .ds-dark-background {
+		opacity: 0;
+		transition: opacity 0.5s ease;
+		width: 100%;
+		height: 100%;
 	}
-	body.ds-darkmode {
-		background-image: url('assets/img/bg3.jpg');
+	body.ds-darkmode .ds-dark-background {
+		opacity: 1;
 	}
 	@media (prefers-color-scheme: dark) {
-    	body.ds-darkmode-auto {
-			background-image: url('assets/img/bg3.jpg');
+    	body.ds-darkmode-auto  .ds-dark-background {
+			opacity: 1;
     	}
     }
 	.ds-panels-center {
@@ -90,6 +103,8 @@
 	}
 </style>
 <body class="ds-darkmode-auto ds-panels-container">
+<img class="ds-dark-background ds-background-image"
+	src="assets/img/bg3.jpg" alt="">
 <main class="ds-panels-panes ds-panels-center" data-flow-field="page">
 	<template data-flow-match="login">
 		<div class="ds-dialog solid-dialog ds-space-inside">
