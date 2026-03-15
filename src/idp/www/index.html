@@ -16,6 +16,9 @@
 		background-repeat: no-repeat;
 		background-position: center;
 	}
+	body.ds-darkmode {
+		background-image: url('assets/img/bg3.jpg');
+	}
 	@media (prefers-color-scheme: dark) {
     	body.ds-darkmode-auto {
 			background-image: url('assets/img/bg3.jpg');
@@ -31,13 +34,18 @@
 	.solid-dialog {
 		position: relative;
 		height: auto;
-		padding-bottom: var(--ds-space-x3);
+		padding-bottom: var(--ds-space-x4);
 	}
 	.solid-dialog .ds-form-buttons {
 		width: calc(100% - 2 * var(--ds-space));
 	}
 	.ds-form-help {
 		margin-top: calc(-1 * var(--ds-input-margin));
+		height: var(--ds-input-margin);
+	}
+	.solid-darkmode-toggle {
+		margin-top: calc(1.5 * var(--ds-space));
+		margin-right: calc(-1 * var(--ds-space));
 	}
 	:root {
 		--ds-light-link-color: oklch( from var(--ds-primary) calc(l + 0.5) c h);
@@ -65,9 +73,17 @@
 	.ds-darkmode a:link {
 		color: var(--ds-light-link-color);
 	}
+	.ds-button[data-simply-state="open"] .ds-icon {
+        transform: translateY(0);
+    }
 	@media (prefers-color-scheme: dark) {
 	    .ds-darkmode-auto a:link {
 			color: var(--ds-light-link-color);
+		}
+		.ds-button:focus,
+		.ds-button:hover,
+		.ds-button:active {
+			box-shadow: var(--ds-glow-medium);
 		}
 	}
 </style>
@@ -75,8 +91,9 @@
 <main class="ds-panels-panes ds-panels-center" data-flow-field="page">
 	<template data-flow-match="login">
 		<div class="ds-dialog solid-dialog ds-space-inside">
+			<simply-render rel="darkmode-toggle"></simply-render>
 			<h1>Login</h1>
-			<form class="solid-form">
+			<form class="solid-form" data-simply-command="login">
 				<label>
 					E-mail
 					<input type="email" name="email" autofocus>
@@ -84,13 +101,99 @@
 				<label>
 					Password
 					<input type="password" name="password">
-					<div class="ds-form-help">
-						<a href="#reset-password">Reset your password</a>
+					<div class="ds-form-help ds-align-right">
+						<a href="#reset-password">
+							<svg class="solid-contacts-filter-icon ds-icon ds-icon-feather">
+							    <use xlink:href="assets/icons/feather-sprite.svg#external-link"></use>
+							</svg>
+						Reset your password</a>
 					</div>
 				</label>
 				<div class="ds-form-buttons">
 					<button class="ds-button ds-button-primary">Login</button>
-					<button class="ds-button ds-button-support" type="button">Register</button>
+					<a class="ds-button ds-button-support" href="#register">Register</a>
+					<div class="ds-align-right">
+						<a href="#" class="ds-button ds-button-naked">About</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</template>
+	<template data-flow-match="register">
+		<div class="ds-dialog solid-dialog ds-space-inside">
+			<simply-render rel="darkmode-toggle"></simply-render>
+			<h1>Register</h1>
+			<form class="solid-form" data-simply-command="register">
+				<label>
+					E-mail
+					<input type="email" name="email" autofocus>
+				</label>
+				<label>
+					Choose a Password
+					<input type="password" name="password1" data-simply-command="passwordStrength" data-simply-immediate=true autofocus>
+					<div class="ds-form-help"><span data-flow-field="passwordStrength">
+						<template data-flow-match="weak">
+							<span>
+								<svg class="solid-contacts-filter-icon ds-icon ds-icon-feather">
+							    	<use xlink:href="assets/icons/feather-sprite.svg#alert-triangle"></use>
+								</svg>
+								Password is too weak
+							</span>
+						</template>
+						<template data-flow-match="average">
+							<span>
+								<svg class="solid-contacts-filter-icon ds-icon ds-icon-feather">
+							    	<use xlink:href="assets/icons/feather-sprite.svg#alert-circle"></use>
+								</svg>
+								Password is average
+							</span>
+						</template>
+						<template data-flow-match="strong">
+							<span>
+								<svg class="solid-contacts-filter-icon ds-icon ds-icon-feather">
+							    	<use xlink:href="assets/icons/feather-sprite.svg#thumbs-up"></use>
+								</svg>
+								Password is strong!
+							</span>
+						</template>
+					</span></div>
+				</label>
+				<label>
+					Confirm your Password
+					<input type="password" name="password2" data-simply-command="passwordMatches">
+					<div class="ds-form-help"><span data-flow-field="passwordMatches">
+						<template data-flow-match="false">
+							<span>
+								<svg class="solid-contacts-filter-icon ds-icon ds-icon-feather">
+							    	<use xlink:href="assets/icons/feather-sprite.svg#external-link"></use>
+								</svg>
+								Passwords do not match
+							</span>
+						</template>
+					</span></div>
+				</label>
+				<div class="ds-form-buttons">
+					<button class="ds-button ds-button-primary">Next</button>
+					<a class="ds-button ds-button-support" href="#login">Login</a>
+					<div class="ds-align-right">
+						<a href="#" class="ds-button ds-button-naked">About</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</template>
+	<template data-flow-match="confirm">
+		<div class="ds-dialog solid-dialog ds-space-inside">
+			<simply-render rel="darkmode-toggle"></simply-render>
+			<h1>Confirm E-mail</h1>
+			<form class="solid-form" data-simply-command="confirmRegistration">
+				<label>
+					Enter your code
+					<input type="text" name="code" autofocus>
+				</label>
+				<div class="ds-form-buttons">
+					<button class="ds-button ds-button-primary">Confirm</button>
+					<a class="ds-button ds-button-support" href="#login">Login</a>
 					<div class="ds-align-right">
 						<a href="#" class="ds-button ds-button-naked">About</a>
 					</div>
@@ -102,5 +205,17 @@
 		n.y.i
 	</template>
 </main>
+<template id="darkmode-toggle">
+	<div class="solid-darkmode-toggle ds-align-right">
+		<button class="ds-button ds-button-naked" data-simply-command="darkmodeToggle" data-simply-state="open">
+			<svg class="ds-icon ds-icon-feather" data-simply-state="close">
+			    <use xlink:href="assets/icons/feather-sprite.svg#sun"></use>
+			</svg>
+			<svg class="ds-icon ds-icon-feather" data-simply-state="open">
+			    <use xlink:href="assets/icons/feather-sprite.svg#moon"></use>
+			</svg>
+		</button>
+	</div>
+</template>
 <script src="assets/js/idp.js"></script>
 </body>
