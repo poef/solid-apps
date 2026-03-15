@@ -41,3 +41,10 @@ build({
     minify: false,
     bundle: true
 })
+build({
+    entryPoints: ['./idp/index.mjs'],
+    outfile: './idp/www/assets/js/idp.js',
+    minify: false,
+    bundle: true,
+    sourcemap: true
+})

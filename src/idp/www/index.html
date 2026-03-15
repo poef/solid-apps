@@ -1,0 +1,106 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Solid Login</title>
+<style>
+	:root {
+		--ds-primary: oklch(0.4866 0.1142 255.31);
+		--ds-primary-contrast: white;
+		--ds-dialog-radius: 0;
+    }
+	html,body {
+		height: 100%;
+	}
+	body {
+		background: url('assets/img/bg4.jpg');
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	@media (prefers-color-scheme: dark) {
+    	body.ds-darkmode-auto {
+			background: url('assets/img/bg3.jpg');
+    	}
+    }
+	.ds-panels-center {
+		justify-content: center;
+		align-items: center;
+	}
+	.ds-panels-panes {
+		height: 100%;
+	}
+	.solid-dialog {
+		position: relative;
+		height: auto;
+		padding-bottom: var(--ds-space-x3);
+	}
+	.solid-dialog .ds-form-buttons {
+		width: calc(100% - 2 * var(--ds-space));
+	}
+	.ds-form-help {
+		margin-top: calc(-1 * var(--ds-input-margin));
+	}
+	:root {
+		--ds-light-link-color: oklch( from var(--ds-primary) calc(l + 0.5) c h);
+		--ds-dark-link-color: oklch( from var(--ds-primary) calc(l - 0.3) c h);
+		--ds-font-weight: 400;
+	}
+	a:link {
+		color: var(--ds-dark-link-color);
+		text-decoration: none;
+	}
+	a:focus {
+		outline: 0px;
+		text-decoration: underline;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+	a.ds-button:hover,
+	a.ds-button:focus {
+		text-decoration: none;
+	}
+	button.ds-button-primary:focus {
+		color: var(--ds-primary-contrast);
+	}
+	.ds-darkmode a:link {
+		color: var(--ds-light-link-color);
+	}
+	@media (prefers-color-scheme: dark) {
+	    .ds-darkmode-auto a:link {
+			color: var(--ds-light-link-color);
+		}
+	}
+</style>
+<body class="xds-darkmode-auto ds-panels-container">
+<main class="ds-panels-panes ds-panels-center" data-flow-field="page">
+	<template data-flow-match="login">
+		<div class="ds-dialog solid-dialog ds-space-inside">
+			<h1>Login</h1>
+			<form class="solid-form">
+				<label>
+					E-mail
+					<input type="email" name="email" autofocus>
+				</label>
+				<label>
+					Password
+					<input type="password" name="password">
+					<div class="ds-form-help">
+						<a href="#reset-password">Reset your password</a>
+					</div>
+				</label>
+				<div class="ds-form-buttons">
+					<button class="ds-button ds-button-primary">Login</button>
+					<button class="ds-button ds-button-support" type="button">Register</button>
+					<div class="ds-align-right">
+						<a href="#" class="ds-button ds-button-naked">About</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</template>
+	<template>
+		n.y.i
+	</template>
+</main>
+<script src="assets/js/idp.js"></script>
+</body>
