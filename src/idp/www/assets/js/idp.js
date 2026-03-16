@@ -17131,8 +17131,11 @@
       "#login": function() {
         this.state.page = "login";
       },
-      "/": function() {
-        this.routes.goto("#login");
+      "#about": function() {
+        this.state.page = "about";
+      },
+      "#reset": function() {
+        this.state.page = "reset";
       }
     },
     commands: {
@@ -17144,6 +17147,10 @@
       },
       confirmRegistration: function(form, values) {
         alert("nyi");
+      },
+      reset: function() {
+        alert("hier");
+        this.state.page = "resetsend";
       },
       passwordStrength: function(input2, value) {
         if (value.length < 8) {

@@ -101,6 +101,13 @@
 			box-shadow: var(--ds-glow-medium);
 		}
 	}
+	.solid-about {
+		max-height: calc(100vh - 10 * var(--ds-space));
+		overflow: auto;
+	}
+	.solid-small {
+		font-size: 80%;
+	}
 </style>
 <body class="ds-darkmode-auto ds-panels-container">
 <img class="ds-dark-background ds-background-image"
@@ -130,7 +137,7 @@
 					<button class="ds-button ds-button-primary">Login</button>
 					<a class="ds-button ds-button-support" href="#register">Register</a>
 					<div class="ds-align-right">
-						<a href="#" class="ds-button ds-button-naked">About</a>
+						<a href="#about" class="ds-button ds-button-naked">About</a>
 					</div>
 				</div>
 			</form>
@@ -193,7 +200,7 @@
 					<button class="ds-button ds-button-primary">Register</button>
 					<a class="ds-button ds-button-support" href="#login">Login</a>
 					<div class="ds-align-right">
-						<a href="#" class="ds-button ds-button-naked">About</a>
+						<a href="#about" class="ds-button ds-button-naked">About</a>
 					</div>
 				</div>
 			</form>
@@ -212,8 +219,69 @@
 					<button class="ds-button ds-button-primary">Confirm</button>
 					<a class="ds-button ds-button-support" href="#login">Login</a>
 					<div class="ds-align-right">
-						<a href="#" class="ds-button ds-button-naked">About</a>
+						<a href="#about" class="ds-button ds-button-naked">About</a>
 					</div>
+				</div>
+			</form>
+		</div>
+	</template>
+	<template data-flow-match="resetsend">
+		<div class="ds-dialog solid-dialog ds-space-inside">
+			<simply-render rel="darkmode-toggle"></simply-render>
+			<h1>Reset your password</h1>
+			<form class="solid-form">
+				<p>Follow the instructions in your E-mail to complete the password reset.</p>
+				<div class="ds-form-buttons">
+					<a class="ds-button ds-button-support" href="#login">Login</a>
+					<a class="ds-button ds-button-support" href="#register">Register</a>
+					<div class="ds-align-right">
+						<a href="#about" class="ds-button ds-button-naked">About</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</template>
+	<template data-flow-match="reset">
+		<div class="ds-dialog solid-dialog ds-space-inside">
+			<simply-render rel="darkmode-toggle"></simply-render>
+			<h1>Reset your password</h1>
+			<form class="solid-form" data-simply-command="reset">
+				<p>Enter your e-mail address and press Reset to receive a link that will allow you to reset your password.</p>
+				<label>
+					E-mail
+					<input type="email" name="email" autofocus>
+				</label>
+				<div class="ds-form-buttons">
+					<button class="ds-button ds-button-primary">Reset</button>
+					<a class="ds-button ds-button-support" href="#login">Cancel</a>
+					<div class="ds-align-right">
+						<a href="#about" class="ds-button ds-button-naked">About</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</template>
+	<template data-flow-match="about">
+		<div class="ds-dialog solid-dialog ds-space-inside">
+			<simply-render rel="darkmode-toggle"></simply-render>
+			<h1>About</h1>
+			<form class="solid-form solid-about ds-margin-up" data-simply-command="confirmRegistration">
+				<p>This server is an identity provider compatible with <a href="https://openid.net/developers/how-connect-works/" target="_blank">OpenID Connect</a> and <a href="https://solidproject.org/" target="_blank">Solid</a>.</p>
+				<div class="solid-small">
+					<p>This software is open source and makes use of:</p>
+					<ul class="ds-margin-up">
+						<li><a href="https://github.com/acodercat/php-jwk-to-pem" target="_blank">codercat/jwk-to-pem</a></li>
+						<li><a href="https://github.com/defuse/php-encryption" target="_blank">defuse/php-encryption</a></li>
+						<li><a href="https://github.com/lcobucci/jwt" target="_blank">lcobucci/jwt</a></li>
+						<li><a href="https://flysystem.thephpleague.com/docs/" target="_blank">league/flysystem</a></li>
+						<li><a href="https://oauth2.thephpleague.com/" target="_blank">league/oauth2-server</a></li>
+						<li><a href="https://pdsinterop.org/php-solid-server/" target="_blank">pdsinterop/php-solid-server</a></li>
+					</ul>
+					<p>This project was funded through the <a href="https://nlnet.nl/core" target="_blank">NGI0 Core</a> and <a href="https://nlnet.nl/discovery" target="_blank">NGI0 Discovery Funds</a>, established by <a href="https://nlnet.nl/" target="_blank">NLnet</a> with financial support from the European Commission's <a href="https://ngi.eu/" target="_blank">Next Generation Internet</a> programme.</p>
+				</div>
+				<div class="ds-form-buttons">
+					<a class="ds-button ds-button-support" href="#login">Login</a>
+					<a class="ds-button ds-button-support" href="#register">Register</a>
 				</div>
 			</form>
 		</div>
