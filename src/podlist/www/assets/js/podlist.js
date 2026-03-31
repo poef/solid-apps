@@ -9530,7 +9530,7 @@
 
   // node_modules/simplyflow/src/bind.transformers.mjs
   function escape_html(context, next) {
-    let content = context.value.innerHTML;
+    let content = context.value?.innerHTML;
     if (typeof context.value == "string") {
       content = context.value;
       context.value = { innerHTML: content };
@@ -9545,7 +9545,7 @@
     if (typeof context.value == "string") {
       context.value = {};
     } else {
-      delete context.value.innerHTML;
+      delete context.value?.innerHTML;
     }
     next(context);
   }
@@ -9566,8 +9566,9 @@
   }
   function list(context) {
     if (!Array.isArray(context.value)) {
-      console.error("Value is not an array.", context.element, context.path, context.value);
-    } else if (!context.templates?.length) {
+      context.value = [context.value];
+    }
+    if (!context.templates?.length) {
       console.error("No templates found in", context.element);
     } else {
       arrayByTemplates.call(this, context);
@@ -10105,7 +10106,7 @@
           } else if (matches === ":notempty" && currentItem) {
             return t;
           }
-          if (strItem.match(matches)) {
+          if (strItem == matches) {
             return t;
           }
         }
@@ -10162,9 +10163,19 @@
     let curr = root;
     let part;
     part = parts.shift();
+    let prevPart = null;
     while (part && curr) {
       part = decodeURIComponent(part);
-      curr = curr[part];
+      if (part == "0" && !Array.isArray(curr)) {
+      } else if (part == ":key") {
+        curr = prevPart;
+      } else if (part == ":value") {
+      } else if (Array.isArray(curr) && typeof curr[part] == "undefined") {
+        curr = curr[0][part];
+      } else {
+        curr = curr[part];
+      }
+      prevPart = part;
       part = parts.shift();
     }
     return curr;
@@ -10199,7 +10210,9 @@
         this.state.options = {};
       }
       this.effects = [{ current: this.state.data }];
-      this.view = this.state.data;
+      this.view = {
+        current: this.state.data
+      };
     }
     /**
      * Adds an effect to run whenever a signal it depends on
@@ -15311,7 +15324,7 @@
           result2 += "/";
         }
       }
-      return result2;
+      return "" + result2;
     }
     static isAbsolute(path2) {
       if (path2 instanceof _Path) {
@@ -16859,23 +16872,33 @@
     } else for (const [filterKey, filterValue] of Object.entries(filter2)) {
       if (filterValue instanceof Function) {
         fns.push((data) => {
-          const result2 = {
-            [filterKey]: filterValue(data, filterKey, "select")
-          };
-          return result2;
+          if (filterKey == "_") {
+            return filterValue(data, filterKey, "select");
+          } else {
+            return {
+              [filterKey]: filterValue(data, filterKey, "select")
+            };
+          }
         });
       } else if (!isPrimitiveWrapper(filterValue)) {
         fns.push((data) => {
-          const result2 = {
-            [filterKey]: from(data[filterKey]).select(filterValue)
-          };
-          return result2;
+          if (filterKey == "_") {
+            return from(data[filterKey]).select(filterValue);
+          } else {
+            return {
+              [filterKey]: from(data[filterKey]).select(filterValue)
+            };
+          }
         });
       } else {
         fns.push(() => {
-          return {
-            [filterKey]: filterValue
-          };
+          if (filterKey == "_") {
+            return filterValue;
+          } else {
+            return {
+              [filterKey]: filterValue
+            };
+          }
         });
       }
     }
@@ -17253,7 +17276,7 @@
           prop = localPath.shift();
         }
         return data;
-      } else if (key) {
+      } else if (key && key !== "_") {
         if (typeof data?.[key] != "undefined") {
           return data[key];
         } else {
@@ -17358,10 +17381,12 @@
       "solid-drawer": html`
 	<nav class="solid-drawer-position">
 		<label class="ds-align-right ds-dropdown solid-drawer" data-simply-activate="ds-dropdown">
-			<svg class="ds-dropdown-icon ds-icon ds-icon-feather">
-				<use xlink:href="assets/icons/feather-sprite.svg#user"></use>
-			</svg>
 			<input type="checkbox" class="ds-dropdown-state">
+			<button class="ds-button ds-button-naked ds-dropdown-button">
+				<svg class="ds-icon ds-icon-feather">
+					<use xlink:href="assets/icons/feather-sprite.svg#user"></use>
+				</svg>
+			</button>
 			<nav class="ds-dropdown-nav ds-dropdown-right">
 		        <ul class="ds-dropdown-list">
 		            <li class="ds-dropdown-item"><a class="ds-dropdown-link" data-simply-command="webidDialog">WebID</a></li>

@@ -9530,7 +9530,7 @@
 
   // node_modules/simplyflow/src/bind.transformers.mjs
   function escape_html(context, next) {
-    let content = context.value.innerHTML;
+    let content = context.value?.innerHTML;
     if (typeof context.value == "string") {
       content = context.value;
       context.value = { innerHTML: content };
@@ -9545,7 +9545,7 @@
     if (typeof context.value == "string") {
       context.value = {};
     } else {
-      delete context.value.innerHTML;
+      delete context.value?.innerHTML;
     }
     next(context);
   }
@@ -9566,8 +9566,9 @@
   }
   function list(context) {
     if (!Array.isArray(context.value)) {
-      console.error("Value is not an array.", context.element, context.path, context.value);
-    } else if (!context.templates?.length) {
+      context.value = [context.value];
+    }
+    if (!context.templates?.length) {
       console.error("No templates found in", context.element);
     } else {
       arrayByTemplates.call(this, context);
@@ -10105,7 +10106,7 @@
           } else if (matches === ":notempty" && currentItem) {
             return t;
           }
-          if (strItem.match(matches)) {
+          if (strItem == matches) {
             return t;
           }
         }
@@ -10162,9 +10163,19 @@
     let curr = root;
     let part;
     part = parts.shift();
+    let prevPart = null;
     while (part && curr) {
       part = decodeURIComponent(part);
-      curr = curr[part];
+      if (part == "0" && !Array.isArray(curr)) {
+      } else if (part == ":key") {
+        curr = prevPart;
+      } else if (part == ":value") {
+      } else if (Array.isArray(curr) && typeof curr[part] == "undefined") {
+        curr = curr[0][part];
+      } else {
+        curr = curr[part];
+      }
+      prevPart = part;
       part = parts.shift();
     }
     return curr;
@@ -10199,7 +10210,9 @@
         this.state.options = {};
       }
       this.effects = [{ current: this.state.data }];
-      this.view = this.state.data;
+      this.view = {
+        current: this.state.data
+      };
     }
     /**
      * Adds an effect to run whenever a signal it depends on
@@ -15311,7 +15324,7 @@
           result2 += "/";
         }
       }
-      return result2;
+      return "" + result2;
     }
     static isAbsolute(path2) {
       if (path2 instanceof _Path) {
@@ -16859,23 +16872,33 @@
     } else for (const [filterKey, filterValue] of Object.entries(filter2)) {
       if (filterValue instanceof Function) {
         fns.push((data) => {
-          const result2 = {
-            [filterKey]: filterValue(data, filterKey, "select")
-          };
-          return result2;
+          if (filterKey == "_") {
+            return filterValue(data, filterKey, "select");
+          } else {
+            return {
+              [filterKey]: filterValue(data, filterKey, "select")
+            };
+          }
         });
       } else if (!isPrimitiveWrapper(filterValue)) {
         fns.push((data) => {
-          const result2 = {
-            [filterKey]: from(data[filterKey]).select(filterValue)
-          };
-          return result2;
+          if (filterKey == "_") {
+            return from(data[filterKey]).select(filterValue);
+          } else {
+            return {
+              [filterKey]: from(data[filterKey]).select(filterValue)
+            };
+          }
         });
       } else {
         fns.push(() => {
-          return {
-            [filterKey]: filterValue
-          };
+          if (filterKey == "_") {
+            return filterValue;
+          } else {
+            return {
+              [filterKey]: filterValue
+            };
+          }
         });
       }
     }
@@ -17253,7 +17276,7 @@
           prop = localPath.shift();
         }
         return data;
-      } else if (key) {
+      } else if (key && key !== "_") {
         if (typeof data?.[key] != "undefined") {
           return data[key];
         } else {
@@ -17358,10 +17381,12 @@
       "solid-drawer": html`
 	<nav class="solid-drawer-position">
 		<label class="ds-align-right ds-dropdown solid-drawer" data-simply-activate="ds-dropdown">
-			<svg class="ds-dropdown-icon ds-icon ds-icon-feather">
-				<use xlink:href="assets/icons/feather-sprite.svg#user"></use>
-			</svg>
 			<input type="checkbox" class="ds-dropdown-state">
+			<button class="ds-button ds-button-naked ds-dropdown-button">
+				<svg class="ds-icon ds-icon-feather">
+					<use xlink:href="assets/icons/feather-sprite.svg#user"></use>
+				</svg>
+			</button>
 			<nav class="ds-dropdown-nav ds-dropdown-right">
 		        <ul class="ds-dropdown-list">
 		            <li class="ds-dropdown-item"><a class="ds-dropdown-link" data-simply-command="webidDialog">WebID</a></li>
@@ -17539,8 +17564,10 @@
 <div class="solid-contacts" data-flow-map="contacts.view.current">
 	<template>
 		<div class="solid-contacts-section">
-			<a class="solid-contacts-letter" data-flow-field="capital" data-simply-command="solid-contacts-letter-nav"></a>
-			<div class="solid-contacts-list" data-flow-list="entries">
+			<a class="solid-contacts-letter" data-flow-field=":key" 
+				data-simply-command="solid-contacts-letter-nav"
+			></a>
+			<div class="solid-contacts-list" data-flow-list=":value">
 				<template>
 					<a class="solid-contacts-entry" data-simply-command="solid-contacts-show">
 						<span class="solid-contacts-avatar"></span>
@@ -17659,7 +17686,7 @@
 				.solid-contacts-letter {
 					position: sticky;
 					z-index: 9;
-					top: calc(var(--ds-line-height) * 1.5);
+					top: calc(var(--ds-line-height) * 1.5 + var(--ds-space-d2));
 					text-decoration: none;
 					scroll-margin-top: calc(2 * var(--ds-line-height));
 					display: block;
@@ -17732,7 +17759,7 @@
       },
       "solid-contacts-filter": async function(el, value) {
         const model2 = simply.path.get(this.state, el.dataset.simplyValue);
-        model2.state.options.name.filters.text = el.value;
+        model2.state.options.filterBy = el.value;
       }
     }
   };
@@ -17771,17 +17798,7 @@
     --ds-black: #000;
     --ds-white: #FFF;
     --ds-primary: oklch(0.7388 0.1792 126.69);
-    --ds-primary-90: oklch( from var(--ds-primary) max(0.7,l) c h);
-    --ds-primary-10: oklch( from var(--ds-primary) min(0.4,l) c h);
-    --ds-primary-high: oklch( from var(--ds-primary) max(0.7, l) c h);
-    --ds-primary-low: oklch( from var(--ds-primary) min(0.4,l) c h);
-    --ds-primary-contrast: white;
-    --ds-support: #d9edf7;
-    --ds-support-90: #bce8f1;
-    --ds-support-10: #d9edf7;
-    --ds-support-low: var(--ds-support-10);
-    --ds-support-high: var(--ds-support-90);
-    --ds-support-contrast: var(--ds-black);
+    --ds-support: oklch(0.7388 0.1792 216.69);
     /* http://www.colorbox.io/#steps=11#hue_start=198#hue_end=198#hue_curve=linear#sat_start=15#sat_end=15#sat_curve=linear#sat_rate=130#lum_start=98#lum_end=0#lum_curve=easeOutQuad#lock_hex=eef1f8#minor_steps_map=0 */
     --ds-grey-0: #eef1f8;
     --ds-grey-5: #e9edf6;
@@ -17795,32 +17812,12 @@
     --ds-grey-80: #4d565c;
     --ds-grey-90: #262c2f;
     --ds-grey-100: #000000;
-    --ds-grey-high: var(--ds-grey-90);
-    --ds-grey-medium: var(--ds-grey-60);
-    --ds-grey-low: var(--ds-grey-0);
 
     --ds-color-error: rgb(253, 143, 143);
     --ds-color-warning: #FFFFCC;
     --ds-color-info: rgb(140, 180, 250);
   }
-
-  :root {
-    --ds-light-color: var(--ds-black);
-    --ds-light-color-background: var(--ds-white);
-    --ds-light-link-color: var(--ds-primary-high);
-    --ds-light-link-color-visited: var(--ds-grey-medium);
-    --ds-light-link-color-hover: var(--ds-primary-low);
-    --ds-light-link-color-active: var(--ds-primary-low);
-
-    --ds-dark-color: var(--ds-white);
-    --ds-dark-color-background: var(--ds-grey-high);
-    --ds-dark-link-color: var(--ds-primary-low);
-    --ds-dark-link-color-visited: var(--ds-grey-medium);
-    --ds-dark-link-color-hover: var(--ds-primary-high);
-    --ds-dark-link-color-active: var(--ds-primary-high);
-  }
 }
-
 @layer base {
   @property --channel {
     syntax: "*";
@@ -17831,45 +17828,70 @@
       ) - 128
     ) * -1000, 255);
   }
+
+  :root {
+    --ds-primary-10: oklch( from var(--ds-primary) calc(l + 0.3) c h);
+    --ds-primary-90: oklch( from var(--ds-primary) calc(l - 0.3) c h);
+    --ds-primary-high: var(--ds-primary-90);
+    --ds-primary-low: var(--ds-primary-10);
+    --ds-primary-contrast: white;
+
+    --ds-support-10: oklch( from var(--ds-support) calc(l + 0.3) c h);
+    --ds-support-90: oklch( from var(--ds-support) calc(l - 0.3) c h);
+    --ds-support-high: var(--ds-support-90);
+    --ds-support-low: var(--ds-support-10);
+    --ds-support-contrast: white;
+
+    --ds-link-color: var(--ds-primary-high);
+    --ds-link-color-visited: var(--ds-primary);
+    --ds-link-color-hover: var(--ds-support);
+    --ds-link-color-active: var(--ds-support);
+
+    --ds-grey-high: var(--ds-grey-90);
+    --ds-grey-medium: var(--ds-grey-60);
+    --ds-grey-low: var(--ds-grey-10);
+
+    --ds-light-color: var(--ds-black);
+    --ds-light-color-background: var(--ds-white);
+
+    --ds-dark-color: var(--ds-white);
+    --ds-dark-color-background: var(--ds-grey-high);
+  }
   
   :root, .ds-lightmode {
     --ds-color: var(--ds-light-color);
     --ds-color-background: var(--ds-light-color-background);
-    --ds-link-color: var(--ds-light-link-color);
-    --ds-link-color-visited: var(--ds-light-link-color-visited);
-    --ds-link-color-hover: var(--ds-light-link-color-hover);
-    --ds-link-color-active: var(--ds-light-link-color-active);	
   }
-  .ds-darkmode {
+  .ds-darkmode, .ds-dark-background {
     --ds-color: var(--ds-dark-color);
     --ds-color-background: var(--ds-dark-color-background);
-    --ds-link-color: var(--ds-dark-link-color);
-    --ds-link-color-visited: var(--ds-dark-link-color-visited);
-    --ds-link-color-hover: var(--ds-dark-link-color-hover);
-    --ds-link-color-active: var(--ds-dark-link-color-active);
-    --ds-grey-high: var(--ds-grey-0);
+    --ds-grey-high: var(--ds-grey-10);
     --ds-grey-medium: var(--ds-grey-60);
-    --ds-grey-low: var(--ds-grey-80);
+    --ds-grey-low: var(--ds-grey-90);
     --ds-support-high: var(--ds-support-10);
     --ds-support-low: var(--ds-support-90);
     --ds-primary-high: var(--ds-primary-10);
     --ds-primary-low: var(--ds-primary-90);
+    --ds-link-color: var(--ds-primary-high);
+    --ds-link-color-visited: var(--ds-grey-high);
+    --ds-link-color-hover: var(--ds-support);
+    --ds-link-color-active: var(--ds-support);
   }
   @media (prefers-color-scheme: dark) {
     .ds-darkmode-auto {
       --ds-color: var(--ds-dark-color);
       --ds-color-background: var(--ds-dark-color-background);
-      --ds-link-color: var(--ds-dark-link-color);
-      --ds-link-color-visited: var(--ds-dark-link-color-visited);
-      --ds-link-color-hover: var(--ds-dark-link-color-hover);
-      --ds-link-color-active: var(--ds-dark-link-color-active);
-      --ds-grey-high: var(--ds-grey-0);
+      --ds-grey-high: var(--ds-grey-10);
       --ds-grey-medium: var(--ds-grey-60);
-      --ds-grey-low: var(--ds-grey-80);
+      --ds-grey-low: var(--ds-grey-90);
       --ds-support-high: var(--ds-support-10);
       --ds-support-low: var(--ds-support-90);
       --ds-primary-high: var(--ds-primary-10);
       --ds-primary-low: var(--ds-primary-90);
+      --ds-link-color: var(--ds-primary-high);
+      --ds-link-color-visited: var(--ds-grey-high);
+      --ds-link-color-hover: var(--ds-support);
+      --ds-link-color-active: var(--ds-support);
     }
   }
   :root, .ds-darkmode, .ds-lightmode, .ds-darkmode-auto {
@@ -18033,6 +18055,7 @@
       "typography": `@layer theme {
   :root {
     --ds-font-weight: 300;
+    --ds-font-size: 1.25rem;
     --ds-line-height: 1.6rem;
     --ds-heading-weight: 400;
     --ds-heading-multiplier: 1.27201965;
@@ -18042,6 +18065,7 @@
   body {
     font-family: var(--ds-font-body);
     font-weight: var(--ds-font-weight);
+    font-size: var(--ds-font-size);
     line-height: var(--ds-line-height);
   }
   h1 {
@@ -18112,6 +18136,13 @@
     margin: var(--ds-input-space) 0;
   }
   .ds-form-line {
+    display: flex;
+  }
+  .ds-form-help {
+    margin-top: calc(-1 * var(--ds-input-margin));
+    height: var(--ds-input-margin);
+  }
+  .ds-form-buttons {
     display: flex;
   }
   label {
@@ -18194,12 +18225,24 @@
     --ds-button-line-height: calc(var(--ds-line-height) * 1.5);
     --ds-button-shadow: 0;
     --ds-button-shadow-hover: var(--ds-shadow-small);
+    --ds-button-glow: 0;
+    --ds-button-glow-hover: var(--ds-glow-small);
     --ds-button-radius: 2px;
     --ds-button-padding: calc(0.5 * var(--ds-line-height));
     --ds-button-font-size: calc(0.875 * var(--ds-font-size));
   }
 }
 @layer base {
+  .ds-darkmode, .ds-dark-background {
+    --ds-button-shadow: var(--ds-button-glow);
+    --ds-button-shadow-hover: var(--ds-button-glow-hover);
+  }
+  @media (prefers-color-scheme: dark) {
+    .ds-darkmode-auto {
+      --ds-button-shadow: var(--ds-button-glow);
+      --ds-button-shadow-hover: var(--ds-button-glow-hover);
+    }
+  }
   :root .ds-button {
     line-height: var(--ds-button-line-height);
     min-height: var(--ds-button-line-height);
@@ -18552,13 +18595,20 @@
     --ds-dialog-radius: calc( 2 * var(--ds-box-radius));
     --ds-dialog-size: calc( 50% - (1/2 * var(--ds-space)));
     --ds-dialog-narrow: calc( 33% - (1/2 * var(--ds-space)));
-    --ds-dialog-min-width: 20em;
+    --ds-dialog-min-width: 25em;
     --ds-dialog-image-height: calc(var(--ds-line-height) * 6);
   }
-  .ds-darkmode, .ds-darkmode-auto {
+  .ds-darkmode {
     --ds-dialog-background: var(--ds-color-background);
     --ds-dialog-color: var(--ds-color-contrast);
     --ds-dialog-shadow: var(--ds-glow-large);
+  }
+  @media (prefers-color-scheme: dark) {
+    .ds-darkmode-auto {
+      --ds-dialog-background: var(--ds-color-background);
+      --ds-dialog-color: var(--ds-color-contrast);
+      --ds-dialog-shadow: var(--ds-glow-large);      
+    }
   }
 }
 @layer component {
@@ -18567,7 +18617,8 @@
     color: var(--ds-dialog-color);
     background: var(--ds-dialog-background);
     width: var(--ds-dialog-size);
-    min-width: var(--ds-dialog-min-width);
+    min-width: min(100%, var(--ds-dialog-min-width));
+    max-width: 100%;
     box-shadow: var(--ds-dialog-shadow);
     padding: 0;
     z-index: 101;
@@ -19214,9 +19265,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        margin: auto;
     }
     .ds-align-right {
         float: right;
+        margin-left: auto;
     }
 }`,
       "shadow": `@layer theme {
@@ -19353,6 +19406,25 @@
             width: auto;
         }
     }
+}`,
+      "background": `@layer utility {
+  .ds-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  .ds-dark-background {
+    color: white;
+    text-shadow: 0 0 2px var(--ds-black);
+  }
+  .ds-light-background {
+    color: var(--ds-color);
+    text-shadow: 0 0 3px white;
+  }
 }`
     },
     actions: {
@@ -19416,6 +19488,16 @@
   }
 
   // contacts/index.mjs
+  var addSortName = function(p) {
+    const capitalPos = p.last_name.search(/[A-Z]/);
+    if (capitalPos == -1 && p.last_name.trim()[0].search(/[a-z]/) == -1) {
+      p.sort_name = "#" + p.last_name;
+    } else {
+      p.sort_name = p.last_name.substring(capitalPos).toUpperCase();
+    }
+    p.capital = p.sort_name[0];
+    return p;
+  };
   var contacts = simply.app({
     actions: {
       loadMockContacts: async function() {
@@ -19426,62 +19508,36 @@
         });
         contactsModel.addEffect(function(data) {
           return simply.state.effect(() => {
-            return data.current.map((p) => {
-              const capitalPos = p.last_name.search(/[A-Z]/);
-              if (capitalPos == -1 && p.last_name.trim()[0].search(/[a-z]/) == -1) {
-                p.sort_name = "#" + p.last_name;
-              } else {
-                p.sort_name = p.last_name.substring(capitalPos).toUpperCase();
-              }
-              return p;
+            const result2 = from(data.current).select({
+              _: (o) => addSortName(o)
+            }).orderBy({
+              sort_name: asc
             });
-          });
-        });
-        contactsModel.addEffect(simply.flow.sort({
-          sortBy: "sort_name"
-        }));
-        contactsModel.addEffect(simply.flow.filter({
-          name: "name",
-          filters: {
-            text: ""
-          },
-          enabled: true,
-          properties: ["last_name", "first_name"],
-          matches: function(p) {
-            if (!this.filters.text) {
-              return true;
-            }
-            const filterBy = new RegExp(this.filters.text, "i");
-            for (const prop of this.properties) {
-              if (p[prop].match(filterBy)) {
-                return true;
-              }
-            }
-            return false;
-          }
-        }));
-        contactsModel.addEffect(function(data) {
-          return simply.state.effect(() => {
-            let result2 = {};
-            for (const entry of data.current) {
-              const capital = entry.sort_name[0];
-              if (!result2[capital]) {
-                result2[capital] = {
-                  capital: {
-                    innerHTML: capital,
-                    href: "#" + capital,
-                    name: capital
-                  },
-                  entries: []
-                };
-              }
-              result2[capital].entries.push(entry);
-            }
+            console.log("sorted", result2);
             return result2;
           });
         });
+        contactsModel.addEffect(function(data) {
+          this.state.options.filterBy = "";
+          return simply.state.effect(() => {
+            if (this.state.options.filterBy) {
+              const filterBy = new RegExp(this.state.options.filterBy, "i");
+              return from(data.current).where(anyOf2({
+                last_name: filterBy
+              }, {
+                first_name: filterBy
+              }));
+            } else {
+              return data.current;
+            }
+          });
+        });
+        contactsModel.addEffect(function(data) {
+          return simply.state.effect(() => {
+            return from(data.current).groupBy(_.capital);
+          });
+        });
         this.state.contacts = contactsModel;
-        console.log("contacts", contactsModel);
       }
     },
     state: simply.state.signal({
