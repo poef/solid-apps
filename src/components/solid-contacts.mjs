@@ -9,8 +9,10 @@ export default {
 <div class="solid-contacts" data-flow-map="contacts.view.current">
 	<template>
 		<div class="solid-contacts-section">
-			<a class="solid-contacts-letter" data-flow-field="capital" data-simply-command="solid-contacts-letter-nav"></a>
-			<div class="solid-contacts-list" data-flow-list="entries">
+			<a class="solid-contacts-letter" data-flow-field=":key" 
+				data-simply-command="solid-contacts-letter-nav"
+			></a>
+			<div class="solid-contacts-list" data-flow-list=":value">
 				<template>
 					<a class="solid-contacts-entry" data-simply-command="solid-contacts-show">
 						<span class="solid-contacts-avatar"></span>
@@ -129,7 +131,7 @@ export default {
 				.solid-contacts-letter {
 					position: sticky;
 					z-index: 9;
-					top: calc(var(--ds-line-height) * 1.5);
+					top: calc(var(--ds-line-height) * 1.5 + var(--ds-space-d2));
 					text-decoration: none;
 					scroll-margin-top: calc(2 * var(--ds-line-height));
 					display: block;
@@ -202,7 +204,7 @@ export default {
 		},
 		'solid-contacts-filter': async function(el, value) {
 			const model = simply.path.get(this.state, el.dataset.simplyValue)
-			model.state.options.name.filters.text = el.value
+			model.state.options.filterBy = el.value
 		}
 	}
 }
