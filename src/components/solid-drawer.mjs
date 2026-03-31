@@ -3,10 +3,12 @@ export default {
 		'solid-drawer': html`
 	<nav class="solid-drawer-position">
 		<label class="ds-align-right ds-dropdown solid-drawer" data-simply-activate="ds-dropdown">
-			<svg class="ds-dropdown-icon ds-icon ds-icon-feather">
-				<use xlink:href="assets/icons/feather-sprite.svg#user"></use>
-			</svg>
 			<input type="checkbox" class="ds-dropdown-state">
+			<button class="ds-button ds-button-naked ds-dropdown-button">
+				<svg class="ds-icon ds-icon-feather">
+					<use xlink:href="assets/icons/feather-sprite.svg#user"></use>
+				</svg>
+			</button>
 			<nav class="ds-dropdown-nav ds-dropdown-right">
 		        <ul class="ds-dropdown-list">
 		            <li class="ds-dropdown-item"><a class="ds-dropdown-link" data-simply-command="webidDialog">WebID</a></li>
