@@ -7,6 +7,18 @@ import solidContacts from '../components/solid-contacts.mjs'
 import {authorizePopup} from '@muze-nl/metro-oauth2/src/oauth2.popup.mjs'
 import metro from '@muze-nl/metro'
 import theds from '@muze-nl/theds'
+import {_, from, anyOf, asc} from '@muze-nl/jaqt'
+
+const addSortName = function(p) {
+	const capitalPos = p.last_name.search(/[A-Z]/)
+	if (capitalPos==-1 && p.last_name.trim()[0].search(/[a-z]/)==-1) {
+		p.sort_name = '#' + p.last_name
+	} else {
+		p.sort_name = p.last_name.substring(capitalPos).toUpperCase()
+	}
+	p.capital = p.sort_name[0]
+	return p
+}
 
 const contacts = simply.app({
 	actions: {
@@ -18,62 +30,40 @@ const contacts = simply.app({
 			})
 			contactsModel.addEffect(function(data) {
 				return simply.state.effect(() => {
-					return data.current.map(p => {
-						const capitalPos = p.last_name.search(/[A-Z]/)
-						if (capitalPos==-1 && p.last_name.trim()[0].search(/[a-z]/)==-1) {
-							p.sort_name = '#' + p.last_name
-						} else {
-							p.sort_name = p.last_name.substring(capitalPos).toUpperCase()
-						}
-						return p
+					const result = from(data.current)
+					.select({
+						_: o => addSortName(o)
 					})
-				})
-			})
-			contactsModel.addEffect(simply.flow.sort({
-				sortBy: 'sort_name'
-			}))
-			contactsModel.addEffect(simply.flow.filter({
-				name: 'name',
-				filters: {
-					text: ''
-				},
-				enabled: true,
-				properties: ['last_name','first_name'],
-				matches: function(p) {
-					if (!this.filters.text) {
-						return true
-					}
-					const filterBy = new RegExp(this.filters.text, 'i')
-					for (const prop of this.properties) {
-						if (p[prop].match(filterBy)) {
-							return true
-						}
-					}
-					return false
-				}
-			}))
-			contactsModel.addEffect(function(data) {
-				return simply.state.effect(() =>{
-					let result = {}
-					for (const entry of data.current) {
-						const capital = entry.sort_name[0]
-						if (!result[capital]) {
-							result[capital] = {
-								capital: {
-									innerHTML: capital,
-									href: '#'+capital,
-									name: capital
-								},
-								entries: []
-							}
-						}
-						result[capital].entries.push(entry)
-					}
+					.orderBy({
+						sort_name: asc
+					})
+					console.log('sorted',result)
 					return result
 				})
 			})
+			contactsModel.addEffect(function(data) {
+				this.state.options.filterBy = ''
+				return simply.state.effect(() => {
+					if (this.state.options.filterBy) {
+						const filterBy = new RegExp(this.state.options.filterBy, 'i')
+						return from(data.current)
+						.where(anyOf({
+							last_name: filterBy
+						}, {
+							first_name: filterBy
+						}))
+					} else {
+						return data.current
+					}
+				})
+			})
+			contactsModel.addEffect(function(data) {
+				return simply.state.effect(() =>{
+					return from(data.current)
+					.groupBy(_.capital)
+				})
+			})
 			this.state.contacts = contactsModel
-			console.log('contacts',contactsModel)
 		}
 	},
 	state: simply.state.signal({
